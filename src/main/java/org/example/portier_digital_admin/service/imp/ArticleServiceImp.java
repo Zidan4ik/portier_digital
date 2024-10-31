@@ -4,7 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.example.portier_digital_admin.dto.ArticleDTOAdd;
-import org.example.portier_digital_admin.dto.ArticleResponseForView;
+import org.example.portier_digital_admin.dto.ArticleDTOForView;
 import org.example.portier_digital_admin.dto.PageResponse;
 import org.example.portier_digital_admin.entity.Article;
 import org.example.portier_digital_admin.mapper.ArticleMapper;
@@ -33,9 +33,9 @@ public class ArticleServiceImp implements ArticleService {
     }
 
     @Override
-    public PageResponse<ArticleResponseForView> getAll(ArticleResponseForView dto, Pageable pageable) {
+    public PageResponse<ArticleDTOForView> getAll(ArticleDTOForView dto, Pageable pageable) {
         Page<Article> page = articleRepository.findAll(getSpecification(dto), pageable);
-        List<ArticleResponseForView> content = page.map(articleMapper::toResponseForArticleData).toList();
+        List<ArticleDTOForView> content = page.map(articleMapper::toResponseForArticleData).toList();
         return new PageResponse<>(content, new PageResponse.Metadata(
                 page.getNumber(), page.getSize(), page.getTotalElements(), page.getTotalPages()
         ));
@@ -70,15 +70,17 @@ public class ArticleServiceImp implements ArticleService {
         }
 
         if (dtoAdd.getFileImage() != null) {
-            dtoAdd.setPathToImage("./uploads/articles/" + imageService.generateFileName(dtoAdd.getFileImage()));
+            dtoAdd.setPathToImage("/uploads/articles/" + imageService.generateFileName(dtoAdd.getFileImage()));
         }
         Article article = save(dtoAdd);
         imageService.save(dtoAdd.getFileImage(), article.getPathToImage());
         return article;
     }
 
+    @SneakyThrows
     @Override
     public void delete(Long id) {
+        imageService.deleteByPath(Path.of(getById(id).getPathToImage()));
         articleRepository.deleteById(id);
     }
 }

@@ -1,13 +1,12 @@
-package org.example.portier_digital_admin.controller;
+package org.example.portier_digital_admin.controller.admin;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.portier_digital_admin.dto.ArticleDTOAdd;
-import org.example.portier_digital_admin.dto.ArticleResponseForView;
+import org.example.portier_digital_admin.dto.ArticleDTOForView;
 import org.example.portier_digital_admin.dto.PageResponse;
 import org.example.portier_digital_admin.entity.Article;
 import org.example.portier_digital_admin.service.ArticleService;
-import org.example.portier_digital_admin.service.ImageService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -18,15 +17,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/admin")
 public class ArticleController {
     private final ArticleService articleService;
-    private final ImageService imageService;
 
     @GetMapping("/articles")
     public ModelAndView viewArticles() {
@@ -35,13 +33,13 @@ public class ArticleController {
 
     @GetMapping("/articles/data")
     @ResponseBody
-    public ResponseEntity<PageResponse<ArticleResponseForView>> getArticles(
-            @ModelAttribute ArticleResponseForView dto,
+    public ResponseEntity<PageResponse<ArticleDTOForView>> getArticles(
+            @ModelAttribute ArticleDTOForView dto,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        PageResponse<ArticleResponseForView> all = articleService.getAll(dto, pageable);
+        PageResponse<ArticleDTOForView> all = articleService.getAll(dto, pageable);
         return new ResponseEntity<>(all, HttpStatus.OK);
     }
 
@@ -79,10 +77,9 @@ public class ArticleController {
     }
 
     @GetMapping("/article/{id}/delete")
-    public ResponseEntity<String> deleteArticleById(@PathVariable(name = "id") Long id) throws IOException {
+    public ResponseEntity<String> deleteArticleById(@PathVariable(name = "id") Long id) {
         Article article = articleService.getById(id);
         articleService.delete(article.getId());
-        imageService.deleteByPath(Path.of(article.getPathToImage()));
         return ResponseEntity.status(HttpStatus.OK).body("Article with id " + id + " was deleted.");
     }
 }

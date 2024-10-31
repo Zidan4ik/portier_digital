@@ -8,8 +8,6 @@ import org.example.portier_digital_admin.validation.annotation.ImageExtension;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ArticleDTOAdd {
     private Long id;
     @NotBlank(message = "{error.field.empty}")

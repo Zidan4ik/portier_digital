@@ -1,18 +1,17 @@
 package org.example.portier_digital_admin.service;
 
 import org.example.portier_digital_admin.dto.ArticleDTOAdd;
-import org.example.portier_digital_admin.dto.ArticleResponseForView;
+import org.example.portier_digital_admin.dto.ArticleDTOForView;
 import org.example.portier_digital_admin.dto.PageResponse;
 import org.example.portier_digital_admin.entity.Article;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface ArticleService {
     List<Article> getAll();
 
-    PageResponse<ArticleResponseForView> getAll(ArticleResponseForView dto, Pageable pageable);
+    PageResponse<ArticleDTOForView> getAll(ArticleDTOForView dto, Pageable pageable);
 
     Article getById(Long id);
 

@@ -169,7 +169,7 @@
 <script th:src="@{/vuexy/dist/js/bootstrap.js}"></script>
 <script>
     const contextPath = window.location.pathname;
-    const pathForSavingEntity = `/article/`
+    const pathForSavingEntity = `/admin/article/`
     let path_to_image = '';
     window.addEventListener('DOMContentLoaded', function () {
         getPageWithFilter(0);
@@ -184,7 +184,7 @@
             processData: false,
             contentType: false,
             success: function () {
-                window.location.replace('/articles');
+                window.location.replace('/admin/articles');
             },
             error: function (error) {
                 clearValid();
@@ -221,7 +221,7 @@
 
     function requestEditData(id) {
         let request = new XMLHttpRequest();
-        request.open('GET', `/article/${id}`);
+        request.open('GET', `/admin/article/${id}`);
         request.send();
         request.addEventListener('load', function () {
             let data = JSON.parse(request.response);
@@ -232,11 +232,11 @@
 
     function requestDelete(id) {
         let request = new XMLHttpRequest();
-        request.open('GET', `/article/${id}/delete`);
+        request.open('GET', `/admin/article/${id}/delete`);
         request.send();
         request.addEventListener('load', function () {
             if (request.status === 200) {
-                window.location.href = '/articles';
+                window.location.href = '/admin/articles';
             }
         });
     }
