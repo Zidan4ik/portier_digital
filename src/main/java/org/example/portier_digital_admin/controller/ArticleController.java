@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -56,7 +55,21 @@ public class ArticleController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
         Article article = articleService.saveFile(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("New article with id " + article.getId() + "was created.");
+        return ResponseEntity.status(HttpStatus.CREATED).body("New article with id " + article.getId() + "was created!");
+    }
+
+    @PostMapping("/article/{id}/edit")
+    public ResponseEntity<?> editArticle(@PathVariable(name = "id") Long id,
+                                         @ModelAttribute @Valid ArticleDTOAdd dto,
+                                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+        }
+        dto.setId(id);
+        Article article = articleService.saveFile(dto);
+        return ResponseEntity.status(HttpStatus.OK).body("Article with id: " + article.getId() + "was updated!");
     }
 
     @GetMapping("/article/{id}")

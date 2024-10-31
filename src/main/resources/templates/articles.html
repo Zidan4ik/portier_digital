@@ -48,7 +48,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6 text-end">
-                                        <button class="btn btn-primary" onclick="createEntityModal()">
+                                        <button class="btn btn-primary" onclick="invokeCreateEntityModal()">
                                             <i class="ti ti-plus"></i>
                                         </button>
                                     </div>
@@ -113,7 +113,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add new Article</h5>
+                <h5 class="modal-title" id="modal-title_"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -131,8 +131,10 @@
                     </div>
                     <div class="col-6">
                         <h3 class="d-flex justify-content-center">Picture of article</h3>
-                        <div id="imageContainer" class="d-flex flex-column justify-content-center align-items-center mb-3">
-                            <img id="fileImage_" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvf9wn1WvKWCp2eCV0atTl56ONzL6TyTPh702UMXqeHag2ZUG0YPch6-XWd2o4S_dK1J4&usqp=CAU" alt="error" style="width: 161px; height: 181px;" class="errorMy">
+                        <div id="imageContainer"
+                             class="d-flex flex-column justify-content-center align-items-center mb-3">
+                            <img id="fileImage_"
+                                 alt="error" style="width: 161px; height: 181px;" class="errorMy">
                         </div>
 
                         <div class="d-flex justify-content-center gap-3">
@@ -144,9 +146,9 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-start">
-                <button id="submit-article_" onclick="requestSaveArticle()"
+                <button id="submit-article_"
                         type="button" class="btn btn-primary"
-                        style="background-color: #9494CB;">Add
+                        style="background-color: #9494CB;">
                 </button>
                 <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal"
                         style="background-color: #F6F6FA;">Cancel
@@ -155,7 +157,6 @@
         </div>
     </div>
 </div>
-<!--/ Modal Entity Add -->
 
 <script src="/vuexy/assets/vendor/js/menu.js"></script>
 <script src="/vuexy/assets/js/main.js"></script>
@@ -163,19 +164,22 @@
 <script th:src="@{/js/pagination.js}"></script>
 <script th:src="@{/js/modal.js}"></script>
 <script th:src="@{/js/validator.js}"></script>
+<script th:src="@{/js/image.js}"></script>
 
 <script th:src="@{/vuexy/dist/js/bootstrap.js}"></script>
 <script>
     const contextPath = window.location.pathname;
+    const pathForSavingEntity = `/article/`
+    let path_to_image = '';
     window.addEventListener('DOMContentLoaded', function () {
         getPageWithFilter(0);
     });
 
-    function requestSaveArticle() {
+    function requestSaveEntity(url) {
         let formData = getFormData();
         $.ajax({
             type: "post",
-            url: "/article/add",
+            url: url,
             data: formData,
             processData: false,
             contentType: false,
@@ -215,14 +219,14 @@
         });
     }
 
-    function requestEdit(id) {
+    function requestEditData(id) {
         let request = new XMLHttpRequest();
         request.open('GET', `/article/${id}`);
         request.send();
         request.addEventListener('load', function () {
             let data = JSON.parse(request.response);
             console.log(data);
-            editEntityModal(data.title, data.description, data.pathToImage);
+            invokeEditEntityModal(id, data.title, data.description, data.pathToImage);
         });
     }
 
@@ -243,6 +247,9 @@
         resForm.append("description", $('#description_').val());
         if (fileImage != null) {
             resForm.append("fileImage", fileImage);
+        } else if (fileImage === null && !path_to_image.includes('/default-images/')) {
+            console.log(path_to_image);
+            resForm.append("pathToImage", path_to_image);
         }
         return resForm;
     }

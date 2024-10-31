@@ -2,6 +2,7 @@ package org.example.portier_digital_admin.service.imp;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.example.portier_digital_admin.dto.ArticleDTOAdd;
 import org.example.portier_digital_admin.dto.ArticleResponseForView;
 import org.example.portier_digital_admin.dto.PageResponse;
@@ -13,7 +14,6 @@ import org.example.portier_digital_admin.service.ImageService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -59,8 +59,16 @@ public class ArticleServiceImp implements ArticleService {
         return articleRepository.save(articleMapper.toEntity(dtoAdd));
     }
 
+    @SneakyThrows
     @Override
     public Article saveFile(ArticleDTOAdd dtoAdd) {
+        if (dtoAdd.getId() != null) {
+            Article articleById = getById(dtoAdd.getId());
+            if (articleById.getPathToImage() != null && !articleById.getPathToImage().equals(dtoAdd.getPathToImage())) {
+                imageService.deleteByPath(Path.of(articleById.getPathToImage()));
+            }
+        }
+
         if (dtoAdd.getFileImage() != null) {
             dtoAdd.setPathToImage("./uploads/articles/" + imageService.generateFileName(dtoAdd.getFileImage()));
         }

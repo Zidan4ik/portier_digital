@@ -1,5 +1,5 @@
 let fileImage = null;
-
+let path_default_image = '/uploads/default-images/default-image.jpg';
 document.getElementById('selectImage_').addEventListener('click', function () {
     document.getElementById("imageInput").click();
 });
@@ -13,25 +13,36 @@ document.getElementById('imageInput').addEventListener('change', function (event
     }
 });
 
-document.getElementById('deleteImage_').addEventListener('click', function () {
-    document.getElementById('imageInput').value = null;
-    document.getElementById('fileImage_').src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvf9wn1WvKWCp2eCV0atTl56ONzL6TyTPh702UMXqeHag2ZUG0YPch6-XWd2o4S_dK1J4&usqp=CAU";
-    fileImage = null;
-});
 
-function createEntityModal() {
+function invokeCreateEntityModal() {
     let modal = new bootstrap.Modal(document.querySelector(".modalEntity_"));
+
+    document.getElementById('modal-title_').innerText = 'Add new article';
+    document.getElementById('submit-article_').innerText = 'Add';
+
     document.getElementById('title_').value = null;
     document.getElementById('description_').value = null;
-    document.getElementById('fileImage_').src =
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvf9wn1WvKWCp2eCV0atTl56ONzL6TyTPh702UMXqeHag2ZUG0YPch6-XWd2o4S_dK1J4&usqp=CAU';
+    document.getElementById('fileImage_').src = path_to_image = path_default_image;
+
+    document.getElementById('submit-article_').onclick = function () {
+        requestSaveEntity(pathForSavingEntity + `add`);
+    };
     modal.show();
 }
 
-function editEntityModal(title, description, pathToImage) {
+function invokeEditEntityModal(id, title, description, pathToImage) {
     let modal = new bootstrap.Modal(document.querySelector(".modalEntity_"));
+
+    document.getElementById('modal-title_').innerText = 'Update article';
+    document.getElementById('submit-article_').innerText = 'Update';
+
     document.getElementById('title_').value = title;
     document.getElementById('description_').value = description;
-    document.getElementById('fileImage_').src = pathToImage != null ? pathToImage : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvf9wn1WvKWCp2eCV0atTl56ONzL6TyTPh702UMXqeHag2ZUG0YPch6-XWd2o4S_dK1J4&usqp=CAU';
+    path_to_image = pathToImage != null ? pathToImage : path_default_image;
+    document.getElementById('fileImage_').src = path_to_image;
+
+    document.getElementById('submit-article_').onclick = function () {
+        requestSaveEntity(pathForSavingEntity + id + `/edit`);
+    };
     modal.show();
 }

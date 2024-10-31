@@ -129,7 +129,7 @@ function getRowData(element) {
                                          <td class="divided-text">${element.description === null ? '' : element.description}</td>
                                         <td>
                                            <div class="text-center" style="width: 200px;">
-                                                            <button onclick="requestEdit(${element.id})"
+                                                            <button onclick="requestEditData(${element.id})"
                                                             class="btn btn-sm btn-github" type="button">
                                                                 <i class="ti ti-pencil"></i>
                                                             </button>
