@@ -27,7 +27,7 @@ public class ImageServiceImp implements ImageService {
     public void save(MultipartFile file, String path) {
         try {
             if (path != null && !path.isEmpty()) {
-                Path path_ = Path.of(path);
+                Path path_ = Path.of("."+path);
                 if (!Files.exists(path_.getParent())) {
                     init(path_);
                 }

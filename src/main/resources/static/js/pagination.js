@@ -20,7 +20,7 @@ function getPageWithFilter(page, size) {
     const filterElements = $('.for-filter');
     $.ajax({
         type: "GET",
-        url: contextPath + '/data',
+            url: contextPath + '/data',
         data: {
             page: page,
             size: size,
