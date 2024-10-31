@@ -12,6 +12,4 @@ public class ArticleResponseForView {
     private Long id;
     private String title;
     private String description;
-    private String pathToImage;
-    private MultipartFile imageFile;
 }
