@@ -1,0 +1,80 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--vulcan, #12121C);
+    display: flex;
+    flex-direction: column;
+
+
+
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+
+main {
+    flex: 1;
+    /* Основное содержимое занимает все доступное пространство */
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+    font-weight: normal;
+}
+
+ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding-left: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit
+}
+
+p {
+    margin: 0;
+    margin-block: 0;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+@media screen and (max-width: 1024px) {
+    .container {
+        max-width: 865px;
+        margin: 0 auto;
+        padding: 0 10px;
+    }
+
+}
+
+@media screen and (max-width: 415px) {
+    .container {
+        max-width: 370px;
+
+    }
+}
