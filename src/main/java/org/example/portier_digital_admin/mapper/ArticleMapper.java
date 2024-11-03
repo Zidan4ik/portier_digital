@@ -1,6 +1,6 @@
 package org.example.portier_digital_admin.mapper;
 
-import org.example.portier_digital_admin.dto.ArticleDTOAdd;
+import org.example.portier_digital_admin.dto.ArticleDTOForAdd;
 import org.example.portier_digital_admin.dto.ArticleDTOForView;
 import org.example.portier_digital_admin.entity.Article;
 
@@ -15,7 +15,7 @@ public class ArticleMapper {
         return dto;
     }
 
-    public Article toEntity(ArticleDTOAdd dtoAdd) {
+    public Article toEntity(ArticleDTOForAdd dtoAdd) {
         Article entity = new Article();
         entity.setId(dtoAdd.getId());
         entity.setTitle(dtoAdd.getTitle());
@@ -24,18 +24,12 @@ public class ArticleMapper {
         return entity;
     }
 
-    public ArticleDTOAdd toDTOAdd(Article article) {
-        ArticleDTOAdd dto = new ArticleDTOAdd();
+    public ArticleDTOForAdd toDTOAdd(Article article) {
+        ArticleDTOForAdd dto = new ArticleDTOForAdd();
         dto.setId(article.getId());
         dto.setTitle(article.getTitle());
         dto.setDescription(article.getDescription());
         dto.setPathToImage(article.getPathToImage());
         return dto;
-    }
-
-    public List<ArticleDTOForView> toResponseForArticles(List<Article> articles) {
-        return articles.stream()
-                .map(this::toResponseForArticleData)
-                .toList();
     }
 }

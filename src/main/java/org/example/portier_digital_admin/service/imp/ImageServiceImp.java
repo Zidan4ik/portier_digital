@@ -29,7 +29,7 @@ public class ImageServiceImp implements ImageService {
             if (path != null && !path.isEmpty()) {
                 Path path_ = Path.of("."+path);
                 if (!Files.exists(path_.getParent())) {
-                    init(path_);
+                    init(path_.getParent());
                 }
                 if (file != null) {
                     Files.copy(file.getInputStream(), path_);
@@ -44,9 +44,10 @@ public class ImageServiceImp implements ImageService {
     }
 
     @Override
-    public void deleteByPath(Path path) throws IOException {
-        if (Files.exists(path) && Files.isRegularFile(path)) {
-            Files.delete(path);
+    public void deleteByPath(String path) throws IOException {
+        Path path_ = Path.of("." + path);
+        if (Files.exists(path_) && Files.isRegularFile(path_)) {
+            Files.delete(path_);
         }
     }
 

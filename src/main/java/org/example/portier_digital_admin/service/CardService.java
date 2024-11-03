@@ -1,16 +1,24 @@
 package org.example.portier_digital_admin.service;
 
-import org.springframework.web.multipart.MultipartFile;
+import org.example.portier_digital_admin.dto.*;
+import org.example.portier_digital_admin.entity.Article;
+import org.example.portier_digital_admin.entity.Card;
+import org.springframework.data.domain.Pageable;
 
-import java.io.IOException;
-import java.nio.file.Path;
+import java.util.List;
 
 public interface CardService {
-    void init(Path root);
+    List<Card> getAll();
 
-    void save(MultipartFile file, Path path);
+    PageResponse<CardDTOForView> getAll(CardDTOForView dto, Pageable pageable);
 
-    void deleteByPath(Path path) throws IOException;
+    Card getById(Long id);
 
-    String generateFileName(MultipartFile file);
+    CardDTOForAdd getByIdForAdd(Long id);
+
+    Card save(CardDTOForAdd dtoAdd);
+
+    Card saveFile(CardDTOForAdd dtoAdd);
+
+    void delete(Long id);
 }

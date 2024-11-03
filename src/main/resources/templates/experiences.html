@@ -32,9 +32,9 @@
                 <!-- Content -->
                 <div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
                     <div class="flex-shrink-1 flex-grow-1 container-p-x container-p-y">
-                        <h4 class="text-center fw-bold">Table Of Articles</h4>
+                        <h4 class="text-center fw-bold">Table Of Experiences</h4>
                         <div class="card">
-                            <h5 class="card-header">Articles</h5>
+                            <h5 class="card-header">Experiences</h5>
                             <div class="card-body">
                                 <div class="row mb-3">
                                     <div class="col-sm-12 col-md-6">
@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6 text-end">
                                         <button class="btn btn-primary"
-                                                onclick="invokeCreateModal('Add new article','Add')">
+                                                onclick="invokeCreateModal()">
                                             <i class="ti ti-plus"></i>
                                         </button>
                                     </div>
@@ -61,16 +61,16 @@
                                         <thead>
                                         <tr>
                                             <th style="width: 200px">ID</th>
-                                            <th style="width: 200px">Title</th>
-                                            <th style="width: 200px">Description</th>
+                                            <th style="width: 200px">Company</th>
+                                            <th style="width: 200px">Position</th>
                                             <th style="width: 200px">Actions</th>
                                         </tr>
                                         <tr>
                                             <th><input class="form-control for-filter" name="id" oninput="handleInputChange()">
                                             </th>
-                                            <th><input class="form-control for-filter" name="title" oninput="handleInputChange()">
+                                            <th><input class="form-control for-filter" name="company" oninput="handleInputChange()">
                                             </th>
-                                            <th><input class="form-control for-filter" name="description" oninput="handleInputChange()">
+                                            <th><input class="form-control for-filter" name="position" oninput="handleInputChange()">
                                             </th>
                                             <th></th>
                                         </tr>
@@ -120,29 +120,32 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-6 d-flex flex-column align-items-center justify-content-center gap-4"
-                         style="border-right: 1px solid gray;    ">
+                    <div class="col-7 d-flex justify-content-center align-items-center flex-column gap-4"
+                         style="border-right: 1px solid gray;">
                         <div class="col-md-12">
-                            <input class="form-control fields-entity"
-                                   type="text" id="title_" name="title" placeholder="John Doe"
-                                   style="border: 1px solid rebeccapurple;">
+                            <input class="form-control fields-entity"  type="text" id="company_" name="company"
+                                   placeholder="Avada Media" style="border: 1px solid rebeccapurple;">
                         </div>
                         <div class="col-md-12">
-                            <textarea class="form-control fields-entity" id="description_" rows="8" name="description"
-                                      style="border: 1px solid rebeccapurple;" placeholder="Description..."></textarea>
+                            <input class="form-control fields-entity"  type="text" id="position_" name="position"
+                                   placeholder="Junior Java Developer" style="border: 1px solid rebeccapurple;">
                         </div>
                     </div>
-                    <div class="col-6">
-                        <h3 class="d-flex justify-content-center">Picture of article</h3>
+                    <div class="col-5">
+                        <h4 class="d-flex justify-content-center">Icon</h4>
                         <div
-                             class="d-flex flex-column justify-content-center align-items-center mb-3">
-                            <img id="fileImage_"
-                                 alt="error" style="width: 161px; height: 181px;" class="errorMy">
+                                class="d-flex flex-column justify-content-center align-items-center mb-3">
+                            <img class="errorMy" id="fileImage_"
+                                 alt="error" style="width: 100px; height: 100px;border-radius: 100px;">
                         </div>
 
                         <div class="d-flex justify-content-center gap-3">
-                            <button id="selectFileBtn_" class="btn btn-secondary">Select image</button>
-                            <button id="deleteFileBtn_" class="btn btn-secondary">Delete image</button>
+                            <button id="selectFileBtn_" class="btn btn-secondary">
+                                Select icon
+                            </button>
+                            <button id="deleteFileBtn_" class="btn btn-secondary">
+                                Delete icon
+                            </button>
                         </div>
                         <input type="file" id="fileInput" accept="image/*" style="display: none;">
                     </div>
@@ -165,7 +168,7 @@
 
 <script>
     const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
-    const pathForSavingEntity = `${contextPath}/admin/article/`
+    const pathForSavingEntity = `${contextPath}/admin/experience/`
     let path_to_image = '';
     window.addEventListener('DOMContentLoaded', function () {
         getPageWithFilter(0);
@@ -180,14 +183,13 @@
             processData: false,
             contentType: false,
             success: function () {
-                window.location.replace(`${contextPath}/admin/articles`);
+                window.location.replace(`${contextPath}/admin/experiences`);
             },
             error: function (error) {
                 clearValid();
                 let data = JSON.parse(error.responseText);
                 console.log(data);
                 Object.entries(data).forEach(function ([field, message]) {
-                    console.log("Field:", field, "Message:", message);
                     const inputField = document.getElementById(field + `_`);
                     console.log(inputField);
                     if (inputField) {
@@ -198,15 +200,12 @@
                         errorMessage.innerText = message;
                         inputField.parentNode.appendChild(errorMessage);
                     } else if (inputField && inputField.id === 'fileImage_') {
-                        console.log(1);
                         let parentContainer = inputField.parentNode;
                         parentContainer.classList.add('errorMy');
-
                         let errorMessage = document.createElement("span");
                         errorMessage.className = "error-message";
                         errorMessage.style.color = "red";
                         errorMessage.innerText = message;
-
                         parentContainer.appendChild(errorMessage);
                     }
                 });
@@ -217,7 +216,7 @@
 
     function requestEditData(id) {
         let request = new XMLHttpRequest();
-        request.open('GET', `${contextPath}/admin/article/${id}`);
+        request.open('GET', `${contextPath}/admin/experience/${id}`);
         request.send();
         request.addEventListener('load', function () {
             let data = JSON.parse(request.response);
@@ -228,19 +227,19 @@
 
     function requestDelete(id) {
         let request = new XMLHttpRequest();
-        request.open('GET', `${contextPath}/admin/article/${id}/delete`);
+        request.open('GET', `${contextPath}/admin/experience/${id}/delete`);
         request.send();
         request.addEventListener('load', function () {
             if (request.status === 200) {
-                window.location.href = `${contextPath}/admin/articles`;
+                window.location.href = `${contextPath}/admin/experiences`;
             }
         });
     }
 
     function getFormData() {
         const resForm = new FormData();
-        resForm.append("title", $('#title_').val());
-        resForm.append("description", $('#description_').val());
+        resForm.append("company", $('#company_').val());
+        resForm.append("position", $('#position_').val());
         if (fileImage != null) {
             resForm.append("fileImage", fileImage);
         } else if (fileImage === null && !path_to_image.includes('/default-images/')) {
@@ -248,7 +247,7 @@
         }
         return resForm;
     }
-</script>
 
+</script>
 </body>
 </html>

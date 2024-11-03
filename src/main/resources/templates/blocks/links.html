@@ -11,26 +11,17 @@
     <link rel="stylesheet" th:href="@{/vuexy/assets/vendor/fonts/tabler-icons.css}">
 </head>
 
-<head th:fragment="linksTagify">
-    <link rel="stylesheet" th:href="@{/vuexy/assets/vendor/libs/tagify/tagify.css}"/>
-    <script th:src="@{/vuexy/assets/vendor/libs/tagify/tagify.js}"></script>
-</head>
-
-<head th:fragment="linksFontAwesome">
-    <link rel="stylesheet" th:href="@{/fontawesome/css/all.min.css}">
-</head>
-
-<head th:fragment="linksBootstrapDatePicker">
-    <link rel="stylesheet" th:href="@{/vuexy/assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css}"/>
-</head>
-
-<head th:fragment="linksBootstrapSelect">
-    <link rel="stylesheet" th:href="@{/vuexy/assets/vendor/libs/bootstrap-select/bootstrap-select.css}"/>
-</head>
-
+<body th:fragment="scriptMy">
+    <script th:src="@{/js/pagination.js}"></script>
+    <script th:src="@{/js/modal.js}"></script>
+    <script th:src="@{/js/validator.js}"></script>
+    <script th:src="@{/js/image.js}"></script>
+</body>
 <body th:fragment="scripts">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script th:src="@{/vuexy/assets/vendor/js/helpers.js}"></script>
-    <script th:src="@{/vuexy/assets/js/config.js}"></script>
-    <script th:src="@{/vuexy/dist/js/bootstrap.js}"></script>
+<script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
+<script th:src="@{/vuexy/assets/vendor/js/helpers.js}"></script>
+<script th:src="@{/vuexy/assets/js/config.js}"></script>
+<script th:src="@{/vuexy/dist/js/bootstrap.js}"></script>
+<script th:src="@{/vuexy/assets/vendor/js/menu.js}"></script>
+<script th:src="@{/vuexy/assets/js/main.js}"></script>
 </body>

@@ -2,7 +2,7 @@ package org.example.portier_digital_admin.controller.admin;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.portier_digital_admin.dto.ArticleDTOAdd;
+import org.example.portier_digital_admin.dto.ArticleDTOForAdd;
 import org.example.portier_digital_admin.dto.ArticleDTOForView;
 import org.example.portier_digital_admin.dto.PageResponse;
 import org.example.portier_digital_admin.entity.Article;
@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +35,7 @@ public class ArticleController {
     public ResponseEntity<PageResponse<ArticleDTOForView>> getArticles(
             @ModelAttribute ArticleDTOForView dto,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
+            @RequestParam(defaultValue = "5") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         PageResponse<ArticleDTOForView> all = articleService.getAll(dto, pageable);
@@ -45,7 +44,7 @@ public class ArticleController {
 
     @PostMapping("/article/add")
     public ResponseEntity<?> saveNewArticle(
-            @ModelAttribute @Valid ArticleDTOAdd dto,
+            @ModelAttribute @Valid ArticleDTOForAdd dto,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
@@ -58,7 +57,7 @@ public class ArticleController {
 
     @PostMapping("/article/{id}/edit")
     public ResponseEntity<?> editArticle(@PathVariable(name = "id") Long id,
-                                         @ModelAttribute @Valid ArticleDTOAdd dto,
+                                         @ModelAttribute @Valid ArticleDTOForAdd dto,
                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
@@ -72,7 +71,7 @@ public class ArticleController {
 
     @GetMapping("/article/{id}")
     @ResponseBody
-    public ResponseEntity<ArticleDTOAdd> getArticleById(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<ArticleDTOForAdd> getArticleById(@PathVariable(name = "id") Long id) {
         return new ResponseEntity<>(articleService.getByIdForAdd(id), HttpStatus.OK);
     }
 

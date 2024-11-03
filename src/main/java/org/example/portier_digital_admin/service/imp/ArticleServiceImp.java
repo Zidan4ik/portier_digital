@@ -3,7 +3,7 @@ package org.example.portier_digital_admin.service.imp;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.example.portier_digital_admin.dto.ArticleDTOAdd;
+import org.example.portier_digital_admin.dto.ArticleDTOForAdd;
 import org.example.portier_digital_admin.dto.ArticleDTOForView;
 import org.example.portier_digital_admin.dto.PageResponse;
 import org.example.portier_digital_admin.entity.Article;
@@ -15,7 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.Path;
 import java.util.List;
 
 import static org.example.portier_digital_admin.service.specifications.ArticleSpecificationBuilder.getSpecification;
@@ -26,11 +25,6 @@ public class ArticleServiceImp implements ArticleService {
     private final ArticleRepository articleRepository;
     private final ImageService imageService;
     private final ArticleMapper articleMapper = new ArticleMapper();
-
-    @Override
-    public List<Article> getAll() {
-        return articleRepository.findAll();
-    }
 
     @Override
     public PageResponse<ArticleDTOForView> getAll(ArticleDTOForView dto, Pageable pageable) {
@@ -50,22 +44,22 @@ public class ArticleServiceImp implements ArticleService {
     }
 
     @Override
-    public ArticleDTOAdd getByIdForAdd(Long id) {
+    public ArticleDTOForAdd getByIdForAdd(Long id) {
         return articleMapper.toDTOAdd(getById(id));
     }
 
     @Override
-    public Article save(ArticleDTOAdd dtoAdd) {
+    public Article save(ArticleDTOForAdd dtoAdd) {
         return articleRepository.save(articleMapper.toEntity(dtoAdd));
     }
 
     @SneakyThrows
     @Override
-    public Article saveFile(ArticleDTOAdd dtoAdd) {
+    public Article saveFile(ArticleDTOForAdd dtoAdd) {
         if (dtoAdd.getId() != null) {
             Article articleById = getById(dtoAdd.getId());
             if (articleById.getPathToImage() != null && !articleById.getPathToImage().equals(dtoAdd.getPathToImage())) {
-                imageService.deleteByPath(Path.of(articleById.getPathToImage()));
+                imageService.deleteByPath(articleById.getPathToImage());
             }
         }
 
@@ -80,7 +74,10 @@ public class ArticleServiceImp implements ArticleService {
     @SneakyThrows
     @Override
     public void delete(Long id) {
-        imageService.deleteByPath(Path.of(getById(id).getPathToImage()));
+        Article article = getById(id);
+        if (article.getPathToImage() != null && !article.getPathToImage().isBlank()) {
+            imageService.deleteByPath(getById(id).getPathToImage());
+        }
         articleRepository.deleteById(id);
     }
 }

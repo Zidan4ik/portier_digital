@@ -32,9 +32,9 @@
                 <!-- Content -->
                 <div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
                     <div class="flex-shrink-1 flex-grow-1 container-p-x container-p-y">
-                        <h4 class="text-center fw-bold">Table Of Articles</h4>
+                        <h4 class="text-center fw-bold">Table Of Work Cards</h4>
                         <div class="card">
-                            <h5 class="card-header">Articles</h5>
+                            <h5 class="card-header">Work Cards</h5>
                             <div class="card-body">
                                 <div class="row mb-3">
                                     <div class="col-sm-12 col-md-6">
@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6 text-end">
                                         <button class="btn btn-primary"
-                                                onclick="invokeCreateModal('Add new article','Add')">
+                                                onclick="invokeCreateModal()">
                                             <i class="ti ti-plus"></i>
                                         </button>
                                     </div>
@@ -62,15 +62,14 @@
                                         <tr>
                                             <th style="width: 200px">ID</th>
                                             <th style="width: 200px">Title</th>
-                                            <th style="width: 200px">Description</th>
                                             <th style="width: 200px">Actions</th>
                                         </tr>
                                         <tr>
-                                            <th><input class="form-control for-filter" name="id" oninput="handleInputChange()">
+                                            <th><input class="form-control for-filter" name="id"
+                                                       oninput="handleInputChange()">
                                             </th>
-                                            <th><input class="form-control for-filter" name="title" oninput="handleInputChange()">
-                                            </th>
-                                            <th><input class="form-control for-filter" name="description" oninput="handleInputChange()">
+                                            <th><input class="form-control for-filter" name="title"
+                                                       oninput="handleInputChange()">
                                             </th>
                                             <th></th>
                                         </tr>
@@ -120,29 +119,27 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-6 d-flex flex-column align-items-center justify-content-center gap-4"
-                         style="border-right: 1px solid gray;    ">
+                    <div class="col-12 d-flex flex-column align-items-center justify-content-center gap-4"
+                         style="border-right: 1px solid gray;">
                         <div class="col-md-12">
-                            <input class="form-control fields-entity"
-                                   type="text" id="title_" name="title" placeholder="John Doe"
+                            <input class="form-control fields-entity" type="text" id="title_" name="title"
+                                   placeholder="John Doe"
                                    style="border: 1px solid rebeccapurple;">
                         </div>
-                        <div class="col-md-12">
-                            <textarea class="form-control fields-entity" id="description_" rows="8" name="description"
-                                      style="border: 1px solid rebeccapurple;" placeholder="Description..."></textarea>
-                        </div>
                     </div>
-                    <div class="col-6">
-                        <h3 class="d-flex justify-content-center">Picture of article</h3>
-                        <div
-                             class="d-flex flex-column justify-content-center align-items-center mb-3">
+                    <div class="row col-12 mt-3">
+                        <h5 class="d-flex justify-content-start">Picture of work card</h5>
+                        <div class="col-6 d-flex flex-column justify-content-center align-items-center mb-3">
                             <img id="fileImage_"
                                  alt="error" style="width: 161px; height: 181px;" class="errorMy">
                         </div>
-
-                        <div class="d-flex justify-content-center gap-3">
-                            <button id="selectFileBtn_" class="btn btn-secondary">Select image</button>
-                            <button id="deleteFileBtn_" class="btn btn-secondary">Delete image</button>
+                        <div class="col-6 d-flex align-items-center justify-content-center gap-3">
+                            <button id="selectFileBtn_" class="btn btn-secondary"
+                                    style="background-color: #8585AF;">Select image
+                            </button>
+                            <button id="deleteFileBtn_" class="btn btn-secondary"
+                                    style="background-color: #8585AF;">Delete image
+                            </button>
                         </div>
                         <input type="file" id="fileInput" accept="image/*" style="display: none;">
                     </div>
@@ -165,7 +162,7 @@
 
 <script>
     const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
-    const pathForSavingEntity = `${contextPath}/admin/article/`
+    const pathForSavingEntity = `${contextPath}/admin/work-card/`
     let path_to_image = '';
     window.addEventListener('DOMContentLoaded', function () {
         getPageWithFilter(0);
@@ -180,7 +177,7 @@
             processData: false,
             contentType: false,
             success: function () {
-                window.location.replace(`${contextPath}/admin/articles`);
+                window.location.replace(`${contextPath}/admin/work-cards`);
             },
             error: function (error) {
                 clearValid();
@@ -217,7 +214,7 @@
 
     function requestEditData(id) {
         let request = new XMLHttpRequest();
-        request.open('GET', `${contextPath}/admin/article/${id}`);
+        request.open('GET', `${contextPath}/admin/work-card/${id}`);
         request.send();
         request.addEventListener('load', function () {
             let data = JSON.parse(request.response);
@@ -228,11 +225,11 @@
 
     function requestDelete(id) {
         let request = new XMLHttpRequest();
-        request.open('GET', `${contextPath}/admin/article/${id}/delete`);
+        request.open('GET', `${contextPath}/admin/work-card/${id}/delete`);
         request.send();
         request.addEventListener('load', function () {
             if (request.status === 200) {
-                window.location.href = `${contextPath}/admin/articles`;
+                window.location.href = `${contextPath}/admin/work-cards`;
             }
         });
     }
@@ -240,15 +237,15 @@
     function getFormData() {
         const resForm = new FormData();
         resForm.append("title", $('#title_').val());
-        resForm.append("description", $('#description_').val());
         if (fileImage != null) {
             resForm.append("fileImage", fileImage);
         } else if (fileImage === null && !path_to_image.includes('/default-images/')) {
+            console.log(path_to_image);
             resForm.append("pathToImage", path_to_image);
         }
         return resForm;
     }
-</script>
 
+</script>
 </body>
 </html>

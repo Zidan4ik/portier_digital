@@ -1,3 +1,4 @@
+let context_full_path = window.location.pathname;
 let content = [];
 let currentMetaData = {
     page: null,
@@ -16,49 +17,70 @@ function generatePageSequence(currentPage, totalPages) {
     return pageSequence;
 }
 
+function getFilters(filters) {
+    let filters_ = {};
+    filters.each(function () {
+        const key = $(this).attr('name'); // Використовуємо атрибут name як ключ
+        const value = $(this).val();
+        if (key) {
+            filters_[key] = value;
+        }
+    });
+    return filters_;
+}
+
 function getPageWithFilter(page, size) {
     const filterElements = $('.for-filter');
+    const filters = getFilters(filterElements);
+    console.log(filters);
     $.ajax({
         type: "GET",
-            url: contextPath + '/data',
+        url: context_full_path + '/data',
         data: {
             page: page,
             size: size,
-            id: filterElements[0].value,
-            title: filterElements[1].value,
-            description: filterElements[2].value
+            ...filters
         },
         success: function (data) {
+            console.log(data);
             content = data.content;
             currentMetaData = data.metadata;
             const containerTable = document.getElementById("table-data-container_");
             const containerPagination = document.getElementById("pagination-container_");
+            const containerPickSize = document.getElementById("pick-size-for-pagination_");
+            containerPickSize.value = currentMetaData.size;
             containerTable.innerHTML = '';
             containerPagination.innerHTML = '';
             if (content.length > 0) {
                 content.forEach(function (element) {
                     containerTable.innerHTML += getRowData(element);
                 });
-            }
-            containerPagination.innerHTML = getPagination(currentMetaData.page, currentMetaData.totalPages, currentMetaData.size);
-            let firstElement = document.querySelector(".first");
-            let prevElement = document.querySelector(".prev");
-            let nextElement = document.querySelector(".next");
-            let lastElement = document.querySelector(".last");
+                containerPagination.innerHTML = getPagination(currentMetaData.page, currentMetaData.totalPages, currentMetaData.size);
+                let firstElement = document.querySelector(".first");
+                let prevElement = document.querySelector(".prev");
+                let nextElement = document.querySelector(".next");
+                let lastElement = document.querySelector(".last");
 
-            if (currentMetaData.page === 0) {
-                firstElement.classList.add('disabled');
-                prevElement.classList.add('disabled');
-                firstElement.style.cursor = 'default';
-                prevElement.style.cursor = 'default';
+                if (currentMetaData.page === 0) {
+                    firstElement.classList.add('disabled');
+                    prevElement.classList.add('disabled');
+                    firstElement.style.cursor = 'default';
+                    prevElement.style.cursor = 'default';
+                }
+                if (currentMetaData.page === currentMetaData.totalPages - 1) {
+                    nextElement.classList.add('disabled');
+                    lastElement.classList.add('disabled');
+                    nextElement.style.cursor = 'default';
+                    lastElement.style.cursor = 'default';
+                }
+                createSequence(currentMetaData.page, currentMetaData.totalPages, currentMetaData.size);
+            } else {
+                const fields = document.querySelectorAll('.fields-entity');
+                containerTable.innerHTML = `<tr>
+                                <td colspan="${fields.length+2}" style="text-align: center; vertical-align: middle;">
+                                No matching records found</td>
+                                </tr>`
             }
-            if (currentMetaData.page === currentMetaData.totalPages - 1) {
-                nextElement.classList.add('disabled');
-                lastElement.classList.add('disabled');
-                nextElement.style.cursor = 'default';
-                lastElement.style.cursor = 'default';
-            }
-            createSequence(currentMetaData.page, currentMetaData.totalPages, currentMetaData.size);
             updateEntries(currentMetaData.totalElements, currentMetaData.size, currentMetaData.page);
         }
     });
@@ -123,24 +145,28 @@ function getPagination(currentPage, totalPages, size) {
 }
 
 function getRowData(element) {
-    return `<tr>
-                                        <td>${element.id}</td>
-                                         <td class="divided-text">${element.title === null ? '' : element.title}</td>
-                                         <td class="divided-text">${element.description === null ? '' : element.description}</td>
-                                        <td>
-                                           <div class="text-center" style="width: 200px;">
-                                                            <button onclick="requestEditData(${element.id})"
-                                                            class="btn btn-sm btn-github" type="button">
-                                                                <i class="ti ti-pencil"></i>
-                                                            </button>
+    let row = '<tr>';
 
-                                                            <button onclick="requestDelete(${element.id})"
-                                                            class="btn btn-sm btn-github" type="button">
-                                                                <i class="ti ti-trash"></i>
-                                                            </button>
-                                            </div>
-                                        </td>
-                                 </tr>`;
+    Object.keys(element).forEach(field => {
+        const value = element[field] !== null ? element[field] : '';
+        row += `<td>${value}</td>`;
+    });
+
+    row += `
+        <td>
+            <div class="text-center" style="width: 200px;">
+                <button onclick="requestEditData(${element.id})" class="btn btn-sm btn-github" type="button">
+                    <i class="ti ti-pencil"></i>
+                </button>
+                <button onclick="requestDelete(${element.id})" class="btn btn-sm btn-github" type="button">
+                    <i class="ti ti-trash"></i>
+                </button>
+            </div>
+        </td>
+    `;
+
+    row += '</tr>';
+    return row;
 }
 
 function handleInputChange() {
@@ -156,8 +182,13 @@ function getPageStart(pageSize, pageNr) {
 }
 
 function updateEntries(total, pageSize, pageNr) {
-    const start = Math.max(getPageStart(pageSize, pageNr), 0);
-    const end = Math.min(getPageStart(pageSize, pageNr + 1), total);
-    document.getElementById("showing-elements_").textContent =
-        `Showing ${start + 1} to ${end} of ${total} entries`;
+    if (total === 0) {
+        document.getElementById("showing-elements_").textContent =
+            `Showing 0 to 0 of 0 entries`;
+    } else {
+        const start = Math.max(getPageStart(pageSize, pageNr), 0);
+        const end = Math.min(getPageStart(pageSize, pageNr + 1), total);
+        document.getElementById("showing-elements_").textContent =
+            `Showing ${start + 1} to ${end} of ${total} entries`;
+    }
 }

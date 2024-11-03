@@ -10,7 +10,7 @@ public interface ImageService {
 
     void save(MultipartFile file, String path);
 
-    void deleteByPath(Path path) throws IOException;
+    void deleteByPath(String path) throws IOException;
 
     String generateFileName(MultipartFile file);
 }

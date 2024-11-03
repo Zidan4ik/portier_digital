@@ -1,22 +1,18 @@
 package org.example.portier_digital_admin.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@Table(name = "experiences")
+@Table(name = "work_cards")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Experience {
+public class WorkCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String company;
-    private String position;
+    private String title;
     private String pathToImage;
 }
