@@ -27,7 +27,7 @@ public class ArticleController {
 
     @GetMapping("/articles")
     public ModelAndView viewArticles() {
-        return new ModelAndView("articles");
+        return new ModelAndView("admin/articles");
     }
 
     @GetMapping("/articles/data")

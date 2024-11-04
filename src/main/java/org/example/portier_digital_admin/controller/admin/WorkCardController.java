@@ -24,7 +24,7 @@ public class WorkCardController {
     private final WorkCardService workCardService;
     @GetMapping("/work-cards")
     public ModelAndView viewWorkCards() {
-            return new ModelAndView("work-cards");
+            return new ModelAndView("admin/work-cards");
     }
 
     @GetMapping("/work-cards/data")

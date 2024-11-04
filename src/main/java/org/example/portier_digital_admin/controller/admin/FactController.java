@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.portier_digital_admin.dto.*;
 import org.example.portier_digital_admin.entity.Fact;
-import org.example.portier_digital_admin.entity.Review;
 import org.example.portier_digital_admin.service.FactService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +24,7 @@ public class FactController {
     private final FactService factService;
     @GetMapping("/facts")
     public ModelAndView viewFacts() {
-        return new ModelAndView("facts");
+        return new ModelAndView("admin/facts");
     }
     @GetMapping("/facts/data")
     @ResponseBody

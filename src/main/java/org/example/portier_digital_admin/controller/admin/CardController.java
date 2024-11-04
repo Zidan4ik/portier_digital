@@ -25,7 +25,7 @@ public class CardController {
 
     @GetMapping("/cards")
     public ModelAndView viewCards() {
-        return new ModelAndView("cards");
+        return new ModelAndView("admin/cards");
     }
 
     @GetMapping("/cards/data")

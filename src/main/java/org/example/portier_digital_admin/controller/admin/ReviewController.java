@@ -26,7 +26,7 @@ public class ReviewController {
     private final ReviewService reviewService;
     @GetMapping("/reviews")
     public ModelAndView viewReviews() {
-        return new ModelAndView("reviews");
+        return new ModelAndView("admin/reviews");
     }
     @GetMapping("/reviews/data")
     @ResponseBody

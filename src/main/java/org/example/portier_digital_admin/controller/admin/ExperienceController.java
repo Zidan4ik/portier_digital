@@ -3,7 +3,6 @@ package org.example.portier_digital_admin.controller.admin;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.portier_digital_admin.dto.*;
-import org.example.portier_digital_admin.entity.Article;
 import org.example.portier_digital_admin.entity.Experience;
 import org.example.portier_digital_admin.service.ExperienceService;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +24,7 @@ public class ExperienceController {
     private final ExperienceService experienceService;
     @GetMapping("/experiences")
     public ModelAndView viewExperiences() {
-        return new ModelAndView("experiences");
+        return new ModelAndView("admin/experiences");
     }
     @GetMapping("/experiences/data")
     @ResponseBody
