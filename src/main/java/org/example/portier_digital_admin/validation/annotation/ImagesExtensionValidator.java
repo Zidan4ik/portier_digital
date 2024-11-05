@@ -8,7 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ImagesExtensionValidator implements ConstraintValidator<ImageExtension, MultipartFile> {
-    private final List<String> supportedImageFormats = Arrays.asList("image/jpeg", "image/png", "image/jpg", "image/gif");
+        private final List<String> supportedImageFormats = Arrays.asList("image/jpeg", "image/png", "image/jpg", "image/gif",
+                "image/svg+xml");
     @Override
     public boolean isValid(MultipartFile multipartFiles, ConstraintValidatorContext constraintValidatorContext) {
         if(multipartFiles == null)return true;
