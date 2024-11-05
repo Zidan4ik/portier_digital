@@ -15,11 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.Path;
 import java.util.List;
 
 import static org.example.portier_digital_admin.service.specifications.ExperienceSpecificationBuilder.getSpecification;
-
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +41,7 @@ public class ExperienceServiceImp implements ExperienceService {
             }
         }
         if (dto.getFileImage() != null) {
-            dto.setPathToImage("/uploads/experience/" + imageService.generateFileName(dto.getFileImage()));
+            dto.setPathToImage("/uploads/experiences/" + imageService.generateFileName(dto.getFileImage()));
         }
         Experience experience = save(dto);
         imageService.save(dto.getFileImage(), experience.getPathToImage());
@@ -79,5 +77,10 @@ public class ExperienceServiceImp implements ExperienceService {
         return new PageResponse<>(content, new PageResponse.Metadata(
                 page.getNumber(), page.getSize(), page.getTotalElements(), page.getTotalPages()
         ));
+    }
+
+    @Override
+    public List<ExperienceDTOForAdd> getAll() {
+        return experienceMapper.toDTOForAdd(experienceRepository.findAll());
     }
 }

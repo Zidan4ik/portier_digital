@@ -35,6 +35,11 @@ public class ArticleServiceImp implements ArticleService {
         ));
     }
 
+    @Override
+    public List<ArticleDTOForAdd> getAll() {
+        return articleMapper.toDTOAdd(articleRepository.findAll());
+    }
+
 
     @Override
     public Article getById(Long id) {

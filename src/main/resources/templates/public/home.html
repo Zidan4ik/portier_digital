@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{public/blocks/layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/style/workcard.css}"/>
+</head>
+<body class="no-scroll">
+
+<main layout:fragment="content">
+    <section class="home">
+        <div class="container">
+            <div class="home__info">
+                <div class="home__info--title">
+                    Digital <span class="product">Product</span> Designer.
+                </div>
+                <div class="home__info--subtitle">
+                    I am Portier, experienced Digital Product Designer based on Florida. I
+                    am here to help you build your amazing product.
+                </div>
+                <div class="home__info--subtitle2">
+                    I am Portier, experienced Digital Product Designer based on
+                    Florida.<br/>
+                    I am here to help you build your amazing product.
+                </div>
+                <button class="home__info--button" type="button">Hire Me</button>
+            </div>
+            <div class="home__desc" id="container-cards_"></div>
+        </div>
+    </section>
+    <div class="d-flex" id="container-workCards_"></div>
+    <section class="startup">
+        <div class="container">
+            <div class="startup__inner">
+                <div class="startup__inner--info">
+                    <div class="startup__info--title">
+                        I build products for companies & startups.
+                    </div>
+                    <div class="startup__info--desc">
+                        <div class="startup__desc--text1">
+                            Everything in nature has a structure, a way that the parts relate
+                            to one another, which is generally fluid and not so easy to
+                            conceptualize.
+                        </div>
+                        <div class="startup__desc--text1">
+                            Everything in nature has a structure, a way that the parts relate
+                            to one another, which is generally fluid and not so easy to
+                            conceptualize.
+                        </div>
+                    </div>
+                </div>
+                <div class="startup__inner--photo">
+                    <img
+                            class="startup__inner--img"
+                            th:src="@{portier_digital/app/images/dist/img Home Portfolio/Rectangle 4.webp}"
+                            alt=""
+                    />
+                </div>
+                <div class="startup__inner--photo2">
+                    <img
+                            class="startup__inner--img2"
+                            th:src="@{portier_digital/app/images/dist/img Home Portfolio/Rectangle 4 (2).webp}"
+                            alt=""
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="users">
+        <div class="container">
+            <div class="users__inner">
+                <div class="users__inner--info">
+                    <div class="users__inner--title">What people say about me</div>
+                    <div class="users__inner--subtitle">
+                        These steps are: Deep Observation (The Passive Mode), Skills
+                        Acquisition (The Practice Mode), and Experimentation (The Active
+                        Mode).
+                    </div>
+                    <div class="users__inner--footer">
+                        Empathy plays an enormous role in learning and knowledge.
+                    </div>
+                </div>
+                <div class="users__inner--item" id="container-reviews_"></div>
+            </div>
+        </div>
+    </section>
+    <section class="companies">
+        <div class="container">
+            <div class="companies__inner">
+                <div class="companies__inner--left">
+                    I’ve worked with more than 200 companies & startups around the world
+                </div>
+                <div class="companies__inner--right">
+                    <div class="percent" id="container-facts_"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="goal">
+        <div class="container">
+            <div class="goal__inner">
+                <div class="goal__inner--photo">
+                    <img
+                            th:src="@{portier_digital/app/images/dist/img Home Portfolio/Rectangle 4 (1).webp}"
+                            alt=""
+                            class="goal__photo--img"
+                    />
+                </div>
+                <div class="goal__inner--photo2">
+                    <img
+                            th:src="@{portier_digital/app/images/dist/img Home Portfolio/Rectangle 4 (3).webp}"
+                            alt=""
+                            class="goal__photo--img"
+                    />
+                </div>
+                <div class="goal__inner--text">
+                    <div class="inner__text--title">
+                        My main goal is too keep my customers satisfied.
+                    </div>
+                    <div class="inner__text--subtitle">
+                        <div class="text__subtitle--desc">
+                            Even with skills that are primarily mental, such as computer
+                            programming or speaking a foreign language.
+                        </div>
+                        <div class="text__subtitle--desc">
+                            it remains the case that we learn best through practice and
+                            repetition—the natural learning process.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="aweasome">
+        <div class="container">
+            <div class="aweasome__inner">
+                <div class="aweasome__inner--info">
+                    <div class="aweasome__info">
+                        If we keep practicing, we gain fluency; basic skills are mastered,
+                        allowing us to take on newer and more exciting challenges
+                    </div>
+                    <div class="aweasome__info2">
+                        If we keep practicing, we gain fluency; basic skills<br/>
+                        are mastered, allowing us<br/>
+                        to take on newer and more exciting challenges. .
+                    </div>
+                    <a class="touch" type="button" th:href="@{/specialize/blog1.html}">Get In Touch</a>
+                </div>
+                <div class="aweasome__inner--title">
+                    How about we make something awesome together?
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script th:inline="javascript">
+        let containerCards = document.getElementById('container-cards_');
+
+        window.addEventListener('DOMContentLoaded', function () {
+            getCardsData();
+            getWorkCards();
+            getReviews();
+            getFacts();
+        });
+
+        function getCardBlock(object) {
+            let greenLight = object.id % 2 === 0 ? '' : 'item__svg--green';
+            return `<div class="home__desc--item">
+                    <div class="desc__item--svg ${greenLight}">
+                        <img
+                        src="${object.pathToImage != null ?
+                contextPath.substring(0, contextPath.indexOf('/', 2)) + object.pathToImage : 'https://cdn2.iconfinder.com/data/icons/metro-uinvert-dock/256/Default.png'}"
+                                                   alt="erorr"  width="15" height="15">
+                    </div>
+                    <div class="desc__item--title">${object.title}</div>
+                    <div class="desc__item--subtitle" id="subtitle_">${object.description}</div>
+                </div>`;
+        }
+
+        function getWorkCardBlock(object) {
+            let pathToImage = contextPath.substring(0,contextPath.indexOf('/',2)) + object.pathToImage;
+            return `<section class="Elements">
+        <div class="container">
+            <div class="container__img image-container">
+                <img class="container__img--element" src="${pathToImage}" alt="error" style="width: 1260px;height: 750px">
+                  <div class="text-overlay">${object.title}</div>
+            </div>
+            <div class="container__img2">
+                <img class="container__img--element2" src="${pathToImage}" alt="error">
+                                  <div class="text-overlay">${object.title}</div>
+            </div>
+            <div class="container__img3">
+                <img class="container__img--element3" src="${pathToImage}" alt="error">
+                                  <div class="text-overlay">${object.title}</div>
+            </div>
+        </div>
+    </section>`;
+        }
+
+        function getReviewBlock(object){
+            let pathToImage = object.pathToImage != null ? contextPath.substring(0,contextPath.indexOf('/',2)) + object.pathToImage : '';
+            return `<div class="users__inner--box">
+                        <div class="users__box--photo">
+                            <img class="users__photo--img" src="${pathToImage}" alt="error"
+                            style="width: 44px; height: 44px;">
+                        </div>
+                        <div class="users__column">
+                            <div class="users__box--text">
+                                “${object.text}”
+                            </div>
+                            <div class="users__box--desc">
+                                <div class="box__desc--name">${object.firstName} ${object.lastName}</div>
+                                <div class="box__desc--position">${object.position}</div>
+                            </div>
+                        </div>
+                    </div>`;
+        }
+
+        function getFactBlock(object){
+            return `<div class="percent1">
+                            <div class="percent1__number">${object.title}</div>
+                            <div class="percent1__text">
+                                ${object.description}
+                            </div>
+                        </div>`;
+        }
+    </script>
+</main>
+</body>
+</html>

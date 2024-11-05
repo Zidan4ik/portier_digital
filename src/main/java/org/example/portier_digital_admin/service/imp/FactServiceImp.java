@@ -32,7 +32,7 @@ public class FactServiceImp implements FactService {
     @Override
     public Fact getById(Long id) {
         return factRepository.findById(id).orElseThrow(
-                ()-> new EntityNotFoundException("Fact with id = " + id + " was not found!")
+                () -> new EntityNotFoundException("Fact with id = " + id + " was not found!")
         );
     }
 
@@ -53,5 +53,10 @@ public class FactServiceImp implements FactService {
         return new PageResponse<>(content, new PageResponse.Metadata(
                 page.getNumber(), page.getSize(), page.getTotalElements(), page.getTotalPages()
         ));
+    }
+
+    @Override
+    public List<FactDTOForAdd> getAll() {
+        return factMapper.toDTOForAdd(factRepository.findAll());
     }
 }

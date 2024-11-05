@@ -4,6 +4,8 @@ import org.example.portier_digital_admin.dto.*;
 import org.example.portier_digital_admin.entity.Experience;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 
 public interface ExperienceService {
     Experience save(ExperienceDTOForAdd dto);
@@ -17,4 +19,6 @@ public interface ExperienceService {
     void delete(Long id);
 
     PageResponse<ExperienceDTOForView> getAll(ExperienceDTOForView dto, Pageable pageable);
+
+    List<ExperienceDTOForAdd> getAll();
 }

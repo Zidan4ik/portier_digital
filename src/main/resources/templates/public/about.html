@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{public/blocks/layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>About</title>
+    <style>
+        .numbers__inner.row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .numbers__inner--items {
+            flex-basis: 100%;
+            max-width: 33.33%;
+        }
+    </style>
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="designer">
+        <div class="container">
+            <div class="background__img"></div>
+            <div class="designer__inner">
+                <div class="designer__inner--info">
+                    <div class="designer__info--title">
+                        I am Portier UI-UX Designer <span>based</span> in Florida.
+                    </div>
+                    <div class="designer__info--subtitle">
+                        Become who you are by learning who you are.
+                    </div>
+                </div>
+                <div class="designer__inner--links">
+                    <ul class="designer__inner--menu">
+                        <li class="designer__menu--item">Twitter</li>
+                        <li class="designer__menu--item">Facebook</li>
+                        <li class="designer__menu--item">Email</li>
+                        <li class="designer__menu--item">Instagram</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="values">
+        <div class="container">
+            <div class="values__inner">
+                <div class="values__inner--title">What makes me who I am.</div>
+                <div class="values__inner--subtitle">
+                    “If you work on yourself first, as Faraday did, developing a solid
+                    work ethic and organizational skills, eventually the right teacher
+                    will appear in your life.
+                </div>
+                <div class="values__inner--subtitle2">
+                    First, you must see your attempt at attaining mastery as something
+                    extremely necessary and positive.
+                </div>
+            </div>
+            <div class="values__inner--items" id="container-skills-1_"></div>
+            <div class="values__inner--items2" id="container-skills-2_"></div>
+        </div>
+    </section>
+    <section class="numbers">
+        <div class="container">
+            <div class="numbers__inner row row-cols-4 d-flex" id="container-facts_"></div>
+        </div>
+    </section>
+    <section class="companies2">
+        <div class="container">
+            <div class="companies__inner2">
+                <div class="companies__inner--info">
+                    <div class="companies__info--title">
+                        Companies I have worked with.
+                    </div>
+                    <div class="companies__info--subtitle">
+                        This means that you move toward challenges that will toughen and
+                        improve you, where you will get the most objective feedback on your
+                        performance and progress. You do not choose apprenticeships that
+                        seem easy and comfortable
+                    </div>
+                    <div class="companies__info--footer">
+                        One can have no smaller or greater mastery than mastery of oneself.
+                    </div>
+                </div>
+                <div class="companies__inner--items" id="container-experiences_"></div>
+            </div>
+        </div>
+    </section>
+    <section class="aweasome">
+        <div class="container">
+            <div class="aweasome__inner">
+                <div class="aweasome__inner--info">
+                    <div class="aweasome__info">
+                        If we keep practicing, we gain fluency; basic skills are mastered,
+                        allowing us to take on newer and more exciting challenges.
+                    </div>
+                    <div class="aweasome__info2">
+                        If we keep practicing, we gain fluency; basic skills<br/>
+                        are mastered, allowing us<br/>
+                        to take on newer and more exciting challenges. .
+                    </div>
+                    <button class="touch" type="button">Get In Touch</button>
+                </div>
+                <div class="aweasome__inner--title">
+                    How about we make something awesome together?
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+
+        function getSkillBlock(object) {
+            let pathToImage = object.pathToImage != null ? contextPath.substring(0, contextPath.indexOf('/', 2)) + object.pathToImage : '';
+            return `<div class="values__items">
+                    <div class="values__item--box">
+                        <div class="values__box--svg">
+                            <img src="${object.pathToImage != null ? pathToImage : ''}" alt="error"
+                            style="width: 44px;height: 44px;">
+                        </div>
+                        <div class="values__box--title">${object.title}</div>
+                        <div class="values__box--subtitle">${object.description}</div>
+                    </div>
+                </div>`
+        }
+
+        function getExperienceBlock(object) {
+            let pathToImage = object.pathToImage != null ? contextPath.substring(0, contextPath.indexOf('/', 2)) + object.pathToImage : '';
+            return `<div class="companies__items--box">
+                        <div class="companies__box--svg">
+                            <img src="${pathToImage}" alt="error" style="width: 44px; height: 44px;">
+                        </div>
+                        <div class="box__info">
+                            <div class="companies__box--name">${object.company}</div>
+                            <div class="companies__box--position">${object.position}</div>
+                        </div>
+                    </div>`
+        }
+
+        function getFactBlock(object) {
+            return `<div class="numbers__inner--items">
+                    <div class="numbers__inner--title">${object.title}</div>
+                    <div class="numbers__inner--subtitle">${object.description}</div>
+                </div>`;
+        }
+
+        window.addEventListener('load', function () {
+            getSkills();
+            getFacts();
+            getExperiences();
+        });
+
+    </script>
+</main>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{public/blocks/layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Blog</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="tips">
+        <div class="container">
+            <div class="tips__inner">
+                <div class="tips__inner--title">
+                    Find tips about the best design practices
+                </div>
+                <div class="tips__inner--subtitile">
+                    Everything in nature has a structure, a way that the parts relate to
+                    one another, which is generally fluid and not so easy to
+                    conceptualize.
+                </div>
+                <div class="tips__inner--mail">
+                    <form>
+                        <input
+                                class="email__holder"
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Your email address"
+                                required
+                        />
+                        <button class="subcribe" type="submit">Subcribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="articles">
+        <div class="container">
+            <div class="articles__inner">
+                <div class="articles__inner--title">Latest articles</div>
+                <div class="articles__inner--subtitle">
+                    Repeated failure will toughen your spirit and show you with absolute
+                    clarity how things must be done.
+                </div>
+            </div>
+            <div class="articles__items" id="container-articles_"></div>
+        </div>
+    </section>
+    <section class="aweasome aweasome2">
+        <div class="container">
+            <div class="aweasome__inner">
+                <div class="aweasome__inner--info">
+                    <div class="aweasome__info">
+                        If we keep practicing, we gain fluency; basic skills are mastered,
+                        allowing us to take on newer and more exciting challenges.
+                    </div>
+                    <div class="aweasome__info2">
+                        If we keep practicing, we gain fluency; basic skills<br/>
+                        are mastered, allowing us<br/>
+                        to take on newer and more exciting challenges. .
+                    </div>
+                    <button class="touch" type="button">Get In Touch</button>
+                </div>
+                <div class="aweasome__inner--title">
+                    How about we make something awesome together?
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function getArticleBlock(object) {
+            let pathToImage = object.pathToImage != null ? contextPath.substring(0, contextPath.indexOf('/', 2)) + object.pathToImage : '';
+            let shortDescription = object.description.split('.')[0];
+            return `<div class="articles__items--box">
+                    <div class="articles__box--img">
+                        <img src="${pathToImage}" alt="error" style="width: 100%; height: 100%;">
+                    </div>
+                    <div class="articles__box--img2">
+                        <img src="${pathToImage}" alt="error">
+                    </div>
+                    <div class="articles__box--info">
+                        <div class="articles__info--title articles2">${object.title}</div>
+                        <div class="articles__info--title2">${object.title}</div>
+                        <div class="articles__info--subtitle">${shortDescription}</div>
+                        <div class="articles__info--link">
+                            <div class="articles__link--text">
+                            <a href="javascript:void(0);" onclick="redirectSomeArticle(${object.id})">Read full post</a>
+</div>
+                            <div class="articles__link--svg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="16" viewBox="0 0 15 16" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.14645 3.64645C8.34171 3.45118 8.65829 3.45118 8.85355 3.64645L12.8536 7.64645C13.0488 7.84171 13.0488 8.15829 12.8536 8.35355L8.85355 12.3536C8.65829 12.5488 8.34171 12.5488 8.14645 12.3536C7.95118 12.1583 7.95118 11.8417 8.14645 11.6464L11.2929 8.5H2.5C2.22386 8.5 2 8.27614 2 8C2 7.72386 2.22386 7.5 2.5 7.5H11.2929L8.14645 4.35355C7.95118 4.15829 7.95118 3.84171 8.14645 3.64645Z" fill="#006ADA"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        function redirectSomeArticle(id) {
+            window.location.href =  `${contextPath}article/${id}`;
+        }
+
+        window.addEventListener('DOMContentLoaded', function () {
+            getArticles();
+        });
+
+    </script>
+</main>
+</body>
+</html>

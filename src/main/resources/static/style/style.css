@@ -2,3 +2,10 @@
 .errorMy {
   !important border-color: red;
 }
+
+.divided-text{
+  max-width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

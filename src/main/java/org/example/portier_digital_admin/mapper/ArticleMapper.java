@@ -32,4 +32,10 @@ public class ArticleMapper {
         dto.setPathToImage(article.getPathToImage());
         return dto;
     }
+
+    public List<ArticleDTOForAdd> toDTOAdd(List<Article> articles) {
+        return articles.stream()
+                .map(this::toDTOAdd)
+                .toList();
+    }
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout=""
+      lang="en"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="/static/">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portier Digital</title>
+
+    <link rel="stylesheet" th:href="@{/vuexy/assets/vendor/css/rtl/core.css}"/>
+    <link rel="stylesheet" th:href="@{/vuexy/assets/vendor/css/rtl/theme-default.css}"/>
+    <link rel="stylesheet" th:href="@{/vuexy/assets/vendor/fonts/tabler-icons.css}">
+    <link rel="stylesheet" th:href="@{/style/style.css}"/>
+
+    <script th:inline="javascript">
+        const contextPath = '[[@{/}]]'.replaceAll("\"", "");
+        console.log(contextPath);
+    </script>
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+
+    <!-- Layout container -->
+    <div class="layout-container">
+        <!-- Menu -->
+        <th:block th:insert="admin/blocks/sidebar::sidebar"></th:block>
+        <!--/ Menu -->
+        <!-- Layout page -->
+        <div class="layout-page">
+            <!-- Navbar -->
+            <th:block th:insert="admin/blocks/navbar::navbar"></th:block>
+            <!--/ Navbar -->
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <!-- Content -->
+                <div layout:fragment="content"></div>
+                <!--/ Content -->
+                <!-- Content area backdrop -->
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!--/ Content wrapper -->
+        </div>
+        <!--/ Layout page -->
+    </div>
+    <!--/ Layout container -->
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+    <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+    <div class="drag-target"></div>
+</div>
+<!--/ Layout wrapper -->
+
+<div layout:fragment="modal-content"></div>
+
+<script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
+<script th:src="@{/vuexy/assets/vendor/js/helpers.js}"></script>
+<script th:src="@{/vuexy/assets/js/config.js}"></script>
+<script th:src="@{/vuexy/dist/js/bootstrap.js}"></script>
+<script th:src="@{/vuexy/assets/vendor/js/menu.js}"></script>
+<script th:src="@{/vuexy/assets/js/main.js}"></script>
+</body>
+</html>

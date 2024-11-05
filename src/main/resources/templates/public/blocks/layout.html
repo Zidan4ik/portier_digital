@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout=""
+      lang="en"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="/static/">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portier Digital</title>
+    <link rel="stylesheet" th:href="@{/portier_digital/app/css/styles.min.css}" />
+    <link rel="stylesheet" th:href="@{/portier_digital/app/css/normalize.css}" />
+    <script th:inline="javascript">
+        const contextPath = '[[@{/}]]'.replaceAll("\"", "")
+        console.log(contextPath);
+    </script>
+</head>
+
+<body class="no-scroll">
+<header class="header" th:insert="public/blocks/header::header"></header>
+<main layout:fragment="content"></main>
+<footer class="footer" th:insert="public/blocks/footer::footer"></footer>
+
+<script th:src="@{/portier_digital/app/js/main.min.js}"></script>
+<script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
+<script>
+    function getFacts(){
+        let container = document.getElementById('container-facts_');
+        $.ajax({
+            method: 'get',
+            url: contextPath+'facts-data',
+            dataType: 'json',
+            success: function (response){
+                console.log(response);
+                if(Array.isArray(response)){
+                    response.forEach(function (element){
+                        if(container){
+                            container.insertAdjacentHTML('beforeend',getFactBlock(element));
+                        }
+                    });
+                }
+            }
+        });
+    }
+    function getSkills() {
+        let container1 = document.getElementById('container-skills-1_');
+        let container2 = document.getElementById('container-skills-2_');
+        $.ajax({
+            url: contextPath + 'skills-data',
+            method: 'get',
+            datatype: 'json',
+            success: function (response) {
+                if (Array.isArray(response) && container1 && container2) {
+                    response.forEach(function (el) {
+                        container1.insertAdjacentHTML('beforeend', getSkillBlock(el));
+                        container2.insertAdjacentHTML('beforeend', getSkillBlock(el));
+                    });
+                }
+            }
+        });
+    }
+
+    function getExperiences() {
+        let container = document.getElementById('container-experiences_');
+        $.ajax({
+            url: contextPath + 'experiences-data',
+            method: 'get',
+            datatype: 'json',
+            success: function (response) {
+                console.log(response);
+                if (Array.isArray(response) && container) {
+                    response.forEach(function (el) {
+                        container.insertAdjacentHTML('beforeend', getExperienceBlock(el));
+                    });
+                }
+            }
+        });
+    }
+
+    function getCardsData() {
+        $.ajax({
+            url: `${contextPath}cards-data`,
+            method: `get`,
+            dataType: `json`,
+            success: function (response) {
+                console.log(response);
+                if (Array.isArray(response)) {
+                    response.forEach(function (element) {
+                        if (containerCards) {
+                            containerCards.insertAdjacentHTML('beforeend', getCardBlock(element));
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    function getWorkCards(){
+        let container = document.getElementById('container-workCards_');
+        $.ajax({
+            method: 'get',
+            url: contextPath+'workCard-data',
+            dataType: 'json',
+            success: function (response){
+                console.log(response);
+                if(Array.isArray(response)){
+                    response.forEach(function (element){
+                        if(container){
+                            container.insertAdjacentHTML('beforeend',getWorkCardBlock(element));
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    function getReviews(){
+        let container = document.getElementById('container-reviews_');
+        $.ajax({
+            method: 'get',
+            url: contextPath+'reviews-data',
+            dataType: 'json',
+            success: function (response){
+                console.log(response);
+                if(Array.isArray(response)){
+                    response.forEach(function (element){
+                        if(container){
+                            container.insertAdjacentHTML('beforeend',getReviewBlock(element));
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    function getArticles(){
+        let container = document.getElementById('container-articles_');
+        $.ajax({
+            method: 'get',
+            url: contextPath+'articles-data',
+            dataType: 'json',
+            success: function (response){
+                console.log(response);
+                if(Array.isArray(response)){
+                    response.forEach(function (element){
+                        if(container){
+                            container.insertAdjacentHTML('beforeend',getArticleBlock(element));
+                        }
+                    });
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

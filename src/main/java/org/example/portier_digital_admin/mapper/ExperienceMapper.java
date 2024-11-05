@@ -4,6 +4,8 @@ import org.example.portier_digital_admin.dto.ExperienceDTOForAdd;
 import org.example.portier_digital_admin.dto.ExperienceDTOForView;
 import org.example.portier_digital_admin.entity.Experience;
 
+import java.util.List;
+
 public class ExperienceMapper {
     public Experience toEntityFromAdd(ExperienceDTOForAdd dto) {
         Experience entity = new Experience();
@@ -29,5 +31,10 @@ public class ExperienceMapper {
         dto.setCompany(entity.getCompany());
         dto.setPosition(entity.getPosition());
         return dto;
+    }
+    public List<ExperienceDTOForAdd> toDTOForAdd(List<Experience> experiences){
+        return experiences.stream()
+                .map(this::toDTOForAdd)
+                .toList();
     }
 }
