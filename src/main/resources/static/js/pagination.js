@@ -20,7 +20,7 @@ function generatePageSequence(currentPage, totalPages) {
 function getFilters(filters) {
     let filters_ = {};
     filters.each(function () {
-        const key = $(this).attr('name'); // Використовуємо атрибут name як ключ
+        const key = $(this).attr('name');
         const value = $(this).val();
         if (key) {
             filters_[key] = value;
@@ -149,7 +149,7 @@ function getRowData(element) {
 
     Object.keys(element).forEach(field => {
         const value = element[field] !== null ? element[field] : '';
-        row += `<td>${value}</td>`;
+        row += `<td class="divided-text">${value}</td>`;
     });
 
     row += `

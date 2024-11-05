@@ -2,7 +2,7 @@
     <aside id="layout-menu" class="layout-menu menu-vertical menu"
            style="display: flex;flex-direction: column;height: 100%; background-color: #676789;">
         <div class="app-brand demo" style="margin: 12px;">
-            <a href="/" class="app-brand-link" style="margin-left: 3px;">
+            <a href="/templates/public" class="app-brand-link" style="margin-left: 3px;">
               <span class="app-brand-logo demo">
                   <svg color="white"
                        xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" fill="currentColor"
@@ -22,37 +22,43 @@
             <li th:class="menu-item">
                 <a th:href="@{/admin/articles}" class="menu-link">
                     <i class="menu-icon ti ti-mail" style="color: white;"></i>
-                    <div style="color: white;">Статті</div>
+                    <div style="color: white;">Articles</div>
                 </a>
             </li>
             <li th:class="'menu-item '+${isActiveObjects!=null?'active':''}">
                 <a th:href="@{/admin/experiences}" class="menu-link">
-                    <i class="menu-icon ti ti-home" style="color: white;"></i>
-                    <div style="color: white;">Досвіди</div>
+                    <i class="menu-icon ti ti-article" style="color: white;"></i>
+                    <div style="color: white;">Experiences</div>
                 </a>
             </li>
             <li th:class="'menu-item '+${isActiveProjects!=null?'active':''}">
                 <a th:href="@{/admin/cards}" class="menu-link">
-                    <i class="menu-icon ti ti-building-skyscraper" style="color: white;"></i>
-                    <div style="color: white;">Карточки</div>
+                    <i class="menu-icon ti ti-cardboards" style="color: white;"></i>
+                    <div style="color: white;">Cards</div>
                 </a>
             </li>
             <li th:class="'menu-item '+${isActiveServices!=null?'active':''}">
                 <a th:href="@{/admin/work-cards}" class="menu-link">
-                    <i class="menu-icon ti ti-heart-handshake" style="color: white;"></i>
-                    <div style="color: white;">Робочі карточки</div>
+                    <i class="menu-icon ti ti-letter-w" style="color: white;"></i>
+                    <div style="color: white;">Work Cards</div>
                 </a>
             </li>
             <li th:class="'menu-item '+${isActiveServices!=null?'active':''}">
                 <a th:href="@{/admin/reviews}" class="menu-link">
-                    <i class="menu-icon ti ti-heart-handshake" style="color: white;"></i>
-                    <div style="color: white;">Відгуки</div>
+                    <i class="menu-icon ti ti-message" style="color: white;"></i>
+                    <div style="color: white;">Reviews</div>
                 </a>
             </li>
             <li th:class="'menu-item '+${isActiveServices!=null?'active':''}">
                 <a th:href="@{/admin/facts}" class="menu-link">
-                    <i class="menu-icon ti ti-heart-handshake" style="color: white;"></i>
-                    <div style="color: white;">Факти</div>
+                    <i class="menu-icon ti ti ti-bulb" style="color: white;"></i>
+                    <div style="color: white;">Facts</div>
+                </a>
+            </li>
+            <li th:class="'menu-item '+${isActiveServices!=null?'active':''}">
+                <a th:href="@{/admin/skills}" class="menu-link">
+                    <i class="menu-icon ti ti-letter-s" style="color: white;"></i>
+                    <div style="color: white;">Skills</div>
                 </a>
             </li>
         </ul>

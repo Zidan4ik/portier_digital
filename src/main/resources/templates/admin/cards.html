@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{admin/blocks/layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Portier Digital</title>
+</head>
+<body>
+
+
+<!-- Content -->
+<div layout:fragment="content" class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+    <div class="flex-shrink-1 flex-grow-1 container-p-x container-p-y">
+        <h4 class="text-center fw-bold">Table Of Cards</h4>
+        <div class="card">
+            <h5 class="card-header">Cards</h5>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="d-flex align-items-center">
+                            <label class="d-flex align-items-center">Show
+                                <select class="form-select mx-2" id="pick-size-for-pagination_">
+                                    <option value="3">3</option>
+                                    <option value="5">5</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                </select> entries</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 text-end">
+                        <button class="btn btn-primary"
+                                onclick="invokeCreateModal()">
+                            <i class="ti ti-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped linkedRow"
+                           id="content-table" style="table-layout: fixed; position: static; zoom: 1;">
+                        <thead>
+                        <tr>
+                            <th style="width: 200px">ID</th>
+                            <th style="width: 200px">Title</th>
+                            <th style="width: 200px">Description</th>
+                            <th style="width: 200px">Actions</th>
+                        </tr>
+                        <tr>
+                            <th><input class="form-control for-filter" name="id"
+                                       oninput="handleInputChange()">
+                            </th>
+                            <th><input class="form-control for-filter" name="title"
+                                       oninput="handleInputChange()">
+                            </th>
+                            <th><input class="form-control for-filter" name="description"
+                                       oninput="handleInputChange()">
+                            </th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-data-container_"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <label class="d-flex align-items-center" id="showing-elements_"></label>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <nav class="d-flex justify-content-end"
+                             aria-label="Page navigation" id="pagination-container_">
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ Content -->
+
+
+<!-- Modal -->
+<div layout:fragment="modal-content" class="modal fade modalEntity_" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-title_"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 d-flex flex-column align-items-center justify-content-center gap-4"
+                         style="border-right: 1px solid gray;    ">
+                        <div class="col-md-12">
+                            <input class="form-control fields-entity" type="text" id="title_" name="title"
+                                   placeholder="John Doe"
+                                   style="border: 1px solid rebeccapurple;">
+                        </div>
+                        <div class="col-md-12">
+                            <textarea class="form-control fields-entity" id="description_" name="description" rows="8"
+                                      style="border: 1px solid rebeccapurple;" placeholder="Description..."></textarea>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h3 class="d-flex justify-content-center">Icon</h3>
+                        <div
+                                class="d-flex flex-column justify-content-center align-items-center mb-3">
+                            <img id="fileImage_"
+                                 alt="error" style="width: 161px; height: 181px;" class="errorMy">
+                        </div>
+
+                        <div class="d-flex justify-content-center gap-3">
+                            <button id="selectFileBtn_" class="btn btn-secondary">Select image</button>
+                            <button id="deleteFileBtn_" class="btn btn-secondary">Delete image</button>
+                        </div>
+                        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-start">
+                <button id="submit-modal_"
+                        type="button" class="btn btn-primary"
+                        style="background-color: #9494CB;">
+                </button>
+                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal"
+                        style="background-color: #F6F6FA;">Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/pagination.js}"></script>
+    <script th:src="@{/js/modal.js}"></script>
+    <script th:src="@{/js/validator.js}"></script>
+    <script th:src="@{/js/image.js}"></script>
+    <script>
+        const pathForSavingEntity = `${contextPath}admin/card/`
+        let path_to_image = '';
+        window.addEventListener('DOMContentLoaded', function () {
+            getPageWithFilter(0);
+        });
+
+        function requestSaveEntity(url) {
+            let formData = getFormData();
+            $.ajax({
+                type: "post",
+                url: url,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    window.location.replace(`${contextPath}admin/cards`);
+                },
+                error: function (error) {
+                    clearValid();
+                    let data = JSON.parse(error.responseText);
+                    console.log(data);
+                    Object.entries(data).forEach(function ([field, message]) {
+                        console.log("Field:", field, "Message:", message);
+                        const inputField = document.getElementById(field + `_`);
+                        console.log(inputField);
+                        if (inputField) {
+                            inputField.classList.add("errorMy");
+                            let errorMessage = document.createElement("span");
+                            errorMessage.className = "error-message";
+                            errorMessage.style.color = "red";
+                            errorMessage.innerText = message;
+                            inputField.parentNode.appendChild(errorMessage);
+                        } else if (inputField && inputField.id === 'fileImage_') {
+                            console.log(1);
+                            let parentContainer = inputField.parentNode;
+                            parentContainer.classList.add('errorMy');
+
+                            let errorMessage = document.createElement("span");
+                            errorMessage.className = "error-message";
+                            errorMessage.style.color = "red";
+                            errorMessage.innerText = message;
+
+                            parentContainer.appendChild(errorMessage);
+                        }
+                    });
+                    console.log("Error submitting form:", error);
+                }
+            });
+        }
+
+        function requestEditData(id) {
+            let request = new XMLHttpRequest();
+            request.open('GET', `${contextPath}admin/card/${id}`);
+            request.send();
+            request.addEventListener('load', function () {
+                let data = JSON.parse(request.response);
+                console.log(data);
+                invokeEditModal(id, data);
+            });
+        }
+
+        function requestDelete(id) {
+            let request = new XMLHttpRequest();
+            request.open('GET', `${contextPath}admin/card/${id}/delete`);
+            request.send();
+            request.addEventListener('load', function () {
+                if (request.status === 200) {
+                    window.location.href = `${contextPath}admin/cards`;
+                }
+            });
+        }
+
+        function getFormData() {
+            const resForm = new FormData();
+            resForm.append("title", $('#title_').val());
+            resForm.append("description", $('#description_').val());
+            if (fileImage != null) {
+                resForm.append("fileImage", fileImage);
+            } else if (fileImage === null && !path_to_image.includes('/default-images/')) {
+                console.log(path_to_image);
+                resForm.append("pathToImage", path_to_image);
+            }
+            return resForm;
+        }
+    </script>
+</div>
+<!--/ Modal -->
+</body>
+</html>

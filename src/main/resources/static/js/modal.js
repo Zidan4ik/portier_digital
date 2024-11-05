@@ -1,4 +1,4 @@
-let path_default_image = `${contextPath}/uploads/default-images/default-image.jpg`;
+let path_default_image = `${contextPath.substring(0,contextPath.indexOf('/',2))}/uploads/default-images/default-image.jpg`;
 let name_entity = '';
 
 function invokeCreateModal() {
@@ -35,7 +35,7 @@ function invokeEditModal(id, data) {
 
     document.getElementById('modal-title_').innerText = `Update ${name_entity}`;
     document.getElementById('submit-modal_').innerText = 'Update';
-    path_to_image = data.pathToImage != null ? data.pathToImage : path_default_image;
+    path_to_image = data.pathToImage != null ? contextPath.substring(0,contextPath.indexOf('/',2)) + data.pathToImage : path_default_image;
     let image_container = document.getElementById('fileImage_');
     if (image_container) {
         image_container.src = path_to_image;
