@@ -4,10 +4,14 @@ import org.example.portier_digital_admin.dto.*;
 import org.example.portier_digital_admin.entity.WorkCard;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 
 public interface WorkCardService {
 
     PageResponse<WorkCardDTOForView> getAll(WorkCardDTOForView dto, Pageable pageable);
+
+    List<WorkCardDTOForAdd> getAll();
 
     WorkCard getById(Long id);
 

@@ -4,6 +4,8 @@ import org.example.portier_digital_admin.dto.*;
 import org.example.portier_digital_admin.entity.Card;
 import org.example.portier_digital_admin.entity.WorkCard;
 
+import java.util.List;
+
 public class WorkCardMapper {
     public WorkCardDTOForView toDTOForView(WorkCard workCard) {
         WorkCardDTOForView dto = new WorkCardDTOForView();
@@ -26,5 +28,11 @@ public class WorkCardMapper {
         dto.setTitle(workCard.getTitle());
         dto.setPathToImage(workCard.getPathToImage());
         return dto;
+    }
+
+    public List<WorkCardDTOForAdd> toDTOAdd(List<WorkCard> workCards){
+        return workCards.stream()
+                .map(this::toDTOAdd)
+                .toList();
     }
 }

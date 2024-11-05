@@ -35,6 +35,11 @@ public class WorkCardServiceImp implements WorkCardService {
     }
 
     @Override
+    public List<WorkCardDTOForAdd> getAll() {
+        return workCardMapper.toDTOAdd(workCardRepository.findAll());
+    }
+
+    @Override
     public WorkCard getById(Long id) {
         return workCardRepository.findById(id).orElseThrow(
                 ()-> new EntityNotFoundException("Work card with id = " + id + " not found")
