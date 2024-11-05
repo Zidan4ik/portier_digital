@@ -36,6 +36,11 @@ public class ReviewServiceImp implements ReviewService {
     }
 
     @Override
+    public List<ReviewDTOForAdd> getAll() {
+        return reviewMapper.toDTOForAdd(reviewRepository.findAll());
+    }
+
+    @Override
     public Review getById(Long id) {
         return reviewRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Review with id = " + id + " was not found!")

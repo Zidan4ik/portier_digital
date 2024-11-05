@@ -4,6 +4,8 @@ import org.example.portier_digital_admin.dto.ReviewDTOForAdd;
 import org.example.portier_digital_admin.dto.ReviewDTOForView;
 import org.example.portier_digital_admin.entity.Review;
 
+import java.util.List;
+
 public class ReviewMapper {
     public ReviewDTOForView toDTOForView(Review review) {
         ReviewDTOForView dto = new ReviewDTOForView();
@@ -35,5 +37,10 @@ public class ReviewMapper {
         dto.setText(review.getText());
         dto.setPathToImage(review.getPathToAvatar());
         return dto;
+    }
+    public List<ReviewDTOForAdd> toDTOForAdd(List<Review> reviews){
+        return reviews.stream()
+                .map(this::toDTOForAdd)
+                .toList();
     }
 }

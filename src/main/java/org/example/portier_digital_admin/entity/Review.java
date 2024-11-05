@@ -18,6 +18,7 @@ public class Review {
     private Long id;
     private String firstName;
     private String lastName;
+    @Lob
     private String text;
     private String position;
     private String pathToAvatar;
