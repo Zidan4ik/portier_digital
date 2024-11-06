@@ -4,12 +4,12 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.example.portier_digital_admin.dto.*;
-import org.example.portier_digital_admin.entity.Experience;
 import org.example.portier_digital_admin.entity.WorkCard;
 import org.example.portier_digital_admin.mapper.WorkCardMapper;
 import org.example.portier_digital_admin.repository.WorkCardRepository;
 import org.example.portier_digital_admin.service.ImageService;
 import org.example.portier_digital_admin.service.WorkCardService;
+import org.example.portier_digital_admin.util.LogUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,59 +27,82 @@ public class WorkCardServiceImp implements WorkCardService {
 
     @Override
     public PageResponse<WorkCardDTOForView> getAll(WorkCardDTOForView dto, Pageable pageable) {
+        LogUtil.logInfo("Fetching all work cards with pagination and filter criteria!");
         Page<WorkCard> page = workCardRepository.findAll(getSpecification(dto), pageable);
         List<WorkCardDTOForView> workCards = page.map(workCardMapper::toDTOForView).toList();
-        return new PageResponse<>(workCards,new PageResponse.Metadata(
-                page.getNumber(),page.getSize(),page.getTotalElements(),page.getTotalPages()
+        LogUtil.logInfo("Fetched work cards: " + page.getTotalElements() + "!");
+        return new PageResponse<>(workCards, new PageResponse.Metadata(
+                page.getNumber(), page.getSize(), page.getTotalElements(), page.getTotalPages()
         ));
     }
 
     @Override
     public List<WorkCardDTOForAdd> getAll() {
-        return workCardMapper.toDTOAdd(workCardRepository.findAll());
+        LogUtil.logInfo("Fetching all work cards!");
+        List<WorkCard> workCards = workCardRepository.findAll();
+        LogUtil.logInfo("Fetched work cards: " + workCards.size() + "!");
+        return workCardMapper.toDTOAdd(workCards);
     }
 
     @Override
     public WorkCard getById(Long id) {
-        return workCardRepository.findById(id).orElseThrow(
-                ()-> new EntityNotFoundException("Work card with id = " + id + " not found")
+        LogUtil.logInfo("Fetched work card with ID: " + id);
+        WorkCard workCard = workCardRepository.findById(id).orElseThrow(
+                () -> new
+                        EntityNotFoundException("Work card with id = " + id + " not found")
         );
+        LogUtil.logInfo("Fetched work card with ID: " + id + " - " + workCard);
+        return workCard;
     }
 
     @Override
     public WorkCardDTOForAdd getByIdForAdd(Long id) {
-        return workCardMapper.toDTOAdd(getById(id));
+        LogUtil.logInfo("Fetched work card with ID: " + id);
+        WorkCardDTOForAdd workCard = workCardMapper.toDTOAdd(getById(id));
+        LogUtil.logInfo("Fetched work card with ID: " + id + " - " + workCard);
+        return workCard;
     }
 
     @Override
     public WorkCard save(WorkCardDTOForAdd dtoAdd) {
-        return workCardRepository.save(workCardMapper.toEntityForAdd(dtoAdd));
+        LogUtil.logInfo("Saving work card!");
+        WorkCard workCard = workCardRepository.save(workCardMapper.toEntityForAdd(dtoAdd));
+        LogUtil.logInfo("Work card with id: " + workCard.getId() + "was saved! - " + workCard);
+        return workCard;
     }
 
     @SneakyThrows
     @Override
     public WorkCard saveFile(WorkCardDTOForAdd dtoAdd) {
+        LogUtil.logInfo("Saving work card with file for ID: " + dtoAdd.getId());
         if (dtoAdd.getId() != null) {
             WorkCard workCardById = getById(dtoAdd.getId());
             if (workCardById.getPathToImage() != null && !workCardById.getPathToImage().equals(dtoAdd.getPathToImage())) {
+                LogUtil.logInfo("Deleting old image at path: " + workCardById.getPathToImage());
                 imageService.deleteByPath(workCardById.getPathToImage());
             }
         }
         if (dtoAdd.getFileImage() != null) {
-            dtoAdd.setPathToImage("/uploads/work-cards/" + imageService.generateFileName(dtoAdd.getFileImage()));
+            String generatedPath = "/uploads/work-cards/" + imageService.generateFileName(dtoAdd.getFileImage());
+            dtoAdd.setPathToImage(generatedPath);
+            LogUtil.logInfo("Generated new path for image: " + generatedPath);
         }
-        WorkCard experience = save(dtoAdd);
-        imageService.save(dtoAdd.getFileImage(), experience.getPathToImage());
-        return experience;
+        WorkCard workCard = save(dtoAdd);
+        imageService.save(dtoAdd.getFileImage(), workCard.getPathToImage());
+        LogUtil.logInfo("Saved work card with id: " + workCard.getId() + " - " + workCard);
+        return workCard;
     }
 
     @SneakyThrows
     @Override
-    public void delete(Long id) {
+    public void deleteById(Long id) {
+        LogUtil.logInfo("Deleting work card with id: " + id);
         WorkCard workCard = getById(id);
-        if(workCard.getPathToImage() != null && !workCard.getPathToImage().isBlank()){
+        if (workCard.getPathToImage() != null && !workCard.getPathToImage().isBlank()) {
+            LogUtil.logInfo("Deleting image at path: " + workCard.getPathToImage());
             imageService.deleteByPath(workCard.getPathToImage());
         }
         workCardRepository.deleteById(id);
+        LogUtil.logInfo("Deleted work card with id: " + id + "!");
     }
 }
