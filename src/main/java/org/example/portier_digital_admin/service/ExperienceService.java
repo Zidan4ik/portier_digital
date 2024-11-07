@@ -16,7 +16,7 @@ public interface ExperienceService {
 
     ExperienceDTOForAdd getByIdForAdd(Long id);
 
-    void delete(Long id);
+    void deleteById(Long id);
 
     PageResponse<ExperienceDTOForView> getAll(ExperienceDTOForView dto, Pageable pageable);
 

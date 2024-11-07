@@ -76,7 +76,7 @@ public class CardController {
     @GetMapping("/card/{id}/delete")
     public ResponseEntity<String> deleteCardById(@PathVariable(name = "id") Long id) {
         Card card = cardService.getById(id);
-        cardService.delete(card.getId());
+        cardService.deleteById(card.getId());
         return ResponseEntity.status(HttpStatus.OK).body("Card with id " + id + " was deleted.");
     }
 }

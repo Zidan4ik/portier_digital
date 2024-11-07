@@ -1,7 +1,7 @@
 package org.example.portier_digital_admin.controller.user;
 
 import lombok.RequiredArgsConstructor;
-import org.example.portier_digital_admin.entity.Card;
+import org.example.portier_digital_admin.dto.CardDTOForAdd;
 import org.example.portier_digital_admin.service.CardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,8 @@ public class CardUserController {
     private final CardService cardService;
     @GetMapping("/cards-data")
     @ResponseBody
-    public ResponseEntity<List<Card>> getCards(){
-        List<Card> cards = cardService.getAll();
+    public ResponseEntity<List<CardDTOForAdd>> getCards(){
+        List<CardDTOForAdd> cards = cardService.getAll();
         return new ResponseEntity<>(cards,HttpStatus.OK);
     }
 }

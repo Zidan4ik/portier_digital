@@ -15,7 +15,7 @@ public interface SkillService {
 
     SkillDTOForAdd getByIdForAdd(Long id);
 
-    void delete(Long id);
+    void deleteById(Long id);
 
     PageResponse<SkillDTOForView> getAll(SkillDTOForView dto, Pageable pageable);
 

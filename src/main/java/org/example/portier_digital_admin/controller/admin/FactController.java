@@ -73,7 +73,7 @@ public class FactController {
 
     @GetMapping("/fact/{id}/delete")
     public ResponseEntity<String> deleteFactById(@PathVariable(name = "id") Long id) {
-        factService.delete(id);
+        factService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Fact with id " + id + " was deleted!");
     }
 }

@@ -44,10 +44,10 @@ public class ImageServiceImp implements ImageService {
         } catch (Exception e) {
             if (e instanceof FileAlreadyExistsException) {
                 LogUtil.logError("A file of that name already exists at " + path, e);
-                throw new RuntimeException("A file of that name already exists.");
+//                throw new RuntimeException("A file of that name already exists.");
             }
             LogUtil.logError("Error occurred while saving file to " + path, e);
-            throw new RuntimeException(e.getMessage());
+//            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -55,7 +55,7 @@ public class ImageServiceImp implements ImageService {
     public void deleteByPath(String path) throws IOException {
         LogUtil.logInfo("Attempting to delete file at path: " + path);
         Path path_ = Path.of("." + path);
-        if (Files.exists(path_) && Files.isRegularFile(path_)) {
+        if (Files.isRegularFile(path_)) {
             Files.delete(path_);
             LogUtil.logInfo("File deleted successfully from path: " + path);
         } else {

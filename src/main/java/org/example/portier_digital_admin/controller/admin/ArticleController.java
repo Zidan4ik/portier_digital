@@ -78,7 +78,7 @@ public class ArticleController {
     @GetMapping("/article/{id}/delete")
     public ResponseEntity<String> deleteArticleById(@PathVariable(name = "id") Long id) {
         Article article = articleService.getById(id);
-        articleService.delete(article.getId());
+        articleService.deleteById(article.getId());
         return ResponseEntity.status(HttpStatus.OK).body("Article with id " + id + " was deleted.");
     }
 }

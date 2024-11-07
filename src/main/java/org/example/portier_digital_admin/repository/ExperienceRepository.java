@@ -1,7 +1,6 @@
 package org.example.portier_digital_admin.repository;
 
 import jakarta.annotation.Nonnull;
-import org.example.portier_digital_admin.entity.Article;
 import org.example.portier_digital_admin.entity.Experience;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

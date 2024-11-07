@@ -13,7 +13,7 @@ public interface FactService {
 
     FactDTOForAdd getByIdForAdd(Long id);
 
-    void delete(Long id);
+    void deleteById(Long id);
 
     PageResponse<FactDTOForView> getAll(FactDTOForView dto, Pageable pageable);
 

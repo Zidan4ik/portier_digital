@@ -21,5 +21,5 @@ public interface ArticleService {
 
     Article saveFile(ArticleDTOForAdd dtoAdd);
 
-    void delete(Long id);
+    void deleteById(Long id);
 }

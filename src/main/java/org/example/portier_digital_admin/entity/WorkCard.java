@@ -3,12 +3,10 @@ package org.example.portier_digital_admin.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+@Data
 @Entity
-@Table(name = "work_cards")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class WorkCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

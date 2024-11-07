@@ -75,7 +75,7 @@ public class WorkCardController {
     @GetMapping("/work-card/{id}/delete")
     public ResponseEntity<String> deleteWorkCardById(@PathVariable(name = "id") Long id) {
         WorkCard workCard = workCardService.getById(id);
-        workCardService.delete(workCard.getId());
+        workCardService.deleteById(workCard.getId());
         return ResponseEntity.status(HttpStatus.OK).body("Work card with id " + id + " was deleted.");
     }
 }

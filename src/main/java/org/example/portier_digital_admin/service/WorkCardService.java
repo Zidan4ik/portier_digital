@@ -21,5 +21,5 @@ public interface WorkCardService {
 
     WorkCard saveFile(WorkCardDTOForAdd dtoAdd);
 
-    void delete(Long id);
+    void deleteById(Long id);
 }

@@ -5,6 +5,8 @@ import org.example.portier_digital_admin.dto.CardDTOForAdd;
 import org.example.portier_digital_admin.dto.CardDTOForView;
 import org.example.portier_digital_admin.entity.Card;
 
+import java.util.List;
+
 public class CardMapper {
     public CardDTOForView toDTOForView(Card card) {
         CardDTOForView dto = new CardDTOForView();
@@ -31,4 +33,11 @@ public class CardMapper {
         dto.setPathToImage(card.getPathToImage());
         return dto;
     }
+
+    public List<CardDTOForAdd> toDTOForAdd(List<Card> cards) {
+        return cards.stream()
+                .map(this::toDTOForAdd)
+                .toList();
+    }
+
 }

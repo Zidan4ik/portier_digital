@@ -19,5 +19,5 @@ public interface ReviewService {
 
     Review saveFile(ReviewDTOForAdd dtoAdd);
 
-    void delete(Long id);
+    void deleteById(Long id);
 }

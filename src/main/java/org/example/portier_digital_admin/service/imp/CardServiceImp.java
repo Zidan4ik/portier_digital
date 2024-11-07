@@ -28,9 +28,9 @@ public class CardServiceImp implements CardService {
     private final CardMapper cardMapper = new CardMapper();
 
     @Override
-    public List<Card> getAll() {
+    public List<CardDTOForAdd> getAll() {
         LogUtil.logInfo("Fetching all cards!");
-        List<Card> cards = cardRepository.findAll();
+        List<CardDTOForAdd> cards = cardMapper.toDTOForAdd(cardRepository.findAll());
         LogUtil.logInfo("Fetched cards: " + cards.size() + "!");
         return cards;
     }
@@ -62,8 +62,6 @@ public class CardServiceImp implements CardService {
         LogUtil.logInfo("Fetched card with ID: " + id + " - " + cardDTO);
         return cardDTO;
     }
-
-    @SneakyThrows
     @Override
     public Card save(CardDTOForAdd dtoAdd) {
         LogUtil.logInfo("Saving card!");

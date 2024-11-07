@@ -73,7 +73,7 @@ public class ExperienceController {
 
     @GetMapping("/experience/{id}/delete")
     public ResponseEntity<String> deleteExperienceById(@PathVariable(name = "id") Long id) {
-        experienceService.delete(id);
+        experienceService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Experience with id " + id + " was deleted.");
     }
 }

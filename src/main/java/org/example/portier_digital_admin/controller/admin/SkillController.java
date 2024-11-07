@@ -3,10 +3,8 @@ package org.example.portier_digital_admin.controller.admin;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.portier_digital_admin.dto.PageResponse;
-import org.example.portier_digital_admin.dto.ReviewDTOForAdd;
 import org.example.portier_digital_admin.dto.SkillDTOForAdd;
 import org.example.portier_digital_admin.dto.SkillDTOForView;
-import org.example.portier_digital_admin.entity.Review;
 import org.example.portier_digital_admin.entity.Skill;
 import org.example.portier_digital_admin.service.SkillService;
 import org.springframework.data.domain.PageRequest;
@@ -79,7 +77,7 @@ public class SkillController {
 
     @GetMapping("/skill/{id}/delete")
     public ResponseEntity<String> deleteSkillById(@PathVariable(name = "id") Long id) {
-        skillService.delete(id);
+        skillService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Skill with id " + id + " was deleted.");
     }
 }
