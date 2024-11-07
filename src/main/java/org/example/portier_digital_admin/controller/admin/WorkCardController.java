@@ -49,7 +49,7 @@ public class WorkCardController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
         WorkCard workCard = workCardService.saveFile(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("New work card with id " + workCard.getId() + "was created!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("New work card with id " + workCard.getId() + " was created!");
     }
 
     @PostMapping("/work-card/{id}/edit")
@@ -63,7 +63,7 @@ public class WorkCardController {
         }
         dto.setId(id);
         WorkCard workCard = workCardService.saveFile(dto);
-        return ResponseEntity.status(HttpStatus.OK).body("Work card with id: " + workCard.getId() + "was updated!");
+        return ResponseEntity.status(HttpStatus.OK).body("Work card with id: " + workCard.getId() + " was updated!");
     }
 
     @GetMapping("/work-card/{id}")
@@ -76,6 +76,6 @@ public class WorkCardController {
     public ResponseEntity<String> deleteWorkCardById(@PathVariable(name = "id") Long id) {
         WorkCard workCard = workCardService.getById(id);
         workCardService.deleteById(workCard.getId());
-        return ResponseEntity.status(HttpStatus.OK).body("Work card with id " + id + " was deleted.");
+        return ResponseEntity.status(HttpStatus.OK).body("Work card with id " + id + " was deleted!");
     }
 }

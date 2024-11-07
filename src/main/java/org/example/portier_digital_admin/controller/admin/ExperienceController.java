@@ -48,7 +48,7 @@ public class ExperienceController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
         Experience experience = experienceService.saveFile(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("New experience with id " + experience.getId() + "was created!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("New experience with id " + experience.getId() + " was created!");
     }
 
     @PostMapping("/experience/{id}/edit")
@@ -62,7 +62,7 @@ public class ExperienceController {
         }
         dto.setId(id);
         Experience experience = experienceService.saveFile(dto);
-        return ResponseEntity.status(HttpStatus.OK).body("Experience with id: " + experience.getId() + "was updated!");
+        return ResponseEntity.status(HttpStatus.OK).body("Experience with id: " + experience.getId() + " was updated!");
     }
 
     @GetMapping("/experience/{id}")
@@ -74,6 +74,6 @@ public class ExperienceController {
     @GetMapping("/experience/{id}/delete")
     public ResponseEntity<String> deleteExperienceById(@PathVariable(name = "id") Long id) {
         experienceService.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Experience with id " + id + " was deleted.");
+        return ResponseEntity.status(HttpStatus.OK).body("Experience with id " + id + " was deleted!");
     }
 }

@@ -52,7 +52,7 @@ public class SkillController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
         Skill skill = skillService.saveFile(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("New skill with id " + skill.getId() + "was created!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("New skill with id " + skill.getId() + " was created!");
     }
 
     @PostMapping("/skill/{id}/edit")
@@ -66,7 +66,7 @@ public class SkillController {
         }
         dto.setId(id);
         Skill skill = skillService.saveFile(dto);
-        return ResponseEntity.status(HttpStatus.OK).body("Skill with id: " + skill.getId() + "was updated!");
+        return ResponseEntity.status(HttpStatus.OK).body("Skill with id: " + skill.getId() + " was updated!");
     }
 
     @GetMapping("/skill/{id}")
@@ -78,6 +78,6 @@ public class SkillController {
     @GetMapping("/skill/{id}/delete")
     public ResponseEntity<String> deleteSkillById(@PathVariable(name = "id") Long id) {
         skillService.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Skill with id " + id + " was deleted.");
+        return ResponseEntity.status(HttpStatus.OK).body("Skill with id " + id + " was deleted!");
     }
 }

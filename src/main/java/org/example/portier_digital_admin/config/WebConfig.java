@@ -21,7 +21,9 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(@Nonnull ResourceHandlerRegistry registry) {
-        if (!Paths.get(path).toFile().exists()) {Paths.get(path).toFile().mkdirs();}
+        if (!Paths.get(path).toFile().exists()) {
+            Paths.get(path).toFile().mkdirs();
+        }
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:" + path + "/");
     }

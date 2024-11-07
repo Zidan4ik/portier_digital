@@ -48,7 +48,7 @@ public class FactController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
         Fact review = factService.save(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("New fact with id " + review.getId() + "was created!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("New fact with id " + review.getId() + " was created!");
     }
 
     @PostMapping("/fact/{id}/edit")
@@ -62,7 +62,7 @@ public class FactController {
         }
         dto.setId(id);
         Fact fact = factService.save(dto);
-        return ResponseEntity.status(HttpStatus.OK).body("Fact with id: " + fact.getId() + "was updated!");
+        return ResponseEntity.status(HttpStatus.OK).body("Fact with id: " + fact.getId() + " was updated!");
     }
 
     @GetMapping("/fact/{id}")

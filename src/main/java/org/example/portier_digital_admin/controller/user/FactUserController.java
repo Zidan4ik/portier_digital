@@ -2,7 +2,6 @@ package org.example.portier_digital_admin.controller.user;
 
 import lombok.RequiredArgsConstructor;
 import org.example.portier_digital_admin.dto.FactDTOForAdd;
-import org.example.portier_digital_admin.repository.FactRepository;
 import org.example.portier_digital_admin.service.FactService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

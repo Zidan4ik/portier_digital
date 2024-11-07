@@ -52,7 +52,7 @@ public class ArticleController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
         Article article = articleService.saveFile(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("New article with id " + article.getId() + "was created!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("New article with id " + article.getId() + " was created!");
     }
 
     @PostMapping("/article/{id}/edit")
@@ -66,7 +66,7 @@ public class ArticleController {
         }
         dto.setId(id);
         Article article = articleService.saveFile(dto);
-        return ResponseEntity.status(HttpStatus.OK).body("Article with id: " + article.getId() + "was updated!");
+        return ResponseEntity.status(HttpStatus.OK).body("Article with id: " + article.getId() + " was updated!");
     }
 
     @GetMapping("/article/{id}")
@@ -79,6 +79,6 @@ public class ArticleController {
     public ResponseEntity<String> deleteArticleById(@PathVariable(name = "id") Long id) {
         Article article = articleService.getById(id);
         articleService.deleteById(article.getId());
-        return ResponseEntity.status(HttpStatus.OK).body("Article with id " + id + " was deleted.");
+        return ResponseEntity.status(HttpStatus.OK).body("Article with id " + id + " was deleted!");
     }
 }

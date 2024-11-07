@@ -50,7 +50,7 @@ public class CardController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
         Card card = cardService.saveFile(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("New card with id " + card.getId() + "was created!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("New card with id " + card.getId() + " was created!");
     }
 
     @PostMapping("/card/{id}/edit")
@@ -64,7 +64,7 @@ public class CardController {
         }
         dto.setId(id);
         Card card = cardService.saveFile(dto);
-        return ResponseEntity.status(HttpStatus.OK).body("Card with id: " + card.getId() + "was updated!");
+        return ResponseEntity.status(HttpStatus.OK).body("Card with id: " + card.getId() + " was updated!");
     }
 
     @GetMapping("/card/{id}")
@@ -77,6 +77,6 @@ public class CardController {
     public ResponseEntity<String> deleteCardById(@PathVariable(name = "id") Long id) {
         Card card = cardService.getById(id);
         cardService.deleteById(card.getId());
-        return ResponseEntity.status(HttpStatus.OK).body("Card with id " + id + " was deleted.");
+        return ResponseEntity.status(HttpStatus.OK).body("Card with id " + id + " was deleted!");
     }
 }

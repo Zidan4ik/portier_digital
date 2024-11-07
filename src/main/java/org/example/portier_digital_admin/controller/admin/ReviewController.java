@@ -50,7 +50,7 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
         Review review = reviewService.saveFile(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("New review with id " + review.getId() + "was created!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("New review with id " + review.getId() + " was created!");
     }
 
     @PostMapping("/review/{id}/edit")
@@ -64,7 +64,7 @@ public class ReviewController {
         }
         dto.setId(id);
         Review review = reviewService.saveFile(dto);
-        return ResponseEntity.status(HttpStatus.OK).body("Review with id: " + review.getId() + "was updated!");
+        return ResponseEntity.status(HttpStatus.OK).body("Review with id: " + review.getId() + " was updated!");
     }
 
     @GetMapping("/review/{id}")
@@ -76,6 +76,6 @@ public class ReviewController {
     @GetMapping("/review/{id}/delete")
     public ResponseEntity<String> deleteReviewById(@PathVariable(name = "id") Long id) {
         reviewService.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Review with id " + id + " was deleted.");
+        return ResponseEntity.status(HttpStatus.OK).body("Review with id " + id + " was deleted!");
     }
 }
