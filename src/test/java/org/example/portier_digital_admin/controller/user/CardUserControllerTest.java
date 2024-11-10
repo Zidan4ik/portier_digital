@@ -41,7 +41,7 @@ class CardUserControllerTest {
 
         when(cardService.getAll()).thenReturn(List.of(card1, card2));
 
-        mockMvc.perform(get("/cards-data")
+        mockMvc.perform(get("/user/cards-data")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

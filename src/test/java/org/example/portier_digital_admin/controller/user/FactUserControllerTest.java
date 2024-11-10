@@ -42,7 +42,7 @@ class FactUserControllerTest {
 
         when(factService.getAll()).thenReturn(List.of(fact1, fact2));
 
-        mockMvc.perform(get("/facts-data")
+        mockMvc.perform(get("/user/facts-data")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

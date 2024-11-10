@@ -44,7 +44,7 @@ class WorkCardUserControllerTest {
 
         when(cardRepository.findAll()).thenReturn(List.of(workCard1, workCard2));
 
-        mockMvc.perform(get("/workCard-data")
+        mockMvc.perform(get("/user/workCard-data")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

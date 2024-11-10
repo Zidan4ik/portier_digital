@@ -40,7 +40,7 @@ class ReviewUserControllerTest {
 
         when(reviewService.getAll()).thenReturn(List.of(review1));
 
-        mockMvc.perform(get("/reviews-data")
+        mockMvc.perform(get("/user/reviews-data")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

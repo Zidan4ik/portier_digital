@@ -43,7 +43,7 @@ class ExperienceUserControllerTest {
 
         when(experienceService.getAll()).thenReturn(List.of(experience1,experience2));
 
-        mockMvc.perform(get("/experiences-data")
+        mockMvc.perform(get("/user/experiences-data")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

@@ -45,7 +45,7 @@ class SkillUserControllerTest {
 
         when(skillService.getAll()).thenReturn(List.of(skill1, skill2));
 
-        mockMvc.perform(get("/skills-data")
+        mockMvc.perform(get("/user/skills-data")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

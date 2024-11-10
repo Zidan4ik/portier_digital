@@ -41,7 +41,7 @@ class ArticleUserControllerTest {
 
         when(articleService.getAll()).thenReturn(List.of(article1, new ArticleDTOForAdd()));
 
-        mockMvc.perform(get("/articles-data")
+        mockMvc.perform(get("/user/articles-data")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpectAll(status().isOk(),
                         content().contentType(MediaType.APPLICATION_JSON),
@@ -53,7 +53,7 @@ class ArticleUserControllerTest {
 
     @Test
     void testShowArticle() throws Exception {
-        mockMvc.perform(get("/article/1"))
+        mockMvc.perform(get("/user/article/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("public/blog"));
     }
@@ -64,7 +64,7 @@ class ArticleUserControllerTest {
 
         when(articleService.getByIdForAdd(1L)).thenReturn(article1);
 
-        mockMvc.perform(get("/article/1/data")
+        mockMvc.perform(get("/user/article/1/data")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpectAll(status().isOk(),
                         content().contentType(MediaType.APPLICATION_JSON),

@@ -25,35 +25,35 @@ class PageControllerTest {
 
     @Test
     void testViewAbout() throws Exception {
-        mockMvc.perform(get("/about"))
+        mockMvc.perform(get("/user/about"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("public/about"));
     }
 
     @Test
     void testViewBlogs() throws Exception {
-        mockMvc.perform(get("/blogs"))
+        mockMvc.perform(get("/user/blogs"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("public/blogs"));
     }
 
     @Test
     void testViewHome() throws Exception {
-        mockMvc.perform(get("/home"))
+        mockMvc.perform(get("/user/home"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("public/home"));
     }
 
     @Test
     void testViewPortfolio() throws Exception {
-        mockMvc.perform(get("/portfolio"))
+        mockMvc.perform(get("/user/portfolio"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("public/portfolio"));
     }
 
     @Test
     void testViewBlog() throws Exception {
-        mockMvc.perform(get("/blog"))
+        mockMvc.perform(get("/user/blog"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("public/blog"));
     }
