@@ -5,11 +5,11 @@
       data-theme="theme-default"
       data-assets-path="/static/">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Portier Digital</title>
-    <link rel="stylesheet" th:href="@{/portier_digital/app/css/styles.min.css}" />
-    <link rel="stylesheet" th:href="@{/portier_digital/app/css/normalize.css}" />
+    <link rel="stylesheet" th:href="@{/portier_digital/app/css/styles.min.css}"/>
+    <link rel="stylesheet" th:href="@{/portier_digital/app/css/normalize.css}"/>
     <script th:inline="javascript">
         const contextPath = '[[@{/}]]'.replaceAll("\"", "")
         console.log(contextPath);
@@ -24,29 +24,30 @@
 <script th:src="@{/portier_digital/app/js/main.min.js}"></script>
 <script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
 <script>
-    function getFacts(){
+    function getFacts() {
         let container = document.getElementById('container-facts_');
         $.ajax({
             method: 'get',
-            url: contextPath+'facts-data',
+            url: contextPath + 'user/facts-data',
             dataType: 'json',
-            success: function (response){
+            success: function (response) {
                 console.log(response);
-                if(Array.isArray(response)){
-                    response.forEach(function (element){
-                        if(container){
-                            container.insertAdjacentHTML('beforeend',getFactBlock(element));
+                if (Array.isArray(response)) {
+                    response.forEach(function (element) {
+                        if (container) {
+                            container.insertAdjacentHTML('beforeend', getFactBlock(element));
                         }
                     });
                 }
             }
         });
     }
+
     function getSkills() {
         let container1 = document.getElementById('container-skills-1_');
         let container2 = document.getElementById('container-skills-2_');
         $.ajax({
-            url: contextPath + 'skills-data',
+            url: contextPath + 'user/skills-data',
             method: 'get',
             datatype: 'json',
             success: function (response) {
@@ -63,7 +64,7 @@
     function getExperiences() {
         let container = document.getElementById('container-experiences_');
         $.ajax({
-            url: contextPath + 'experiences-data',
+            url: contextPath + 'user/experiences-data',
             method: 'get',
             datatype: 'json',
             success: function (response) {
@@ -79,7 +80,7 @@
 
     function getCardsData() {
         $.ajax({
-            url: `${contextPath}cards-data`,
+            url: `${contextPath}user/cards-data`,
             method: `get`,
             dataType: `json`,
             success: function (response) {
@@ -95,18 +96,18 @@
         });
     }
 
-    function getWorkCards(){
+    function getWorkCards() {
         let container = document.getElementById('container-workCards_');
         $.ajax({
             method: 'get',
-            url: contextPath+'workCard-data',
+            url: contextPath + 'user/workCard-data',
             dataType: 'json',
-            success: function (response){
+            success: function (response) {
                 console.log(response);
-                if(Array.isArray(response)){
-                    response.forEach(function (element){
-                        if(container){
-                            container.insertAdjacentHTML('beforeend',getWorkCardBlock(element));
+                if (Array.isArray(response)) {
+                    response.forEach(function (element) {
+                        if (container) {
+                            container.insertAdjacentHTML('beforeend', getWorkCardBlock(element));
                         }
                     });
                 }
@@ -114,18 +115,18 @@
         });
     }
 
-    function getReviews(){
+    function getReviews() {
         let container = document.getElementById('container-reviews_');
         $.ajax({
             method: 'get',
-            url: contextPath+'reviews-data',
+            url: contextPath + 'user/reviews-data',
             dataType: 'json',
-            success: function (response){
+            success: function (response) {
                 console.log(response);
-                if(Array.isArray(response)){
-                    response.forEach(function (element){
-                        if(container){
-                            container.insertAdjacentHTML('beforeend',getReviewBlock(element));
+                if (Array.isArray(response)) {
+                    response.forEach(function (element) {
+                        if (container) {
+                            container.insertAdjacentHTML('beforeend', getReviewBlock(element));
                         }
                     });
                 }
@@ -133,23 +134,27 @@
         });
     }
 
-    function getArticles(){
+    function getArticles() {
         let container = document.getElementById('container-articles_');
         $.ajax({
             method: 'get',
-            url: contextPath+'articles-data',
+            url: contextPath + 'user/articles-data',
             dataType: 'json',
-            success: function (response){
+            success: function (response) {
                 console.log(response);
-                if(Array.isArray(response)){
-                    response.forEach(function (element){
-                        if(container){
-                            container.insertAdjacentHTML('beforeend',getArticleBlock(element));
+                if (Array.isArray(response)) {
+                    response.forEach(function (element) {
+                        if (container) {
+                            container.insertAdjacentHTML('beforeend', getArticleBlock(element));
                         }
                     });
                 }
             }
         });
+    }
+
+    function redirectByArticle(id) {
+        window.location.href = contextPath + 'user/default-article/' + id;
     }
 </script>
 </body>

@@ -5,8 +5,8 @@
       data-theme="theme-default"
       data-assets-path="/static/">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Portier Digital</title>
 
     <link rel="stylesheet" th:href="@{/vuexy/assets/vendor/css/rtl/core.css}"/>
@@ -56,11 +56,31 @@
 
 <div layout:fragment="modal-content"></div>
 
+<div class="modal fade show" id="ModalForLogout" tabindex="-1" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center" style="font-size: 20px">
+                Are you sure you want to exit?
+            </div>
+            <div class="modal-footer">
+                <a th:href="@{/logout}" class="btn btn-danger float-end">Logout</a>
+                <button class="btn btn-secondary float-end" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
 <script th:src="@{/vuexy/assets/vendor/js/helpers.js}"></script>
 <script th:src="@{/vuexy/assets/js/config.js}"></script>
 <script th:src="@{/vuexy/dist/js/bootstrap.js}"></script>
 <script th:src="@{/vuexy/assets/vendor/js/menu.js}"></script>
 <script th:src="@{/vuexy/assets/js/main.js}"></script>
+<script>
+    function invokeModalLogout() {
+        const modal = new bootstrap.Modal(document.querySelector("#ModalForLogout"));
+        modal.show();
+    }
+</script>
 </body>
 </html>
