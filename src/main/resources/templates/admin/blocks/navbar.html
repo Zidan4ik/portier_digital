@@ -1,13 +1,19 @@
 <div th:fragment="navbar" style="margin-bottom: 1px;">
     <nav class="layout-navbar navbar navbar-expand-lg navbar-light" style="background-color: #28283C;">
         <div class="container-fluid">
-            <div class="col-1">
-
-            </div>
+            <div class="col-1"></div>
             <div class="col-3">
                 <div style="text-align: end;">
-                    <i class="ti ti-user-circle rounded-block"
-                    style="color: whitesmoke;font-size: xx-large;"></i>
+                    <div class="btn-group dropstart">
+                        <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                            <i class="ti ti-user-circle rounded-block"
+                               style="color: whitesmoke;font-size: xx-large;"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="javascript:void(0);"
+                            style="background-color: red;" onclick="invokeModalLogout()">Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
