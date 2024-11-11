@@ -2,7 +2,7 @@
     <aside id="layout-menu" class="layout-menu menu-vertical menu"
            style="display: flex;flex-direction: column;height: 100%; background-color: #676789;">
         <div class="app-brand demo" style="margin: 12px;">
-            <a href="/templates/public" class="app-brand-link" style="margin-left: 3px;">
+            <a href="javascript:void(0)" class="app-brand-link" style="margin-left: 3px;">
               <span class="app-brand-logo demo">
                   <svg color="white"
                        xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" fill="currentColor"
@@ -59,6 +59,18 @@
                 <a th:href="@{/admin/skills}" class="menu-link">
                     <i class="menu-icon ti ti-letter-s" style="color: white;"></i>
                     <div style="color: white;">Skills</div>
+                </a>
+            </li>
+            <li th:class="'menu-item '+${isActiveServices!=null?'active':''}">
+                <a th:href="@{/admin/subscribers}" class="menu-link">
+                    <i class="menu-icon ti ti-users" style="color: white;"></i>
+                    <div style="color: white;">Subscribers</div>
+                </a>
+            </li>
+            <li th:class="'menu-item '+${isActiveServices!=null?'active':''}">
+                <a th:href="@{/admin/applications}" class="menu-link">
+                    <i class="menu-icon ti ti-message-dots" style="color: white;"></i>
+                    <div style="color: white;">Applications</div>
                 </a>
             </li>
         </ul>

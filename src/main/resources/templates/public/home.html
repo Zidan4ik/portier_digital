@@ -25,7 +25,8 @@
                     Florida.<br/>
                     I am here to help you build your amazing product.
                 </div>
-                <button class="home__info--button" type="button">Hire Me</button>
+                <button class="home__info--button" type="button" onclick="redirectHireMePage()"
+                style="cursor: pointer;">Hire Me</button>
             </div>
             <div class="home__desc" id="container-cards_"></div>
         </div>
@@ -54,14 +55,14 @@
                 <div class="startup__inner--photo">
                     <img
                             class="startup__inner--img"
-                            th:src="@{portier_digital/app/images/dist/img Home Portfolio/Rectangle 4.webp}"
+                            th:src="@{/portier_digital/app/images/dist/img Home Portfolio/Rectangle 4.webp}"
                             alt=""
                     />
                 </div>
                 <div class="startup__inner--photo2">
                     <img
                             class="startup__inner--img2"
-                            th:src="@{portier_digital/app/images/dist/img Home Portfolio/Rectangle 4 (2).webp}"
+                            th:src="@{/portier_digital/app/images/dist/img Home Portfolio/Rectangle 4 (2).webp}"
                             alt=""
                     />
                 </div>
@@ -103,14 +104,14 @@
             <div class="goal__inner">
                 <div class="goal__inner--photo">
                     <img
-                            th:src="@{portier_digital/app/images/dist/img Home Portfolio/Rectangle 4 (1).webp}"
+                            th:src="@{/portier_digital/app/images/dist/img Home Portfolio/Rectangle 4 (1).webp}"
                             alt=""
                             class="goal__photo--img"
                     />
                 </div>
                 <div class="goal__inner--photo2">
                     <img
-                            th:src="@{portier_digital/app/images/dist/img Home Portfolio/Rectangle 4 (3).webp}"
+                            th:src="@{/portier_digital/app/images/dist/img Home Portfolio/Rectangle 4 (3).webp}"
                             alt=""
                             class="goal__photo--img"
                     />
@@ -146,7 +147,9 @@
                         are mastered, allowing us<br/>
                         to take on newer and more exciting challenges. .
                     </div>
-                    <a class="touch" type="button" th:href="@{/specialize/blog1.html}">Get In Touch</a>
+                    <button class="touch" type="button" onclick="redirectByArticle(1)"
+                            style="cursor: pointer;">Get In Touch
+                    </button>
                 </div>
                 <div class="aweasome__inner--title">
                     How about we make something awesome together?
@@ -154,6 +157,9 @@
             </div>
         </div>
     </section>
+
+    <script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/vuexy/assets/vendor/js/bootstrap.js}"></script>
 
     <script th:inline="javascript">
         let containerCards = document.getElementById('container-cards_');
@@ -180,7 +186,7 @@
         }
 
         function getWorkCardBlock(object) {
-            let pathToImage = contextPath.substring(0,contextPath.indexOf('/',2)) + object.pathToImage;
+            let pathToImage = contextPath.substring(0, contextPath.indexOf('/', 2)) + object.pathToImage;
             return `<section class="Elements">
         <div class="container">
             <div class="container__img image-container">
@@ -199,8 +205,8 @@
     </section>`;
         }
 
-        function getReviewBlock(object){
-            let pathToImage = object.pathToImage != null ? contextPath.substring(0,contextPath.indexOf('/',2)) + object.pathToImage : '';
+        function getReviewBlock(object) {
+            let pathToImage = object.pathToImage != null ? contextPath.substring(0, contextPath.indexOf('/', 2)) + object.pathToImage : '';
             return `<div class="users__inner--box">
                         <div class="users__box--photo">
                             <img class="users__photo--img" src="${pathToImage}" alt="error"
@@ -218,13 +224,16 @@
                     </div>`;
         }
 
-        function getFactBlock(object){
+        function getFactBlock(object) {
             return `<div class="percent1">
                             <div class="percent1__number">${object.title}</div>
                             <div class="percent1__text">
                                 ${object.description}
                             </div>
                         </div>`;
+        }
+        function redirectHireMePage(){
+            window.location.href = contextPath + "user/hire-information";
         }
     </script>
 </main>

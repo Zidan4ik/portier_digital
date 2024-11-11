@@ -76,8 +76,9 @@ function getPageWithFilter(page, size) {
                 createSequence(currentMetaData.page, currentMetaData.totalPages, currentMetaData.size);
             } else {
                 const fields = document.querySelectorAll('.fields-entity');
+                console.log(fields.length + 2);
                 containerTable.innerHTML = `<tr>
-                                <td colspan="${fields.length+2}" style="text-align: center; vertical-align: middle;">
+                                <td colspan="${fields.length + 2}" style="text-align: center; vertical-align: middle;">
                                 No matching records found</td>
                                 </tr>`
             }
@@ -169,7 +170,12 @@ function getRowData(element) {
     return row;
 }
 
-function handleInputChange() {
+function handleInputChange(input) {
+    if (input.name === 'id') {
+        if (/[^0-9]/.test(input.value)) {
+            return;
+        }
+    }
     getPageWithFilter(currentMetaData.page, currentMetaData.size);
 }
 

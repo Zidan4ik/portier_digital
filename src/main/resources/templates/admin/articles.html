@@ -47,11 +47,11 @@
                             <th style="width: 200px">Actions</th>
                         </tr>
                         <tr>
-                            <th><input class="form-control for-filter" name="id" oninput="handleInputChange()">
+                            <th><input class="form-control for-filter" name="id" oninput="handleInputChange(this)">
                             </th>
-                            <th><input class="form-control for-filter" name="title" oninput="handleInputChange()">
+                            <th><input class="form-control for-filter" name="title" oninput="handleInputChange(this)">
                             </th>
-                            <th><input class="form-control for-filter" name="description" oninput="handleInputChange()">
+                            <th><input class="form-control for-filter" name="description" oninput="handleInputChange(this)">
                             </th>
                             <th></th>
                         </tr>
@@ -88,7 +88,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6 d-flex flex-column align-items-center justify-content-center gap-4"
-                         style="border-right: 1px solid gray;    ">
+                         style="border-right: 1px solid gray;">
                         <div class="col-md-12">
                             <input class="form-control fields-entity"
                                    type="text" id="title_" name="title" placeholder="John Doe"

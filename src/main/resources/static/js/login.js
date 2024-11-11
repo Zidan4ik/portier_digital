@@ -119,10 +119,9 @@ function registration() {
     var countError = 0;
 
     function validDataFromResponse(errors) {
-        cleanInputs()
+        cleanInputs();
         for (var fieldName in errors) {
             if (errors.hasOwnProperty(fieldName)) {
-                console.log(fieldName);
                 var errorMessage = errors[fieldName];
                 scrollToElement($('#' + fieldName.toString()));
                 addText($('#' + fieldName.toString()), errorMessage)

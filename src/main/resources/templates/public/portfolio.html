@@ -14,7 +14,7 @@
                 I love <span>what I do</span> and I make sure I do great.
             </div>
             <div class="work__experience">
-                <button class="my__work" type="button">View My Work</button>
+<!--                <button class="my__work" type="button">View My Work</button>-->
                 <div class="work__experience--text">
                     I am Portier, experienced Digital Product Designer based on Florida. I
                     am here to help you build your amazing product.
@@ -27,21 +27,21 @@
             <div class="container__img">
                 <img
                         class="container__img--element"
-                        th:src="@{portier_digital/app/images/dist/img Home Portfolio/Work Card.webp}"
+                        th:src="@{/portier_digital/app/images/dist/img Home Portfolio/Work Card.webp}"
                         alt=""
                 />
             </div>
             <div class="container__img2">
                 <img
                         class="container__img--element2"
-                        th:src="@{portier_digital/app/images/dist/img Home Portfolio/Work Card (3).webp}"
+                        th:src="@{/portier_digital/app/images/dist/img Home Portfolio/Work Card (3).webp}"
                         alt=""
                 />
             </div>
             <div class="container__img3">
                 <img
                         class="container__img--element3"
-                        th:src="@{portier_digital/app/images/dist/img Home Portfolio/Work Card (6).webp}"
+                        th:src="@{/portier_digital/app/images/dist/img Home Portfolio/Work Card (6).webp}"
                         alt=""
                 />
             </div>
@@ -52,21 +52,21 @@
             <div class="container__img">
                 <img
                         class="container__img--Corporate"
-                        th:src="@{portier_digital/app/images/dist/img Home Portfolio/Work Card (1).webp}"
+                        th:src="@{/portier_digital/app/images/dist/img Home Portfolio/Work Card (1).webp}"
                         alt=""
                 />
             </div>
             <div class="container__img2">
                 <img
                         class="container__img--element2"
-                        th:src="@{portier_digital/app/images/dist/img Home Portfolio/Work Card (4).webp}"
+                        th:src="@{/portier_digital/app/images/dist/img Home Portfolio/Work Card (4).webp}"
                         alt=""
                 />
             </div>
             <div class="container__img3">
                 <img
                         class="container__img--element3"
-                        th:src="@{portier_digital/app/images/dist/img Home Portfolio/Work Card (7).webp}"
+                        th:src="@{/portier_digital/app/images/dist/img Home Portfolio/Work Card (7).webp}"
                         alt=""
                 />
             </div>
@@ -77,21 +77,21 @@
             <div class="container__img">
                 <img
                         class="container__img--side"
-                        th:src="@{portier_digital/app/images/dist/img Home Portfolio/Work Card (2).webp}"
+                        th:src="@{/portier_digital/app/images/dist/img Home Portfolio/Work Card (2).webp}"
                         alt=""
                 />
             </div>
             <div class="container__img2">
                 <img
                         class="container__img--element2"
-                        th:src="@{portier_digital/app/images/dist/img Home Portfolio/Work Card (5).webp}"
+                        th:src="@{/portier_digital/app/images/dist/img Home Portfolio/Work Card (5).webp}"
                         alt=""
                 />
             </div>
             <div class="container__img3">
                 <img
                         class="container__img--element3"
-                        th:src="@{portier_digital/app/images/dist/img Home Portfolio/Work Card (8).webp}"
+                        th:src="@{/portier_digital/app/images/dist/img Home Portfolio/Work Card (8).webp}"
                         alt=""
                 />
             </div>
@@ -110,7 +110,8 @@
                         are mastered, allowing us<br />
                         to take on newer and more exciting challenges. .
                     </div>
-                    <button class="touch" type="button">Get In Touch</button>
+                    <button class="touch" type="button" onclick="redirectByArticle(2)"
+                    style="cursor: pointer;">Get In Touch</button>
                 </div>
                 <div class="aweasome__inner--title">
                     How about we make something awesome together?

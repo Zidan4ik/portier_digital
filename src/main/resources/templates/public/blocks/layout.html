@@ -156,6 +156,28 @@
     function redirectByArticle(id) {
         window.location.href = contextPath + 'user/default-article/' + id;
     }
+
+    function validDataFromResponse(errors) {
+        cleanInputs();
+        for (const fieldName in errors) {
+            if (errors.hasOwnProperty(fieldName)) {
+                var errorMessage = errors[fieldName];
+                let input = document.getElementById('container-' + fieldName.toString());
+                console.log(errorMessage);
+                console.log(input);
+                addText(input, errorMessage);
+            }
+        }
+    }
+
+    function addText(input, message) {
+        input.insertAdjacentHTML('beforeend',
+            '<p class="text-for-validating" style="color: #ff0000;margin-top: 10px;">' + message + '</p>')
+    }
+
+    function cleanInputs() {
+        $('.text-for-validating').remove();
+    }
 </script>
 </body>
 </html>
