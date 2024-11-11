@@ -19,17 +19,20 @@
                     one another, which is generally fluid and not so easy to
                     conceptualize.
                 </div>
-                <div class="tips__inner--mail">
-                    <form>
+                <div class="tips__inner--mail" id="container-email">
+                    <form autocomplete="off">
                         <input
                                 class="email__holder"
                                 type="email"
-                                id="email"
+                                id="email_"
                                 name="email"
                                 placeholder="Your email address"
-                                required
+                                style="color: whitesmoke;"
                         />
-                        <button class="subcribe" type="submit">Subcribe</button>
+                        <button class="subcribe" type="button"
+                                onclick="subscribeByEmail()"
+                        style="cursor: pointer;">Subscribe
+                        </button>
                     </form>
                 </div>
             </div>
@@ -60,7 +63,9 @@
                         are mastered, allowing us<br/>
                         to take on newer and more exciting challenges. .
                     </div>
-                    <button class="touch" type="button">Get In Touch</button>
+                    <button class="touch" type="button" onclick="redirectByArticle(2)"
+                            style="cursor: pointer;">Get In Touch
+                    </button>
                 </div>
                 <div class="aweasome__inner--title">
                     How about we make something awesome together?
@@ -97,9 +102,40 @@
                 </div>`;
         }
 
-        function redirectSomeArticle(id) {
-            window.location.href =  `${contextPath}article/${id}`;
+        function subscribeByEmail() {
+            $.ajax({
+                url: contextPath + 'user/subscribe',
+                method: 'post',
+                contentType: false,
+                processData: false,
+                data: getFormData(),
+                success: function () {
+                    window.location.href = contextPath + 'user/blogs';
+                },
+                error: function (xhr, status, error) {
+                    console.log(1);
+                    if (xhr.status === 400) {
+                        console.log(xhr.responseJSON);
+                        console.log(status);
+                        console.log(error);
+                        validDataFromResponse(xhr.responseJSON);
+                    } else {
+                        console.error('Помилка відправки файлів на сервер:', error);
+                    }
+                }
+            });
         }
+
+        function getFormData() {
+            let data = new FormData();
+            data.append("email", $('#email_').val());
+            return data;
+        }
+
+        function redirectSomeArticle(id) {
+            window.location.href = `${contextPath}user/article/${id}`;
+        }
+
 
         window.addEventListener('DOMContentLoaded', function () {
             getArticles();
