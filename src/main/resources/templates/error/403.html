@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Error 403 - Forbidden</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+
+        .error-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: 120px;
+            color: #6b8eff;
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #6b8eff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #ff5252;
+        }
+    </style>
+</head>
+<body>
+<div class="error-container">
+    <h1>403</h1>
+    <p class="error-message">Access Forbidden</p>
+    <p>You don't have permission to access this page.</p>
+    <a th:href="@{/logout}" class="back-button">Go to login</a>
+</div>
+</body>
+</html>
