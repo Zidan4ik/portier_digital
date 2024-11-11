@@ -57,4 +57,16 @@ class PageControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("public/blog"));
     }
+    @Test
+    void testViewDefaultArticle() throws Exception {
+        mockMvc.perform(get("/user/default-article/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("public/default/article1"));
+    }
+    @Test
+    void testViewHireInformation() throws Exception {
+        mockMvc.perform(get("/user/hire-information"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("public/hire-info"));
+    }
 }

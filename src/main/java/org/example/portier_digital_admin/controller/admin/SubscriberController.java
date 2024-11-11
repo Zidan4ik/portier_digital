@@ -37,7 +37,7 @@ public class SubscriberController {
     @GetMapping("/subscriber/{id}/delete")
     public ResponseEntity<String> deleteSubscriberById(@PathVariable(name = "id") Long id) {
         subscriberService.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Article with id " + id + " was deleted!");
+        return ResponseEntity.status(HttpStatus.OK).body("Subscriber with id " + id + " was deleted!");
     }
     @ModelAttribute("isActiveSubscribers")
     public boolean toActiveSubscribers(){
