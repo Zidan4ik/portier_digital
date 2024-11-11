@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{public/blocks/layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Blog</title>
+    <style>
+        .touchMy {
+            max-width: 145px;
+            height: 52px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #006ADA;
+            color: white;
+
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 24px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="tips">
+        <div class="container">
+            <div class="tips__inner">
+                <div class="tips__inner--title" id="title_" style="text-align: start;">
+                    How About We Make Something Awesome Together?
+                </div>
+                <div id="dateToday_"
+                     class="tips__inner--subtitile" style="font-size: 12px;width: 100%;text-align: start;"></div>
+                <div class="tips__inner--subtitile" id="description_" style="text-align: start;">
+                    In a world where collaboration is the foundation of progress, there's a special thrill in creating something awesome together. When we team up, our strengths and perspectives merge, giving rise to innovative solutions and inspiring outcomes that go beyond what any one of us could achieve alone.
+
+                    Working together cultivates an atmosphere of shared purpose and learning. We’re able to challenge ideas, push boundaries, and refine our visions in ways that are only possible through collaboration. Whether building a tech product, crafting a story, or designing an art project, collaboration means combining diverse skills, experiences, and insights. It’s a unique chance to bridge knowledge gaps and explore creative ideas with others who bring different talents to the table.
+
+                    Making something great together also means embracing flexibility and resilience. With a shared goal, every hurdle becomes an opportunity to learn and adapt, fostering teamwork and strengthening our collective problem-solving skills. Plus, it’s just more fun! Collaborating adds energy, fuels motivation, and creates memorable experiences that are rewarding beyond the final outcome.
+
+                    So, how about we join forces, think big, and make something incredible together? The possibilities are endless, and with the right mix of passion and teamwork, there’s no limit to what we can accomplish. Let’s get started and turn our ideas into something truly remarkable!
+                </div>
+                <div class="tips__inner--subtitile" style="text-align: start;width: 100%;">
+                    <div class="d-flex mt-3">
+                        <button class="touchMy" onclick="redirectBack()"
+                                style="cursor: pointer;">Go Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function formatCurrentDate() {
+            const options = {month: 'short', day: 'numeric', year: 'numeric'};
+            const currentDate = new Date();
+            return currentDate.toLocaleDateString('en-US', options);
+        }
+
+        window.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('dateToday_').textContent = formatCurrentDate();
+        });
+
+        function redirectBack(){
+            window.location.href = contextPath + 'user/about';
+        }
+    </script>
+</main>
+</body>
+</html>

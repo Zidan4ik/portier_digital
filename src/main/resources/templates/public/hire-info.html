@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{public/blocks/layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Hire Me</title>
+    <style>
+        .input-textarea {
+            width: 567px;
+            background: var(--vulcan, #12121C);
+            color: whitesmoke;
+            height: 175px;
+            border-radius: 8px;
+            margin-left: -20px;
+        }
+
+        .buttonMy {
+            margin-top: 5px;
+            width: 92%;
+            padding: 12px 5px;
+            margin-left: 10px;
+            height: 52px;
+            border-radius: 8px;
+            background: #3a3a5c;
+            color: var(--white, #FFF);
+            font-family: DM Sans;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="tips">
+        <div class="container">
+            <div class="tips__inner">
+                <div class="tips__inner--title">
+                    Greetings! Thank you for your interest in working with me to create your product.
+                </div>
+                <div class="tips__inner--subtitile">
+                    Fill out the form below. To share your project ideas and I'll get back to you shortly.
+                </div>
+                <form autocomplete="off">
+                    <div class="row">
+                        <div class="tips__inner--mail" id="container-name">
+                            <input
+                                    class="email__holder"
+                                    type="text"
+                                    id="name_"
+                                    placeholder="Your name"
+                                    style="color: whitesmoke"
+                                    required
+                            />
+                        </div>
+                        <div class="tips__inner--mail" id="container-email">
+                            <input
+                                    class="email__holder"
+                                    type="email"
+                                    id="email_"
+                                    name="email"
+                                    style="color: whitesmoke"
+                                    placeholder="Your email address"
+                                    required
+                            />
+                        </div>
+                        <div class="tips__inner--mail">
+                            <textarea id="desire_" class="input-textarea" aria-label="With textarea"
+                                      placeholder="Comment"></textarea>
+                        </div>
+                    </div>
+                    <button class="buttonMy" type="button" onclick="sendRequest()">Send request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script>
+        function sendRequest() {
+            $.ajax({
+                url: contextPath + 'user/applications/save',
+                method: 'post',
+                contentType: false,
+                processData: false,
+                data: getFormData(),
+                success: function () {
+                    window.location.href = contextPath + 'user/home';
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.status === 400) {
+                        validDataFromResponse(xhr.responseJSON);
+                    } else {
+                        console.error('Помилка відправки файлів на сервер:', error);
+                    }
+                }
+            });
+        }
+
+        function getFormData() {
+            let data = new FormData();
+            data.append("name", $('#name_').val());
+            data.append("email", $('#email_').val());
+            data.append("desire", $('#desire_').val());
+            return data;
+        }
+    </script>
+</main>
+</body>
+</html>

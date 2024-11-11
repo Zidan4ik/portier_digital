@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{public/blocks/layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Blog</title>
+    <style>
+        .touchMy {
+            max-width: 145px;
+            height: 52px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #006ADA;
+            color: white;
+
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 24px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="tips">
+        <div class="container">
+            <div class="tips__inner">
+                <div class="tips__inner--title" id="title_" style="text-align: start;">
+                    How about we make something awesome together?
+                </div>
+                <div id="dateToday_"
+                     class="tips__inner--subtitile" style="font-size: 12px;width: 100%;text-align: start;"></div>
+                <div class="tips__inner--subtitile" id="description_" style="text-align: start;">
+                    In a world where collaboration fuels innovation, there’s no limit to what we can achieve together.
+                    Each partnership brings a blend of ideas, skills, and perspectives that transform visions into
+                    remarkable realities. Imagine combining our strengths to build something truly unique—a project that
+                    not only meets expectations but redefines them. Let’s unite our creativity, dedication, and ambition
+                    to create something extraordinary. So, how about it? Let’s make something awesome, together!
+                </div>
+                <div class="tips__inner--subtitile" style="text-align: start;width: 100%;">
+                    <div class="d-flex mt-3">
+                        <button class="touchMy" onclick="redirectBack()"
+                        style="cursor: pointer;">Go Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function formatCurrentDate() {
+            const options = {month: 'short', day: 'numeric', year: 'numeric'};
+            const currentDate = new Date();
+            return currentDate.toLocaleDateString('en-US', options);
+        }
+
+        window.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('dateToday_').textContent = formatCurrentDate();
+        });
+
+        function redirectBack(){
+            window.location.href = contextPath + 'user/home';
+        }
+    </script>
+</main>
+</body>
+</html>
