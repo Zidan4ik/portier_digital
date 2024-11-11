@@ -16,10 +16,43 @@
     <script th:inline="javascript">
         const contextPath = '[[@{/}]]'.replaceAll("\"", "")
     </script>
+    <style>
+        .alertMy {
+            position: absolute;
+            top: 45px;
+            z-index: 1000;
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .alert-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .is-invalid {
+            border-color: #dc3545;
+        }
+    </style>
 </head>
 
 <body>
-
+<div class="alert-wrapper">
+    <div class="alert alert-danger alertMy" role="alert" th:if="${param.error}">
+        Invalid username and password.
+    </div>
+    <div class="alert alert-info alertMy" role="alert" th:if="${param.logout}">
+        You have been logged out.
+    </div>
+</div>
 <!-- Content -->
 <div class="authentication-wrapper authentication-cover">
     <div class="authentication-inner row m-0">
@@ -97,6 +130,14 @@
         } else if (element_password.type === 'text') {
             element_password.type = 'password';
             eye.removeClass('ti-eye').addClass('ti-eye-off')
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const errorAlert = document.querySelector('.alert-danger');
+        if (errorAlert) {
+            document.getElementById("email_").classList.add("is-invalid");
+            document.getElementById("password_").classList.add("is-invalid");
         }
     });
 </script>
