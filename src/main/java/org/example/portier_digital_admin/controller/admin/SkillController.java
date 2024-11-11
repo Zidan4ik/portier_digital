@@ -80,4 +80,8 @@ public class SkillController {
         skillService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Skill with id " + id + " was deleted!");
     }
+    @ModelAttribute("isActiveSkills")
+    public boolean toActiveSkills(){
+        return true;
+    }
 }

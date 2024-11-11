@@ -78,4 +78,8 @@ public class WorkCardController {
         workCardService.deleteById(workCard.getId());
         return ResponseEntity.status(HttpStatus.OK).body("Work card with id " + id + " was deleted!");
     }
+    @ModelAttribute("isActiveWorkCards")
+    public boolean toActiveWorkCards(){
+        return true;
+    }
 }

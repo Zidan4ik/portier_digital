@@ -79,4 +79,8 @@ public class CardController {
         cardService.deleteById(card.getId());
         return ResponseEntity.status(HttpStatus.OK).body("Card with id " + id + " was deleted!");
     }
+    @ModelAttribute("isActiveCards")
+    public boolean toActiveCards(){
+        return true;
+    }
 }

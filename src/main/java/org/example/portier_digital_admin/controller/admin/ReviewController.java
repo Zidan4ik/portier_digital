@@ -78,4 +78,8 @@ public class ReviewController {
         reviewService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Review with id " + id + " was deleted!");
     }
+    @ModelAttribute("isActiveReviews")
+    public boolean toActiveReviews(){
+        return true;
+    }
 }

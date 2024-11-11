@@ -39,4 +39,8 @@ public class SubscriberController {
         subscriberService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Article with id " + id + " was deleted!");
     }
+    @ModelAttribute("isActiveSubscribers")
+    public boolean toActiveSubscribers(){
+        return true;
+    }
 }

@@ -39,4 +39,8 @@ public class ApplicationController {
         applicationService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Application with id " + id + " was deleted!");
     }
+    @ModelAttribute("isActiveApplications")
+    public boolean toActiveApplications(){
+        return true;
+    }
 }

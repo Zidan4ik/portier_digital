@@ -76,4 +76,8 @@ public class ExperienceController {
         experienceService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Experience with id " + id + " was deleted!");
     }
+    @ModelAttribute("isActiveExperiences")
+    public boolean toActiveExperiences(){
+        return true;
+    }
 }

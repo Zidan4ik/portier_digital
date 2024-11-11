@@ -19,56 +19,56 @@
             </a>
         </div>
         <ul class="menu-inner py-1 ps ps--active-y" style="border-top: 1px solid;">
-            <li th:class="menu-item">
-                <a th:href="@{/admin/articles}" class="menu-link">
+            <li class="menu-item">
+                <a th:href="@{/admin/articles}" th:class="'menu-link '+${isActiveArticles!=null?'active-buttonMy':''}">
                     <i class="menu-icon ti ti-mail" style="color: white;"></i>
                     <div style="color: white;">Articles</div>
                 </a>
             </li>
-            <li th:class="'menu-item '+${isActiveObjects!=null?'active':''}">
-                <a th:href="@{/admin/experiences}" class="menu-link">
+            <li class="menu-item">
+                <a th:href="@{/admin/experiences}" th:class="'menu-link '+${isActiveExperiences!=null?'active-buttonMy':''}">
                     <i class="menu-icon ti ti-article" style="color: white;"></i>
                     <div style="color: white;">Experiences</div>
                 </a>
             </li>
-            <li th:class="'menu-item '+${isActiveProjects!=null?'active':''}">
-                <a th:href="@{/admin/cards}" class="menu-link">
+            <li class="menu-item">
+                <a th:href="@{/admin/cards}" th:class="'menu-link '+${isActiveCards!=null?'active-buttonMy':''}">
                     <i class="menu-icon ti ti-cardboards" style="color: white;"></i>
                     <div style="color: white;">Cards</div>
                 </a>
             </li>
-            <li th:class="'menu-item '+${isActiveServices!=null?'active':''}">
-                <a th:href="@{/admin/work-cards}" class="menu-link">
+            <li class="menu-item">
+                <a th:href="@{/admin/work-cards}" th:class="'menu-link '+${isActiveWorkCards!=null?'active-buttonMy':''}">
                     <i class="menu-icon ti ti-letter-w" style="color: white;"></i>
                     <div style="color: white;">Work Cards</div>
                 </a>
             </li>
-            <li th:class="'menu-item '+${isActiveServices!=null?'active':''}">
-                <a th:href="@{/admin/reviews}" class="menu-link">
+            <li class="menu-item">
+                <a th:href="@{/admin/reviews}" th:class="'menu-link '+${isActiveReviews!=null?'active-buttonMy':''}">
                     <i class="menu-icon ti ti-message" style="color: white;"></i>
                     <div style="color: white;">Reviews</div>
                 </a>
             </li>
-            <li th:class="'menu-item '+${isActiveServices!=null?'active':''}">
-                <a th:href="@{/admin/facts}" class="menu-link">
+            <li class="menu-item">
+                <a th:href="@{/admin/facts}" th:class="'menu-link '+${isActiveFacts!=null?'active-buttonMy':''}">
                     <i class="menu-icon ti ti ti-bulb" style="color: white;"></i>
                     <div style="color: white;">Facts</div>
                 </a>
             </li>
-            <li th:class="'menu-item '+${isActiveServices!=null?'active':''}">
-                <a th:href="@{/admin/skills}" class="menu-link">
+            <li class="menu-item">
+                <a th:href="@{/admin/skills}" th:class="'menu-link '+${isActiveSkills!=null?'active-buttonMy':''}">
                     <i class="menu-icon ti ti-letter-s" style="color: white;"></i>
                     <div style="color: white;">Skills</div>
                 </a>
             </li>
-            <li th:class="'menu-item '+${isActiveServices!=null?'active':''}">
-                <a th:href="@{/admin/subscribers}" class="menu-link">
+            <li class="menu-item">
+                <a th:href="@{/admin/subscribers}" th:class="'menu-link '+${isActiveSubscribers!=null?'active-buttonMy':''}">
                     <i class="menu-icon ti ti-users" style="color: white;"></i>
                     <div style="color: white;">Subscribers</div>
                 </a>
             </li>
-            <li th:class="'menu-item '+${isActiveServices!=null?'active':''}">
-                <a th:href="@{/admin/applications}" class="menu-link">
+            <li class="menu-item">
+                <a th:href="@{/admin/applications}" th:class="'menu-link '+${isActiveApplications!=null?'active-buttonMy':''}">
                     <i class="menu-icon ti ti-message-dots" style="color: white;"></i>
                     <div style="color: white;">Applications</div>
                 </a>

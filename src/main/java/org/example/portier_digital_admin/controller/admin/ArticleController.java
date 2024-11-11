@@ -81,4 +81,8 @@ public class ArticleController {
         articleService.deleteById(article.getId());
         return ResponseEntity.status(HttpStatus.OK).body("Article with id " + id + " was deleted!");
     }
+    @ModelAttribute("isActiveArticles")
+    public boolean toActiveArticles(){
+        return true;
+    }
 }

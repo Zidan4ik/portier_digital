@@ -76,4 +76,8 @@ public class FactController {
         factService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Fact with id " + id + " was deleted!");
     }
+    @ModelAttribute("isActiveFacts")
+    public boolean toActiveFacts(){
+        return true;
+    }
 }
