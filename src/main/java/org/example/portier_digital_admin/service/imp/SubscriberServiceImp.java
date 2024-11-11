@@ -24,12 +24,18 @@ public class SubscriberServiceImp implements SubscriberService {
     private final SubscriberMapper subscriberMapper = new SubscriberMapper();
     @Override
     public Subscriber save(SubscriberDTOForAdd dto) {
-        return subscriberRepository.save(subscriberMapper.toEntityForAdd(dto));
+        LogUtil.logInfo("Saving subscriber!");
+        Subscriber subscriber = subscriberRepository.save(subscriberMapper.toEntityForAdd(dto));
+        LogUtil.logInfo("Subscriber with id: " + subscriber.getId() + "was saved! - " + subscriber);
+        return subscriber;
     }
 
     @Override
     public List<SubscriberDTOForView> getAll() {
-        return subscriberMapper.toDTOForView(subscriberRepository.findAll());
+        LogUtil.logInfo("Retrieving all subscribers without pagination!");
+        List<SubscriberDTOForView> subscribers = subscriberMapper.toDTOForView(subscriberRepository.findAll());
+        LogUtil.logInfo("Fetched subscribers: " + subscribers.size() + "!");
+        return subscribers;
     }
 
     @Override
