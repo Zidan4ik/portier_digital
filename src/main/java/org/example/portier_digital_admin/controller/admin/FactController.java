@@ -28,7 +28,7 @@ public class FactController {
     }
     @GetMapping("/facts/data")
     @ResponseBody
-    public ResponseEntity<PageResponse<FactDTOForView>> getFact(
+    public ResponseEntity<PageResponse<FactDTOForView>> getFacts(
             @ModelAttribute FactDTOForView dto,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size

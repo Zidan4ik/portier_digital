@@ -32,7 +32,7 @@ public class SkillController {
 
     @GetMapping("/skills/data")
     @ResponseBody
-    public ResponseEntity<PageResponse<SkillDTOForView>> getReview(
+    public ResponseEntity<PageResponse<SkillDTOForView>> getSkills(
             @ModelAttribute SkillDTOForView dto,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size

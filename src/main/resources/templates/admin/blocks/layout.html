@@ -13,6 +13,7 @@
     <link rel="stylesheet" th:href="@{/vuexy/assets/vendor/css/rtl/theme-default.css}"/>
     <link rel="stylesheet" th:href="@{/vuexy/assets/vendor/fonts/tabler-icons.css}">
     <link rel="stylesheet" th:href="@{/style/style.css}"/>
+    <link rel="stylesheet" th:href="@{/vuexy/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css}">
 
     <script th:inline="javascript">
         const contextPath = '[[@{/}]]'.replaceAll("\"", "");
@@ -21,6 +22,13 @@
     <style>
         .active-buttonMy{
             background: currentColor;
+        }
+        .btn-logout{
+            background-color: #ea5455;
+            color: white;
+        }
+        .btn-logout:hover{
+            background-color: #d34c4d !important
         }
     </style>
 </head>
@@ -81,6 +89,7 @@
 <script th:src="@{/vuexy/dist/js/bootstrap.js}"></script>
 <script th:src="@{/vuexy/assets/vendor/js/menu.js}"></script>
 <script th:src="@{/vuexy/assets/js/main.js}"></script>
+<script th:src="@{/vuexy/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
 <script>
     function invokeModalLogout() {
         const modal = new bootstrap.Modal(document.querySelector("#ModalForLogout"));
