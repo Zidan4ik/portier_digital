@@ -1,5 +1,22 @@
 spring:
+  datasource:
+    name: portier_digital_admin
+    url: jdbc:mysql://localhost:3306/portier_digital
+    username: roma
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
   servlet:
     multipart:
       max-file-size: 2MB
       max-request-size: 2MB
+
+server:
+  port: 8084
+  servlet:
+    context-path: /PortierDigital-R.Pravnyk
+
+upload:
+  path: C:/Users/Roma/IdeaProjects/portier_digital_admin/uploads
