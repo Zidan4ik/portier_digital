@@ -1,22 +1,22 @@
 spring:
   datasource:
-    name: portier_digital_admin
-    url: jdbc:mysql://localhost:3306/portier_digital
-    username: roma
-    password: root
+    name: portier_digital
+    url: jdbc:mysql://localhost:3306/slj_kinocms1
+    username: slj_kinocms
+    password: 4h8bLzSDig
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: false
   servlet:
     multipart:
-      max-file-size: 2MB
-      max-request-size: 2MB
+      max-file-size: 50MB
+      max-request-size: 50MB
 
 server:
   port: 8084
   servlet:
-    context-path: /PortierDigital-R.Pravnyk
+    context-path: "/PortierDigital-R.Pravnyk"
 
 upload:
-  path: C:/Users/Roma/IdeaProjects/portier_digital_admin/uploads
+  path: "/home/slj/projects/PortierDigital-R.Pravnyk/uploads"
