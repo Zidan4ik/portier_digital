@@ -12,6 +12,7 @@ import org.example.portier_digital_admin.repository.ExperienceRepository;
 import org.example.portier_digital_admin.service.ExperienceService;
 import org.example.portier_digital_admin.service.ImageService;
 import org.example.portier_digital_admin.util.LogUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class ExperienceServiceImp implements ExperienceService {
     private final ExperienceRepository experienceRepository;
     private final ImageService imageService;
     private final ExperienceMapper experienceMapper = new ExperienceMapper();
+    @Value("${upload.path}")
+    private String path;
 
     @Override
     public Experience save(ExperienceDTOForAdd dto) {
@@ -47,7 +50,7 @@ public class ExperienceServiceImp implements ExperienceService {
             }
         }
         if (dto.getFileImage() != null) {
-            String generatedPath = "/uploads/experiences/" + imageService.generateFileName(dto.getFileImage());
+            String generatedPath = path + "/experiences/" + imageService.generateFileName(dto.getFileImage());
             dto.setPathToImage(generatedPath);
             LogUtil.logInfo("Generated new path for image: " + generatedPath);
         }

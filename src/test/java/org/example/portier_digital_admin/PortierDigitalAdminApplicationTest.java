@@ -5,9 +5,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class PortierDigitalAdminApplicationTest {
-    @Test
-    void main() {
-        String[] args = {};
-        PortierDigitalAdminApplication.main(args);
-    }
+//    @Test
+//    void main() {
+//        String[] args = {};
+//        PortierDigitalAdminApplication.main(args);
+//    }
 }

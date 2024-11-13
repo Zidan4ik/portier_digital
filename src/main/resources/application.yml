@@ -1,7 +1,7 @@
 spring:
   datasource:
     name: portier_digital
-    url: jdbc:mysql://localhost:3306/slj_kinocms1
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/slj_kinocms1
     username: slj_kinocms
     password: 4h8bLzSDig
   jpa:
@@ -16,7 +16,6 @@ spring:
 server:
   port: 8084
   servlet:
-    context-path: "/PortierDigital-R.Pravnyk"
-
+    context-path: /PortierDigital-R.Pravnyk
 upload:
-  path: "/home/slj/projects/PortierDigital-R.Pravnyk/uploads"
+  path: /home/slj/projects/PortierDigital-R.Pravnyk/uploads

@@ -1,8 +1,10 @@
 package org.example.portier_digital_admin.controller.user;
 
 import lombok.RequiredArgsConstructor;
+import org.example.portier_digital_admin.dto.WorkCardDTOForAdd;
 import org.example.portier_digital_admin.entity.WorkCard;
 import org.example.portier_digital_admin.repository.WorkCardRepository;
+import org.example.portier_digital_admin.service.WorkCardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,10 +17,10 @@ import java.util.List;
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class WorkCardUserController {
-    private final WorkCardRepository cardRepository;
+    private final WorkCardService cardService;
 
     @GetMapping("/workCard-data")
-    public ResponseEntity<List<WorkCard>> getWorkCards() {
-        return new ResponseEntity<>(cardRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<WorkCardDTOForAdd>> getWorkCards() {
+        return new ResponseEntity<>(cardService.getAll(), HttpStatus.OK);
     }
 }

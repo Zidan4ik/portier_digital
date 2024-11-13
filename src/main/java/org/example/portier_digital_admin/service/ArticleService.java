@@ -22,4 +22,6 @@ public interface ArticleService {
     Article saveFile(ArticleDTOForAdd dtoAdd);
 
     void deleteById(Long id);
+
+    String convertToRelativePath(String absolutePath);
 }

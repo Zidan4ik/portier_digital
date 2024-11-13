@@ -12,6 +12,7 @@ import org.example.portier_digital_admin.repository.ReviewRepository;
 import org.example.portier_digital_admin.service.ImageService;
 import org.example.portier_digital_admin.service.ReviewService;
 import org.example.portier_digital_admin.util.LogUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class ReviewServiceImp implements ReviewService {
     private final ReviewRepository reviewRepository;
     private final ImageService imageService;
     private final ReviewMapper reviewMapper = new ReviewMapper();
+    @Value("${upload.path}")
+    private String path;
 
     @Override
     public PageResponse<ReviewDTOForView> getAll(ReviewDTOForView dto, Pageable pageable) {
@@ -84,7 +87,7 @@ public class ReviewServiceImp implements ReviewService {
             }
         }
         if (dtoAdd.getFileImage() != null) {
-            String generatedPath = "/uploads/review/" + imageService.generateFileName(dtoAdd.getFileImage());
+            String generatedPath = path + "/review/" + imageService.generateFileName(dtoAdd.getFileImage());
             dtoAdd.setPathToImage(generatedPath);
             LogUtil.logInfo("Generated new path for image: " + generatedPath);
         }

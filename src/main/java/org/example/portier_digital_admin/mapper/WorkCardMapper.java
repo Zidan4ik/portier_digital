@@ -3,6 +3,7 @@ package org.example.portier_digital_admin.mapper;
 import org.example.portier_digital_admin.dto.*;
 import org.example.portier_digital_admin.entity.Card;
 import org.example.portier_digital_admin.entity.WorkCard;
+import org.example.portier_digital_admin.util.ImageUtil;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class WorkCardMapper {
         WorkCardDTOForAdd dto = new WorkCardDTOForAdd();
         dto.setId(workCard.getId());
         dto.setTitle(workCard.getTitle());
-        dto.setPathToImage(workCard.getPathToImage());
+        dto.setPathToImage(ImageUtil.getSubstringPath(workCard.getPathToImage()));
         return dto;
     }
 

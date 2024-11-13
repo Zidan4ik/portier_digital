@@ -4,6 +4,7 @@ import org.example.portier_digital_admin.dto.ArticleDTOForAdd;
 import org.example.portier_digital_admin.dto.CardDTOForAdd;
 import org.example.portier_digital_admin.dto.CardDTOForView;
 import org.example.portier_digital_admin.entity.Card;
+import org.example.portier_digital_admin.util.ImageUtil;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class CardMapper {
         dto.setId(card.getId());
         dto.setTitle(card.getTitle());
         dto.setDescription(card.getDescription());
-        dto.setPathToImage(card.getPathToImage());
+        dto.setPathToImage(ImageUtil.getSubstringPath(card.getPathToImage()));
         return dto;
     }
 

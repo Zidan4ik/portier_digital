@@ -95,7 +95,12 @@ function registration() {
                         console.log("Поле: " + field + ", Помилка: " + errors[field]);
                     }
                 }
-            } else {
+            }else if(xhr.status === 409){
+                cleanInputs();
+                addText($('#email'), "User with this email already exist");
+                $('#email').css("border", "1px solid #ff0000");
+            }
+            else {
                 console.error('Помилка відправки файлів на сервер:', error);
             }
         }

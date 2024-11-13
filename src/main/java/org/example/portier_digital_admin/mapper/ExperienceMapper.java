@@ -3,6 +3,7 @@ package org.example.portier_digital_admin.mapper;
 import org.example.portier_digital_admin.dto.ExperienceDTOForAdd;
 import org.example.portier_digital_admin.dto.ExperienceDTOForView;
 import org.example.portier_digital_admin.entity.Experience;
+import org.example.portier_digital_admin.util.ImageUtil;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class ExperienceMapper {
         dto.setId(entity.getId());
         dto.setCompany(entity.getCompany());
         dto.setPosition(entity.getPosition());
-        dto.setPathToImage(entity.getPathToImage());
+        dto.setPathToImage(ImageUtil.getSubstringPath(entity.getPathToImage()));
         return dto;
     }
 

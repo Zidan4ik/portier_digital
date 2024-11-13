@@ -3,6 +3,7 @@ package org.example.portier_digital_admin.mapper;
 import org.example.portier_digital_admin.dto.ReviewDTOForAdd;
 import org.example.portier_digital_admin.dto.ReviewDTOForView;
 import org.example.portier_digital_admin.entity.Review;
+import org.example.portier_digital_admin.util.ImageUtil;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class ReviewMapper {
         dto.setLastName(review.getLastName());
         dto.setPosition(review.getPosition());
         dto.setText(review.getText());
-        dto.setPathToImage(review.getPathToAvatar());
+        dto.setPathToImage(ImageUtil.getSubstringPath(review.getPathToAvatar()));
         return dto;
     }
     public List<ReviewDTOForAdd> toDTOForAdd(List<Review> reviews){

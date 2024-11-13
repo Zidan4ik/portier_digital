@@ -12,6 +12,7 @@ import org.example.portier_digital_admin.repository.CardRepository;
 import org.example.portier_digital_admin.service.CardService;
 import org.example.portier_digital_admin.service.ImageService;
 import org.example.portier_digital_admin.util.LogUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class CardServiceImp implements CardService {
     private final CardRepository cardRepository;
     private final ImageService imageService;
     private final CardMapper cardMapper = new CardMapper();
+    @Value("${upload.path}")
+    private String path;
 
     @Override
     public List<CardDTOForAdd> getAll() {
@@ -62,6 +65,7 @@ public class CardServiceImp implements CardService {
         LogUtil.logInfo("Fetched card with ID: " + id + " - " + cardDTO);
         return cardDTO;
     }
+
     @Override
     public Card save(CardDTOForAdd dtoAdd) {
         LogUtil.logInfo("Saving card!");
@@ -83,7 +87,7 @@ public class CardServiceImp implements CardService {
         }
 
         if (dtoAdd.getFileImage() != null) {
-            String generatedPath = "/uploads/cards/" + imageService.generateFileName(dtoAdd.getFileImage());
+            String generatedPath = path + "/cards/" + imageService.generateFileName(dtoAdd.getFileImage());
             dtoAdd.setPathToImage(generatedPath);
             LogUtil.logInfo("Generated new path for image: " + generatedPath);
         }

@@ -1,9 +1,9 @@
 package org.example.portier_digital_admin.mapper;
 
-
 import org.example.portier_digital_admin.dto.SkillDTOForAdd;
 import org.example.portier_digital_admin.dto.SkillDTOForView;
 import org.example.portier_digital_admin.entity.Skill;
+import org.example.portier_digital_admin.util.ImageUtil;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class SkillMapper {
         dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());
         dto.setDescription(entity.getDescription());
-        dto.setPathToImage(entity.getPathToImage());
+        dto.setPathToImage(ImageUtil.getSubstringPath(entity.getPathToImage()));
         return dto;
     }
 

@@ -10,6 +10,7 @@ import org.example.portier_digital_admin.repository.WorkCardRepository;
 import org.example.portier_digital_admin.service.ImageService;
 import org.example.portier_digital_admin.service.WorkCardService;
 import org.example.portier_digital_admin.util.LogUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ public class WorkCardServiceImp implements WorkCardService {
     private final WorkCardRepository workCardRepository;
     private final ImageService imageService;
     private final WorkCardMapper workCardMapper = new WorkCardMapper();
+    @Value("${upload.path}")
+    private String path;
 
     @Override
     public PageResponse<WorkCardDTOForView> getAll(WorkCardDTOForView dto, Pageable pageable) {
@@ -83,7 +86,7 @@ public class WorkCardServiceImp implements WorkCardService {
             }
         }
         if (dtoAdd.getFileImage() != null) {
-            String generatedPath = "/uploads/work-cards/" + imageService.generateFileName(dtoAdd.getFileImage());
+            String generatedPath = path + "/work-cards/" + imageService.generateFileName(dtoAdd.getFileImage());
             dtoAdd.setPathToImage(generatedPath);
             LogUtil.logInfo("Generated new path for image: " + generatedPath);
         }

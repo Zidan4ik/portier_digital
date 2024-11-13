@@ -12,6 +12,7 @@ import org.example.portier_digital_admin.repository.SkillRepository;
 import org.example.portier_digital_admin.service.ImageService;
 import org.example.portier_digital_admin.service.SkillService;
 import org.example.portier_digital_admin.util.LogUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class SkillServiceImp implements SkillService {
     private final SkillRepository skillRepository;
     private final ImageService imageService;
     private final SkillMapper skillMapper = new SkillMapper();
+    @Value("${upload.path}")
+    private String path;
 
     @Override
     public Skill save(SkillDTOForAdd dto) {
@@ -47,7 +50,7 @@ public class SkillServiceImp implements SkillService {
             }
         }
         if (dto.getFileImage() != null) {
-            String generatePath = "/uploads/skills/" + imageService.generateFileName(dto.getFileImage());
+            String generatePath = path + "/skills/" + imageService.generateFileName(dto.getFileImage());
             dto.setPathToImage(generatePath);
             LogUtil.logInfo("Generated new path for image: " + generatePath);
         }

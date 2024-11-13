@@ -3,6 +3,7 @@ package org.example.portier_digital_admin.mapper;
 import org.example.portier_digital_admin.dto.ArticleDTOForAdd;
 import org.example.portier_digital_admin.dto.ArticleDTOForView;
 import org.example.portier_digital_admin.entity.Article;
+import org.example.portier_digital_admin.util.ImageUtil;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class ArticleMapper {
         dto.setId(article.getId());
         dto.setTitle(article.getTitle());
         dto.setDescription(article.getDescription());
-        dto.setPathToImage(article.getPathToImage());
+        dto.setPathToImage(ImageUtil.getSubstringPath(article.getPathToImage()));
         return dto;
     }
 

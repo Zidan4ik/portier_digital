@@ -12,6 +12,7 @@ import org.example.portier_digital_admin.repository.ArticleRepository;
 import org.example.portier_digital_admin.service.ArticleService;
 import org.example.portier_digital_admin.service.ImageService;
 import org.example.portier_digital_admin.util.LogUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,9 @@ public class ArticleServiceImp implements ArticleService {
     private final ArticleRepository articleRepository;
     private final ImageService imageService;
     private final ArticleMapper articleMapper = new ArticleMapper();
+
+    @Value("${upload.path}")
+    private String path;
 
     @Override
     public PageResponse<ArticleDTOForView> getAll(ArticleDTOForView dto, Pageable pageable) {
@@ -84,7 +88,7 @@ public class ArticleServiceImp implements ArticleService {
             }
         }
         if (dtoAdd.getFileImage() != null) {
-            String generatedPath = "/uploads/articles/" + imageService.generateFileName(dtoAdd.getFileImage());
+            String generatedPath = path + "/articles/" + imageService.generateFileName(dtoAdd.getFileImage());
             dtoAdd.setPathToImage(generatedPath);
             LogUtil.logInfo("Generated new path for image: " + generatedPath);
         }
@@ -105,5 +109,9 @@ public class ArticleServiceImp implements ArticleService {
         }
         articleRepository.deleteById(id);
         LogUtil.logInfo("Deleted article with id: " + id + "!");
+    }
+    @Override
+    public String convertToRelativePath(String absolutePath) {
+        return absolutePath.replace(path, "");
     }
 }

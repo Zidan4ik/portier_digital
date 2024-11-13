@@ -31,7 +31,7 @@ public class ImageServiceImp implements ImageService {
     public void save(MultipartFile file, String path) {
         try {
             if (path != null && !path.isEmpty()) {
-                Path path_ = Path.of("." + path);
+                Path path_ = Path.of(path);
                 if (!Files.exists(path_.getParent())) {
                     init(path_.getParent());
                 }
@@ -54,7 +54,7 @@ public class ImageServiceImp implements ImageService {
     @Override
     public void deleteByPath(String path) throws IOException {
         LogUtil.logInfo("Attempting to delete file at path: " + path);
-        Path path_ = Path.of("." + path);
+        Path path_ = Path.of(path);
         if (Files.isRegularFile(path_)) {
             Files.delete(path_);
             LogUtil.logInfo("File deleted successfully from path: " + path);

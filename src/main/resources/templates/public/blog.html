@@ -46,7 +46,7 @@
         function getBlock() {
             $.ajax({
                 method: 'get',
-                url: window.location.pathname + 'user/data',
+                url: window.location.pathname + '/data',
                 contentType: 'json',
                 success: function (response) {
                     console.log(response);
@@ -77,8 +77,8 @@
             getBlock();
         });
 
-        function redirectBlogs(){
-            window.location.href = contextPath+'blogs';
+        function redirectBlogs() {
+            window.location.href = contextPath + 'user/blogs';
         }
     </script>
 </main>
