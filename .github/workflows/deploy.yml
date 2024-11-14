@@ -26,3 +26,11 @@ jobs:
           DB_LOGIN: ${{ secrets.DB_LOGIN }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
+      - name: Copy file
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: target/PortierDigital-R.Pravnyk.war
+          remote: home/slj/webapps/slj.demodev.cc/PortierDigital-R.Pravnyk.war
+          host: ${{ secrets.SSH_URL }}
+          username: ${{ secrets.SSH_LOGIN }}
+          password: ${{ secrets.SSH_PASSWORD }}
