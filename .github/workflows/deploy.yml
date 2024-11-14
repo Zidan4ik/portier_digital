@@ -18,10 +18,9 @@ jobs:
           cache: 'maven'
 
       - name: Build app
-        run:
+        run: |
          mvn clean
          mvn package -DskipTests=true
-
         env:
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_LOGIN: ${{ secrets.DB_LOGIN }}
