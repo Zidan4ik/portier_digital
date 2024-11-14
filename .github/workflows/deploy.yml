@@ -8,13 +8,13 @@ jobs:
 
     steps:
       - name: Checkout Git Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4.2.1
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'corretto'
           cache: 'maven'
 
       - name: Build app
@@ -26,11 +26,11 @@ jobs:
           DB_LOGIN: ${{ secrets.DB_LOGIN }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
-      - name: Copy file
-        uses: garygrossgarten/github-action-scp@release
-        with:
-          local: target/PortierDigital-R.Pravnyk.war
-          remote: home/slj/webapps/slj.demodev.cc/PortierDigital-R.Pravnyk.war
-          host: ${{ secrets.SSH_URL }}
-          username: ${{ secrets.SSH_LOGIN }}
-          password: ${{ secrets.SSH_PASSWORD }}
+      - name: Tomcat Deploy
+        env:
+          CICD_MANAGER_URL: https://slj.demodev.cc/manager/text/deploy?path=/PortierDigital-R.Pravnyk&update=true
+          CICD_USERNAME: ${{ secrets.CICD_LOGIN }}
+          CICD_PASSWORD: ${{ secrets.CICD_PASSWORD }}
+        run: |
+            curl -v -u $CICD_USERNAME:$CICD_PASSWORD -T target/*.war "$CICD_MANAGER_URL"
+            curl -v -u $CICD_USERNAME:$CICD_PASSWORD "${CICD_MANAGER_URL/%\/deploy/\/reload}"
