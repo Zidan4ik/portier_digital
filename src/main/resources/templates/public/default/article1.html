@@ -50,12 +50,6 @@
         </div>
     </section>
     <script>
-        function formatCurrentDate() {
-            const options = {month: 'short', day: 'numeric', year: 'numeric'};
-            const currentDate = new Date();
-            return currentDate.toLocaleDateString('en-US', options);
-        }
-
         window.addEventListener('DOMContentLoaded', function () {
             document.getElementById('dateToday_').textContent = formatCurrentDate();
         });

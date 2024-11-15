@@ -30,9 +30,7 @@
             <div class="tips__inner">
                 <div class="tips__inner--title" id="title_" style="text-align: start;"></div>
                 <div id="dateToday_"
-                     class="tips__inner--subtitile" style="font-size: 12px;width: 100%;text-align: start;">
-                    Sep 25, 2021
-                </div>
+                     class="tips__inner--subtitile" style="font-size: 12px;width: 100%;text-align: start;"></div>
                 <div class="tips__inner--subtitile" id="description_" style="text-align: start;"></div>
                 <div class="tips__inner--subtitile" style="text-align: start;width: 100%;">
                     <div class="d-flex mt-3">
@@ -75,6 +73,7 @@
 
         window.addEventListener('DOMContentLoaded', function () {
             getBlock();
+            formatCurrentDate();
         });
 
         function redirectBlogs() {

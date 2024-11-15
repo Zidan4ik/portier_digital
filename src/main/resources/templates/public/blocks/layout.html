@@ -178,6 +178,12 @@
     function cleanInputs() {
         $('.text-for-validating').remove();
     }
+
+    function formatCurrentDate() {
+        const options = {month: 'short', day: 'numeric', year: 'numeric'};
+        const currentDate = new Date();
+        return currentDate.toLocaleDateString('en-US', options);
+    }
 </script>
 </body>
 </html>
