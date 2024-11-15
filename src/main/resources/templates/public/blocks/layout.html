@@ -12,7 +12,6 @@
     <link rel="stylesheet" th:href="@{/portier_digital/app/css/normalize.css}"/>
     <script th:inline="javascript">
         const contextPath = '[[@{/}]]'.replaceAll("\"", "")
-        console.log(contextPath);
     </script>
 </head>
 
@@ -31,7 +30,6 @@
             url: contextPath + 'user/facts-data',
             dataType: 'json',
             success: function (response) {
-                console.log(response);
                 if (Array.isArray(response)) {
                     response.forEach(function (element) {
                         if (container) {
@@ -68,7 +66,6 @@
             method: 'get',
             datatype: 'json',
             success: function (response) {
-                console.log(response);
                 if (Array.isArray(response) && container) {
                     response.forEach(function (el) {
                         container.insertAdjacentHTML('beforeend', getExperienceBlock(el));
@@ -84,7 +81,6 @@
             method: `get`,
             dataType: `json`,
             success: function (response) {
-                console.log(response);
                 if (Array.isArray(response)) {
                     response.forEach(function (element) {
                         if (containerCards) {
@@ -103,7 +99,6 @@
             url: contextPath + 'user/workCard-data',
             dataType: 'json',
             success: function (response) {
-                console.log(response);
                 if (Array.isArray(response)) {
                     response.forEach(function (element) {
                         if (container) {
@@ -122,7 +117,6 @@
             url: contextPath + 'user/reviews-data',
             dataType: 'json',
             success: function (response) {
-                console.log(response);
                 if (Array.isArray(response)) {
                     response.forEach(function (element) {
                         if (container) {
@@ -141,7 +135,6 @@
             url: contextPath + 'user/articles-data',
             dataType: 'json',
             success: function (response) {
-                console.log(response);
                 if (Array.isArray(response)) {
                     response.forEach(function (element) {
                         if (container) {
@@ -163,8 +156,6 @@
             if (errors.hasOwnProperty(fieldName)) {
                 var errorMessage = errors[fieldName];
                 let input = document.getElementById('container-' + fieldName.toString());
-                console.log(errorMessage);
-                console.log(input);
                 addText(input, errorMessage);
             }
         }
