@@ -21,12 +21,3 @@ jobs:
         run: |
           mvn clean
           mvn package -DskipTests=true
-
-      - name: Tomcat Deploy
-        env:
-          TOMCAT_MANAGER_URL: https://slj.demodev.cc/manager/text/deploy?path=/PortierDigital-R.Pravnyk&update=true
-          TOMCAT_USERNAME: ${{ secrets.TOMCAT_USERNAME }}
-          TOMCAT_PASSWORD: ${{ secrets.TOMCAT_PASSWORD }}
-        run: |
-          curl -v -u $TOMCAT_USERNAME:$TOMCAT_PASSWORD -T target/*.war "$TOMCAT_MANAGER_URL"
-          curl -v -u $TOMCAT_USERNAME:$TOMCAT_PASSWORD "${TOMCAT_MANAGER_URL/%\/deploy/\/reload}"
