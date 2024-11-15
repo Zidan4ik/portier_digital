@@ -107,7 +107,6 @@
     </dependencies>
 
     <build>
-        <finalName>PortierDigital-R.Pravnyk</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
