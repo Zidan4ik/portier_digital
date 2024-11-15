@@ -80,7 +80,7 @@ public class CardServiceImp implements CardService {
         LogUtil.logInfo("Saving card with file for ID: " + dtoAdd.getId());
         if (dtoAdd.getId() != null) {
             Card cardById = getById(dtoAdd.getId());
-            if (cardById.getPathToImage() != null && !cardById.getPathToImage().equals(dtoAdd.getPathToImage())) {
+            if (dtoAdd.getFileImage() != null && (cardById.getPathToImage() != null && !cardById.getPathToImage().equals(dtoAdd.getPathToImage()))) {
                 LogUtil.logInfo("Deleting old image at path: " + cardById.getPathToImage());
                 imageService.deleteByPath(cardById.getPathToImage());
             }

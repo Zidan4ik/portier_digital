@@ -44,7 +44,7 @@ public class SkillServiceImp implements SkillService {
         LogUtil.logInfo("Saving skill with file for ID: " + dto.getId());
         if (dto.getId() != null) {
             Skill skillById = getById(dto.getId());
-            if (skillById.getPathToImage() != null && !skillById.getPathToImage().equals(dto.getPathToImage())) {
+            if (dto.getFileImage() != null && (skillById.getPathToImage() != null && !skillById.getPathToImage().equals(dto.getPathToImage()))) {
                 LogUtil.logInfo("Deleting old image at path: " + skillById.getPathToImage());
                 imageService.deleteByPath(skillById.getPathToImage());
             }

@@ -44,7 +44,7 @@ public class ExperienceServiceImp implements ExperienceService {
         LogUtil.logInfo("Saving experience with file for ID: " + dto.getId());
         if (dto.getId() != null) {
             Experience experienceById = getById(dto.getId());
-            if (experienceById.getPathToImage() != null && !experienceById.getPathToImage().equals(dto.getPathToImage())) {
+            if (dto.getFileImage() != null && (experienceById.getPathToImage() != null && !experienceById.getPathToImage().equals(dto.getPathToImage()))) {
                 LogUtil.logInfo("Deleting old image at path: " + experienceById.getPathToImage());
                 imageService.deleteByPath(experienceById.getPathToImage());
             }

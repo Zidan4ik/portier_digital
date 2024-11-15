@@ -80,7 +80,7 @@ public class WorkCardServiceImp implements WorkCardService {
         LogUtil.logInfo("Saving work card with file for ID: " + dtoAdd.getId());
         if (dtoAdd.getId() != null) {
             WorkCard workCardById = getById(dtoAdd.getId());
-            if (workCardById.getPathToImage() != null && !workCardById.getPathToImage().equals(dtoAdd.getPathToImage())) {
+            if (dtoAdd.getFileImage() != null && (workCardById.getPathToImage() != null && !workCardById.getPathToImage().equals(dtoAdd.getPathToImage()))) {
                 LogUtil.logInfo("Deleting old image at path: " + workCardById.getPathToImage());
                 imageService.deleteByPath(workCardById.getPathToImage());
             }

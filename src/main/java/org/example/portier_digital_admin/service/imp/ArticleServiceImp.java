@@ -82,7 +82,7 @@ public class ArticleServiceImp implements ArticleService {
         LogUtil.logInfo("Saving article with file for ID: " + dtoAdd.getId());
         if (dtoAdd.getId() != null) {
             Article articleById = getById(dtoAdd.getId());
-            if (articleById.getPathToImage() != null && !articleById.getPathToImage().equals(dtoAdd.getPathToImage())) {
+            if (dtoAdd.getFileImage() != null && (articleById.getPathToImage() != null && !articleById.getPathToImage().equals(dtoAdd.getPathToImage()))) {
                 LogUtil.logInfo("Deleting old image at path: " + articleById.getPathToImage());
                 imageService.deleteByPath(articleById.getPathToImage());
             }
@@ -110,6 +110,7 @@ public class ArticleServiceImp implements ArticleService {
         articleRepository.deleteById(id);
         LogUtil.logInfo("Deleted article with id: " + id + "!");
     }
+
     @Override
     public String convertToRelativePath(String absolutePath) {
         return absolutePath.replace(path, "");

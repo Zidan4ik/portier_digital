@@ -81,7 +81,7 @@ public class ReviewServiceImp implements ReviewService {
         LogUtil.logInfo("Saving review with file for ID: " + dtoAdd.getId());
         if (dtoAdd.getId() != null) {
             Review reviewById = getById(dtoAdd.getId());
-            if (reviewById.getPathToAvatar() != null && !reviewById.getPathToAvatar().equals(dtoAdd.getPathToImage())) {
+            if (dtoAdd.getFileImage() != null && (reviewById.getPathToAvatar() != null && !reviewById.getPathToAvatar().equals(dtoAdd.getPathToImage()))) {
                 LogUtil.logInfo("Deleting old image at path: " + reviewById.getPathToAvatar());
                 imageService.deleteByPath(reviewById.getPathToAvatar());
             }
@@ -90,6 +90,8 @@ public class ReviewServiceImp implements ReviewService {
             String generatedPath = path + "/review/" + imageService.generateFileName(dtoAdd.getFileImage());
             dtoAdd.setPathToImage(generatedPath);
             LogUtil.logInfo("Generated new path for image: " + generatedPath);
+        } else {
+
         }
         Review review = save(dtoAdd);
         imageService.save(dtoAdd.getFileImage(), review.getPathToAvatar());

@@ -44,10 +44,8 @@ public class ImageServiceImp implements ImageService {
         } catch (Exception e) {
             if (e instanceof FileAlreadyExistsException) {
                 LogUtil.logError("A file of that name already exists at " + path, e);
-//                throw new RuntimeException("A file of that name already exists.");
             }
             LogUtil.logError("Error occurred while saving file to " + path, e);
-//            throw new RuntimeException(e.getMessage());
         }
     }
 
