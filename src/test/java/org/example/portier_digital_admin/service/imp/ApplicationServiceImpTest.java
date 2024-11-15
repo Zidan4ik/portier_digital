@@ -28,55 +28,55 @@ import static org.mockito.Mockito.times;
 @ExtendWith(MockitoExtension.class)
 class ApplicationServiceImpTest {
     @Mock
-    private ApplicationRepository cardRepository;
+    private ApplicationRepository applicationRepository;
 
     @InjectMocks
-    private ApplicationServiceImp cardService;
-    private Application card;
-    private ApplicationDTOForAdd cardDTOForAdd;
-    private ApplicationDTOForView cardDTOForView;
+    private ApplicationServiceImp applicationService;
+    private Application application;
+    private ApplicationDTOForAdd applicationDTOForAdd;
+    private ApplicationDTOForView applicationDTOForView;
     private static final Long ID = 1L;
 
     @BeforeEach
     void setUp() {
-        card = new Application(1L, "title","email","description");
-        cardDTOForAdd = new ApplicationDTOForAdd(1L, "title","email","description");
-        cardDTOForView = ApplicationDTOForView.builder().id(1L).email("email@gmail.com").build();
+        application = new Application(1L, "title","email","description");
+        applicationDTOForAdd = new ApplicationDTOForAdd(1L, "title","email","description");
+        applicationDTOForView = ApplicationDTOForView.builder().id(1L).email("email@gmail.com").build();
     }
 
     @Test
     void ApplicationServiceImp_GetAll_ReturnAllApplications() {
-        List<Application> cardsList = Collections.singletonList(card);
-        Mockito.when(cardRepository.findAll()).thenReturn(cardsList);
-        List<ApplicationDTOForView> subscribers = cardService.getAll();
+        List<Application> applicationsList = Collections.singletonList(application);
+        Mockito.when(applicationRepository.findAll()).thenReturn(applicationsList);
+        List<ApplicationDTOForView> subscribers = applicationService.getAll();
         assertNotNull(subscribers);
         assertEquals(1, subscribers.size(), "Sizes should be match");
-        verify(cardRepository, times(1)).findAll();
+        verify(applicationRepository, times(1)).findAll();
     }
 
     @Test
     void ApplicationServiceImp_GetAll_ReturnRageResponse() {
         Pageable pageable = Mockito.mock(Pageable.class);
-        Page<Application> cardPage = new PageImpl<>(Collections.singletonList(card));
-        when(cardRepository.findAll(any(Specification.class), any(Pageable.class))).thenReturn(cardPage);
-        PageResponse<ApplicationDTOForView> response = cardService.getAll(cardDTOForView, pageable);
+        Page<Application> applicationPage = new PageImpl<>(Collections.singletonList(application));
+        when(applicationRepository.findAll(any(Specification.class), any(Pageable.class))).thenReturn(applicationPage);
+        PageResponse<ApplicationDTOForView> response = applicationService.getAll(applicationDTOForView, pageable);
         assertNotNull(response);
         assertEquals(1, response.getMetadata().getTotalElements());
-        verify(cardRepository, times(1)).findAll(any(Specification.class), any(Pageable.class));
+        verify(applicationRepository, times(1)).findAll(any(Specification.class), any(Pageable.class));
     }
 
     @Test
     void ApplicationServiceImp_Save_ReturnApplication() {
-        when(cardRepository.save(any(Application.class))).thenReturn(card);
-        Application savedApplication = cardService.save(cardDTOForAdd);
+        when(applicationRepository.save(any(Application.class))).thenReturn(application);
+        Application savedApplication = applicationService.save(applicationDTOForAdd);
         assertNotNull(savedApplication);
-        assertEquals(card.getId(), savedApplication.getId(), "Id's should be match");
-        verify(cardRepository, times(1)).save(any(Application.class));
+        assertEquals(application.getId(), savedApplication.getId(), "Id's should be match");
+        verify(applicationRepository, times(1)).save(any(Application.class));
     }
 
     @Test
     void ApplicationServiceImp_DeleteById() {
-        cardService.deleteById(ID);
-        verify(cardRepository, times(1)).deleteById(ID);
+        applicationService.deleteById(ID);
+        verify(applicationRepository, times(1)).deleteById(ID);
     }
 }

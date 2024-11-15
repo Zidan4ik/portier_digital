@@ -1,5 +1,8 @@
 package org.example.portier_digital_admin.controller.user;
 
+import org.example.portier_digital_admin.dto.WorkCardDTOForAdd;
+import org.example.portier_digital_admin.service.CardService;
+import org.example.portier_digital_admin.service.WorkCardService;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -27,7 +30,7 @@ class WorkCardUserControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private WorkCardRepository cardRepository;
+    private WorkCardService workCardService;
 
     @InjectMocks
     private WorkCardUserController workCardUserController;
@@ -39,10 +42,10 @@ class WorkCardUserControllerTest {
 
     @Test
     void testGetWorkCards() throws Exception {
-        WorkCard workCard1 = new WorkCard(1L,"Title1",null);
-        WorkCard workCard2 = new WorkCard(2L,"Title2",null);
+        WorkCardDTOForAdd workCard1 = new WorkCardDTOForAdd(1L,"Title1",null,null);
+        WorkCardDTOForAdd workCard2 = new WorkCardDTOForAdd(2L,"Title2",null,null);
 
-        when(cardRepository.findAll()).thenReturn(List.of(workCard1, workCard2));
+        when(workCardService.getAll()).thenReturn(List.of(workCard1, workCard2));
 
         mockMvc.perform(get("/user/workCard-data")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -54,6 +57,6 @@ class WorkCardUserControllerTest {
                 .andExpect(jsonPath("$[1].id", is(2)))
                 .andExpect(jsonPath("$[1].title", is("Title2")));
 
-        verify(cardRepository, times(1)).findAll();
+        verify(workCardService, times(1)).getAll();
     }
 }

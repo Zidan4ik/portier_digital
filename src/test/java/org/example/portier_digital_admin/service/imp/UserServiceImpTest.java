@@ -59,6 +59,21 @@ class UserServiceImpTest {
     }
 
     @Test
+    public void testGetByEmail_WhenUserExistByEmail() {
+        String email = "roo@gmail.com";
+        when(userRepository.existsByEmail(email)).thenReturn(true);
+        userService.existsByEmail(email);
+        verify(userRepository, times(1)).existsByEmail(email);
+    }
+    @Test
+    public void testGetByEmail_WhenUserNoExistByEmail() {
+        String email = "roo@gmail.com";
+        when(userRepository.existsByEmail(email)).thenReturn(false);
+        userService.existsByEmail(email);
+        verify(userRepository, times(1)).existsByEmail(email);
+    }
+
+    @Test
     public void testSave() {
         when(userRepository.save(user)).thenReturn(user);
         User savedUser = userService.save(user);

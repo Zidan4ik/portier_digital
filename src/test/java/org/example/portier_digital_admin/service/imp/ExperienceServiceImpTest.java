@@ -3,6 +3,7 @@ package org.example.portier_digital_admin.service.imp;
 import jakarta.persistence.EntityNotFoundException;
 import org.example.portier_digital_admin.dto.*;
 import org.example.portier_digital_admin.entity.Experience;
+import org.example.portier_digital_admin.entity.Experience;
 import org.example.portier_digital_admin.repository.ExperienceRepository;
 import org.example.portier_digital_admin.service.ImageService;
 import org.junit.jupiter.api.BeforeEach;
@@ -183,5 +184,19 @@ class ExperienceServiceImpTest {
         Experience savedExperience = experienceService.saveFile(new ExperienceDTOForAdd());
         assertNotNull(savedExperience);
         verify(experienceRepository, times(1)).save(any(Experience.class));
+    }
+    @Test
+    void ExperienceServiceImp_SaveFile_WhenFileIsNull() throws IOException {
+        ExperienceDTOForAdd dto = new ExperienceDTOForAdd(1L,null,null,null,null);
+        Experience existingExperience = new Experience(1L,null,"/base/path/experiences/old-image.jpg",null);
+        Experience savedExperience = new Experience(1L,null,null,null);
+
+        Mockito.when(experienceRepository.findById(1L)).thenReturn(Optional.of(existingExperience));
+        Mockito.when(experienceRepository.save(Mockito.any())).thenReturn(savedExperience);
+
+        experienceService.saveFile(dto);
+
+        Mockito.verify(imageService, Mockito.never()).deleteByPath(Mockito.anyString());
+        Mockito.verify(experienceRepository).save(Mockito.any(Experience.class));
     }
 }

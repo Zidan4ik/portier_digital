@@ -113,6 +113,9 @@ public class ArticleServiceImp implements ArticleService {
 
     @Override
     public String convertToRelativePath(String absolutePath) {
+        if (absolutePath == null) {
+            return absolutePath;
+        }
         return absolutePath.replace(path, "");
     }
 }

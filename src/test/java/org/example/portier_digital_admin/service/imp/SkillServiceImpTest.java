@@ -3,6 +3,7 @@ package org.example.portier_digital_admin.service.imp;
 import jakarta.persistence.EntityNotFoundException;
 import org.example.portier_digital_admin.dto.*;
 import org.example.portier_digital_admin.entity.Skill;
+import org.example.portier_digital_admin.entity.Skill;
 import org.example.portier_digital_admin.repository.SkillRepository;
 import org.example.portier_digital_admin.service.ImageService;
 import org.junit.jupiter.api.BeforeEach;
@@ -184,5 +185,20 @@ class SkillServiceImpTest {
         Skill savedSkill = skillService.saveFile(new SkillDTOForAdd());
         assertNotNull(savedSkill);
         verify(skillRepository, times(1)).save(any(Skill.class));
+    }
+
+    @Test
+    void SkillServiceImp_SaveFile_WhenFileIsNull() throws IOException {
+        SkillDTOForAdd dto = new SkillDTOForAdd(1L,null,null,null,null);
+        Skill existingSkill = new Skill(1L,null,"/base/path/skills/old-image.jpg",null);
+        Skill savedSkill = new Skill(1L,null,null,null);
+
+        Mockito.when(skillRepository.findById(1L)).thenReturn(Optional.of(existingSkill));
+        Mockito.when(skillRepository.save(Mockito.any())).thenReturn(savedSkill);
+
+        skillService.saveFile(dto);
+
+        Mockito.verify(imageService, Mockito.never()).deleteByPath(Mockito.anyString());
+        Mockito.verify(skillRepository).save(Mockito.any(Skill.class));
     }
 }

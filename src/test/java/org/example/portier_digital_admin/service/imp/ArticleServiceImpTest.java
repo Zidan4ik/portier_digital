@@ -7,6 +7,7 @@ import org.example.portier_digital_admin.dto.PageResponse;
 import org.example.portier_digital_admin.entity.Article;
 import org.example.portier_digital_admin.repository.ArticleRepository;
 import org.example.portier_digital_admin.service.ImageService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -42,6 +44,7 @@ public class ArticleServiceImpTest {
     private ArticleDTOForAdd articleDTOForAdd;
     private ArticleDTOForView articleDTOForView;
     private static final Long ID = 1L;
+    private final String basePath = "/uploads";
 
     @BeforeEach
     void setUp() {
@@ -49,6 +52,7 @@ public class ArticleServiceImpTest {
         articleDTOForAdd = new ArticleDTOForAdd(1L, "Title", "Content", null,
                 new MockMultipartFile("image-name1", "image1.html", "text/html", "content".getBytes()));
         articleDTOForView = new ArticleDTOForView(1L, "Title", "Content");
+        ReflectionTestUtils.setField(articleService, "path", basePath);
     }
 
     @Test
@@ -183,5 +187,34 @@ public class ArticleServiceImpTest {
         Article savedArticle = articleService.saveFile(new ArticleDTOForAdd());
         assertNotNull(savedArticle);
         verify(articleRepository, times(1)).save(any(Article.class));
+    }
+
+    @Test
+    void ArticleServiceImp_SaveFile_WhenFileIsNull() throws IOException {
+        ArticleDTOForAdd dto = new ArticleDTOForAdd(1L, null, null, null, null);
+        Article existingArticle = new Article(1L, null, "/base/path/articles/old-image.jpg", null);
+        Article savedArticle = new Article(1L, null, null, null);
+
+        Mockito.when(articleRepository.findById(1L)).thenReturn(Optional.of(existingArticle));
+        Mockito.when(articleRepository.save(Mockito.any())).thenReturn(savedArticle);
+
+        articleService.saveFile(dto);
+
+        Mockito.verify(imageService, Mockito.never()).deleteByPath(Mockito.anyString());
+        Mockito.verify(articleRepository).save(Mockito.any(Article.class));
+    }
+
+    @Test
+    void convertToRelativePath_withAbsolutePathContainingBasePath_shouldReturnRelativePath() {
+        String absolutePath = "/uploads/article/image.jpg";
+        String relativePath = articleService.convertToRelativePath(absolutePath);
+        Assertions.assertEquals("/article/image.jpg", relativePath);
+    }
+
+    @Test
+    void convertToRelativePath_withNullAbsolutePath_shouldReturnNull() {
+        String absolutePath = null;
+        String relativePath = articleService.convertToRelativePath(absolutePath);
+        Assertions.assertNull(relativePath);
     }
 }

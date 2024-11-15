@@ -3,6 +3,7 @@ package org.example.portier_digital_admin.service.imp;
 import jakarta.persistence.EntityNotFoundException;
 import org.example.portier_digital_admin.dto.*;
 import org.example.portier_digital_admin.entity.Card;
+import org.example.portier_digital_admin.entity.Card;
 import org.example.portier_digital_admin.repository.CardRepository;
 import org.example.portier_digital_admin.service.ImageService;
 import org.junit.jupiter.api.BeforeEach;
@@ -185,5 +186,19 @@ class CardServiceImpTest {
         Card savedCard = cardService.saveFile(new CardDTOForAdd());
         assertNotNull(savedCard);
         verify(cardRepository, times(1)).save(any(Card.class));
+    }
+    @Test
+    void CardServiceImp_SaveFile_WhenFileIsNull() throws IOException {
+        CardDTOForAdd dto = new CardDTOForAdd(1L,null,null,null,null);
+        Card existingCard = new Card(1L,null,"/base/path/cards/old-image.jpg",null);
+        Card savedCard = new Card(1L,null,null,null);
+
+        Mockito.when(cardRepository.findById(1L)).thenReturn(Optional.of(existingCard));
+        Mockito.when(cardRepository.save(Mockito.any())).thenReturn(savedCard);
+
+        cardService.saveFile(dto);
+
+        Mockito.verify(imageService, Mockito.never()).deleteByPath(Mockito.anyString());
+        Mockito.verify(cardRepository).save(Mockito.any(Card.class));
     }
 }

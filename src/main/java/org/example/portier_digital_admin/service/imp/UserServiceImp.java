@@ -41,4 +41,13 @@ public class UserServiceImp implements UserService {
         save(user);
         LogUtil.logInfo("Finish registration user!");
     }
+
+    @Override
+    public boolean existsByEmail(String name) {
+        LogUtil.logInfo("Does it exist email: " + name);
+        boolean isExist = userRepository.existsByEmail(name);
+        String res = isExist ? " exist! " : " no exist! ";
+        LogUtil.logInfo("Email with name: " + name + res);
+        return isExist;
+    }
 }

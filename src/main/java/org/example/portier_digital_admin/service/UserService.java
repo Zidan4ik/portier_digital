@@ -5,6 +5,10 @@ import org.example.portier_digital_admin.entity.User;
 
 public interface UserService {
     User getByEmail(String email);
+
     User save(User user);
+
     void registration(UserDTO dto);
+
+    boolean existsByEmail(String name);
 }

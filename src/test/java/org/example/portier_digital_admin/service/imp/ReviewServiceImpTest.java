@@ -184,4 +184,19 @@ class ReviewServiceImpTest {
         assertNotNull(savedReview);
         verify(reviewRepository, times(1)).save(any(Review.class));
     }
+
+    @Test
+    void ReviewServiceImp_SaveFile_WhenFileIsNull() throws IOException {
+        ReviewDTOForAdd dto = new ReviewDTOForAdd(1L,null,null,null,null,null,null);
+        Review existingReview = new Review(1L,null,"/base/path/reviews/old-image.jpg",null,null,null);
+        Review savedReview = new Review(1L,null,null,null,null,null);
+
+        Mockito.when(reviewRepository.findById(1L)).thenReturn(Optional.of(existingReview));
+        Mockito.when(reviewRepository.save(Mockito.any())).thenReturn(savedReview);
+
+        reviewService.saveFile(dto);
+
+        Mockito.verify(imageService, Mockito.never()).deleteByPath(Mockito.anyString());
+        Mockito.verify(reviewRepository).save(Mockito.any(Review.class));
+    }
 }

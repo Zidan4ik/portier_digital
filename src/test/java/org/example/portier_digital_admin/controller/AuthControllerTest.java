@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 
+
 @ExtendWith(MockitoExtension.class)
 class AuthControllerTest {
     private MockMvc mockMvc;
@@ -37,6 +38,12 @@ class AuthControllerTest {
     }
 
     @Test
+    public void testViewDefault() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("auth/login"));
+    }
+    @Test
     public void testViewLogin() throws Exception {
         mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())
@@ -46,6 +53,7 @@ class AuthControllerTest {
     @Test
     public void testRegistrationForm_Success() throws Exception {
         userDTO = new UserDTO(1L, "Roma", "roo@gmail.com", "1234", "1234");
+        when(userService.existsByEmail(userDTO.getEmail())).thenReturn(false);
         doNothing().when(userService).registration(userDTO);
         mockMvc.perform(post("/registration")
                         .param("id", "1")
@@ -62,7 +70,20 @@ class AuthControllerTest {
 
     @Test
     public void testRegistrationForm_FailValidation() throws Exception {
-        mockMvc.perform(post("/registration"))
+        userDTO = new UserDTO(1L, "Roma", "roo@gmail.com", "1234", "1234");
+        when(userService.existsByEmail(userDTO.getEmail())).thenReturn(false);
+        mockMvc.perform(post("/registration")
+                        .param("email", "roo@gmail.com")
+                )
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testRegistrationForm_WhenEmailExist() throws Exception {
+        userDTO = new UserDTO(1L, "Roma", "roo@gmail.com", "1234", "1234");
+        when(userService.existsByEmail(userDTO.getEmail())).thenReturn(true);
+        mockMvc.perform(post("/registration")
+                        .param("email", "roo@gmail.com"))
+                .andExpect(status().isConflict());
     }
 }

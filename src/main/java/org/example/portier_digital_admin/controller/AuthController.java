@@ -31,14 +31,14 @@ public class AuthController {
 
     @GetMapping("/")
     public ModelAndView viewDefault() {
-        return new ModelAndView("auth/login");
+        return viewLogin();
     }
 
     @PostMapping("/registration")
     public ResponseEntity<UserDTO> registrationForm(@ModelAttribute @Valid UserDTO dto,
                                                     BindingResult bindingResult) throws NoSuchMethodException, MethodArgumentNotValidException {
         userValidator.validate(dto, bindingResult);
-        if(userRepository.existsByEmail(dto.getEmail())){
+        if(userService.existsByEmail(dto.getEmail())){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         if (bindingResult.hasErrors()) {

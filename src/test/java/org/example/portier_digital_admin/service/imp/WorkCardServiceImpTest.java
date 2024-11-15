@@ -3,7 +3,6 @@ package org.example.portier_digital_admin.service.imp;
 import jakarta.persistence.EntityNotFoundException;
 import org.example.portier_digital_admin.dto.*;
 import org.example.portier_digital_admin.entity.WorkCard;
-import org.example.portier_digital_admin.entity.WorkCard;
 import org.example.portier_digital_admin.repository.WorkCardRepository;
 import org.example.portier_digital_admin.service.ImageService;
 import org.junit.jupiter.api.BeforeEach;
@@ -122,7 +121,7 @@ class WorkCardServiceImpTest {
     }
 
     @Test
-    void WorkCardServiceImp_SaveFile_WheWorkCardIsNotExist() {
+    void WorkCardServiceImp_SaveFile_WhenWorkCardIsNotExist() {
         when(workCardRepository.findById(workCardDTOForAdd.getId())).thenReturn(Optional.empty());
         assertThrows(EntityNotFoundException.class, () -> workCardService.saveFile(workCardDTOForAdd));
         verify(workCardRepository, times(1)).findById(workCardDTOForAdd.getId());
@@ -185,5 +184,20 @@ class WorkCardServiceImpTest {
         WorkCard savedWorkCard = workCardService.saveFile(new WorkCardDTOForAdd());
         assertNotNull(savedWorkCard);
         verify(workCardRepository, times(1)).save(any(WorkCard.class));
+    }
+
+    @Test
+    void WorkCardServiceImp_SaveFile_WhenFileIsNull() throws IOException {
+        WorkCardDTOForAdd dto = new WorkCardDTOForAdd(1L,null,null,null);
+        WorkCard existingWorkCard = new WorkCard(1L,null,"/base/path/work-cards/old-image.jpg");
+        WorkCard savedWorkCard = new WorkCard(1L,null,null);
+
+        Mockito.when(workCardRepository.findById(1L)).thenReturn(Optional.of(existingWorkCard));
+        Mockito.when(workCardRepository.save(Mockito.any())).thenReturn(savedWorkCard);
+
+        workCardService.saveFile(dto);
+
+        Mockito.verify(imageService, Mockito.never()).deleteByPath(Mockito.anyString());
+        Mockito.verify(workCardRepository).save(Mockito.any(WorkCard.class));
     }
 }
