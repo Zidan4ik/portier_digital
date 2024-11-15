@@ -1,9 +1,9 @@
 spring:
   datasource:
     name: portier_digital
-    url: ${DB_HOST}
-    username: ${DB_LOGIN}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://localhost:3306/slj_kinocms1
+    username: slj_kinocms
+    password: 4h8bLzSDig
   jpa:
     hibernate:
       ddl-auto: update
