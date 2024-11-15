@@ -20,6 +20,11 @@ jobs:
       - name: Build application
         run: |
           mvn clean
+          
+          sed -i "s|\${DB_URL}|${{ secrets.DB_URL }}|g" src/main/resources/application.yaml
+          sed -i "s|\${DB_USERNAME}|${{ secrets.DB_USERNAME }}|g" src/main/resources/application.yaml
+          sed -i "s|\${DB_PASSWORD}|${{ secrets.DB_PASSWORD }}|g" src/main/resources/application.yaml
+          
           mvn package -DskipTests=true
 
       - name: Tomcat Deploy
